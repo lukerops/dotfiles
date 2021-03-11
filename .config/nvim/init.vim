@@ -20,7 +20,7 @@ call plug#begin('~/.config/nvim/plugged')
 
   " lsp
   Plug 'neovim/nvim-lspconfig'
-  Plug 'nvim-lua/completion-nvim'
+  Plug 'hrsh7th/nvim-compe'
 
   " snippets
   Plug 'hrsh7th/vim-vsnip'
@@ -63,6 +63,8 @@ colorscheme onedark
 let g:nvim_tree_ignore = [ '.git', 'node_modules' ]
 let g:nvim_tree_follow = 1
 let g:nvim_tree_git_hl = 1
+let g:nvim_tree_disable_netrw = 1 "1 by default, disables netrw
+let g:nvim_tree_hijack_netrw = 1 "1 by default, prevents netrw from automatically opening when opening directories (but lets you keep its other utilities)
 let g:nvim_tree_show_icons = {
     \ 'git': 0,
     \ 'folders': 0,
@@ -83,8 +85,6 @@ nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 " lsp
 lua << EOF
   local lspconfig = require'lspconfig'
-  local completion = require'completion'
-
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities.textDocument.completion.completionItem.snippetSupport = true
 
@@ -102,10 +102,7 @@ lua << EOF
     },
   }
 
-  lspconfig.graphql.setup{
-    on_attach = completion.on_attach,
-    capabilities = capabilities,
-  }
+  lspconfig.graphql.setup{}
 
   function goimports(timeoutms)
     local context = { source = { organizeImports = true } }
@@ -138,6 +135,29 @@ lua << EOF
   end
 EOF
 
+let g:compe = {}
+let g:compe.enabled = v:true
+let g:compe.autocomplete = v:true
+let g:compe.debug = v:false
+let g:compe.min_length = 1
+let g:compe.preselect = 'always'
+let g:compe.throttle_time = 80
+let g:compe.source_timeout = 200
+let g:compe.incomplete_delay = 400
+let g:compe.max_abbr_width = 100
+let g:compe.max_kind_width = 100
+let g:compe.max_menu_width = 80
+let g:compe.documentation = v:true
+
+let g:compe.source = {}
+let g:compe.source.path = v:true
+let g:compe.source.buffer = v:false
+let g:compe.source.nvim_lsp = v:true
+let g:compe.source.nvim_lua = v:true
+let g:compe.source.tags = v:true
+let g:compe.source.omni = v:true
+let g:compe.source.treesitter = v:true
+
 nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>
 nnoremap <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>
@@ -150,19 +170,18 @@ nnoremap <silent> <leader>rn <cmd>lua vim.lsp.buf.rename()<CR>
 autocmd BufWritePre *.go lua vim.lsp.buf.formatting()
 autocmd BufWritePre *.go lua goimports(1000)
 
-let g:completion_sorting = 'none'
-let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy', 'all']
-let g:completion_enable_snippet = 'vim-vsnip'
-
 " Use <Tab> and <S-Tab> to navigate through popup menu
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " Set completeopt to have a better completion experience
-set completeopt=menuone,noinsert,noselect
+set completeopt=menuone,noselect
 set shortmess+=c
-imap <silent> <C-SPACE> <Plug>(completion_trigger)
-
+inoremap <silent><expr> <C-Space> compe#complete()
+inoremap <silent><expr> <CR>      compe#confirm('<CR>')
+"inoremap <silent><expr> <C-e>     compe#close('<C-e>')
+"inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
+"inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
 
 " tabline (barbar)
 " NOTE: If barbar's option dict isn't created yet, create it
