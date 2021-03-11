@@ -22,6 +22,10 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'neovim/nvim-lspconfig'
   Plug 'nvim-lua/completion-nvim'
 
+  " snippets
+  Plug 'hrsh7th/vim-vsnip'
+  Plug 'hrsh7th/vim-vsnip-integ'
+
   " highlight
   Plug 'nvim-treesitter/nvim-treesitter'
 
@@ -57,13 +61,13 @@ colorscheme onedark
 
 " file browsing (nvim-tree)
 let g:nvim_tree_ignore = [ '.git', 'node_modules' ]
+let g:nvim_tree_follow = 1
+let g:nvim_tree_git_hl = 1
 let g:nvim_tree_show_icons = {
     \ 'git': 0,
     \ 'folders': 0,
     \ 'files': 0,
     \ }
-
-highlight NvimTreeFolderIcon guibg=blue
 
 nnoremap nt  :NvimTreeToggle<CR>
 nnoremap ntr :NvimTreeRefresh<CR>
@@ -81,21 +85,26 @@ lua << EOF
   local lspconfig = require'lspconfig'
   local completion = require'completion'
 
+  local capabilities = vim.lsp.protocol.make_client_capabilities()
+  capabilities.textDocument.completion.completionItem.snippetSupport = true
+
   lspconfig.gopls.setup{
-    on_attach = completion.on_attach,
+    capabilities = capabilities,
     cmd = {"gopls", "serve"},
-      settings = {
-        gopls = {
-          analyses = {
-            unusedparams = true,
-          },
-          staticcheck = true,
+    settings = {
+      gopls = {
+        usePlaceholders = true,
+        analyses = {
+          unusedparams = true,
         },
+        staticcheck = true,
       },
+    },
   }
 
   lspconfig.graphql.setup{
-    on_attach = completion.on_attach;
+    on_attach = completion.on_attach,
+    capabilities = capabilities,
   }
 
   function goimports(timeoutms)
@@ -141,12 +150,17 @@ nnoremap <silent> <leader>rn <cmd>lua vim.lsp.buf.rename()<CR>
 autocmd BufWritePre *.go lua vim.lsp.buf.formatting()
 autocmd BufWritePre *.go lua goimports(1000)
 
+let g:completion_sorting = 'none'
+let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy', 'all']
+let g:completion_enable_snippet = 'vim-vsnip'
+
 " Use <Tab> and <S-Tab> to navigate through popup menu
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " Set completeopt to have a better completion experience
 set completeopt=menuone,noinsert,noselect
+set shortmess+=c
 imap <silent> <C-SPACE> <Plug>(completion_trigger)
 
 
