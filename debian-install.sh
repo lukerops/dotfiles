@@ -60,6 +60,8 @@ apt install -y --no-install-recommends --no-install-suggests \
 	p7zip-rar \
 	rar \
 	unrar-free \
+	zip \
+	unzip \
 	xclip \
 	gnome-session \
 	gnome-shell \
