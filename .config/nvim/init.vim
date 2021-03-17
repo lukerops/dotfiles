@@ -8,7 +8,7 @@ endif
 call plug#begin('~/.config/nvim/plugged')
 
   " icons
-  " Plug 'kyazdani42/nvim-web-devicons'
+  Plug 'kyazdani42/nvim-web-devicons'
 
   " file browsing
   Plug 'kyazdani42/nvim-tree.lua'
@@ -59,20 +59,23 @@ set cursorline
 set termguicolors
 colorscheme onedark
 
+
+
+
 " file browsing (nvim-tree)
 let g:nvim_tree_ignore = [ '.git', 'node_modules' ]
 let g:nvim_tree_follow = 1
 let g:nvim_tree_git_hl = 1
-let g:nvim_tree_disable_netrw = 1 "1 by default, disables netrw
-let g:nvim_tree_hijack_netrw = 1 "1 by default, prevents netrw from automatically opening when opening directories (but lets you keep its other utilities)
 let g:nvim_tree_show_icons = {
-    \ 'git': 0,
-    \ 'folders': 0,
-    \ 'files': 0,
+    \ 'git': 1,
+    \ 'folders': 1,
+    \ 'files': 1,
     \ }
 
 nnoremap nt  :NvimTreeToggle<CR>
 nnoremap ntr :NvimTreeRefresh<CR>
+
+
 
 
 " finder (telescope)
@@ -82,8 +85,10 @@ nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
 
+
+
 " lsp
-lua << EOF
+lua <<EOF
   local lspconfig = require'lspconfig'
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -183,6 +188,9 @@ inoremap <silent><expr> <CR>      compe#confirm('<CR>')
 "inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
 "inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
 
+
+
+
 " tabline (barbar)
 " NOTE: If barbar's option dict isn't created yet, create it
 let bufferline = get(g:, 'bufferline', {})
@@ -190,16 +198,16 @@ let bufferline = get(g:, 'bufferline', {})
 " Enable/disable icons
 " if set to 'numbers', will show buffer index in the tabline
 " if set to 'both', will show buffer index and icons in the tabline
-let bufferline.icons = 'numbers'
+let bufferline.icons = 'both'
 
 " Enable/disable auto-hiding the tab bar when there is a single buffer
 let bufferline.auto_hide = v:false
 
 " Configure icons on the bufferline.
-let bufferline.icon_separator_active = '▎'
-let bufferline.icon_separator_inactive = '▎'
-let bufferline.icon_close_tab = '✕'
-let bufferline.icon_close_tab_modified = '●'
+"let bufferline.icon_separator_active = '▎'
+"let bufferline.icon_separator_inactive = '▎'
+"let bufferline.icon_close_tab = '✕'
+"let bufferline.icon_close_tab_modified = '●'
 
 " Re-order to previous/next
 nnoremap <silent> <A-<> :BufferMovePrevious<CR>
@@ -222,17 +230,22 @@ nnoremap <silent> <A-c> :BufferClose<CR>
 nnoremap <silent> <A-n> :tabnew<CR>
 
 
+
+
 " hightligh (nvim-treesitter)
 lua <<EOF
   require'nvim-treesitter.configs'.setup {
     ensure_installed = { "go", "graphql", "json", "yaml" },
 
     highlight = { enable = true },
-    incremental_selection = { enable = true },
+    -- incremental_selection = { enable = true },
   }
 EOF
 
 autocmd BufEnter *.graphql setf graphql
+
+
+
 
 " status line (lightline)
 let g:lightline = {
