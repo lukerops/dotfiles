@@ -28,15 +28,15 @@ Pin-Priority: 500
 
 Package: *
 Pin: release a=stable
-Pin-Priority: 50
+Pin-Priority: 150
 
 Package: *
 Pin: release a=unstable
-Pin-Priority: 50
+Pin-Priority: 150
 
 Package: *
 Pin: release a=experimental
-Pin-Priority: 50
+Pin-Priority: 150
 EOF
 
 apt update && apt full-upgrade -y

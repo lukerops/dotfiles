@@ -107,7 +107,7 @@ lua <<EOF
     },
   }
 
-  lspconfig.graphql.setup{}
+  -- lspconfig.graphql.setup{}
 
   function goimports(timeoutms)
     local context = { source = { organizeImports = true } }
