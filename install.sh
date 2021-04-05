@@ -44,7 +44,8 @@ install_nvim() {
 }
 
 install_tmux() {
-	[ ! -f "$HOME/.tmux.conf" ] && ln -sf "`pwd`/.tmux.conf" "$HOME/.tmux.conf"
+	[ ! -d "$HOME/.config/tmux" ] && ln -s "`pwd`/.config/tmux" "$HOME/.config/tmux" && mkdir -p "$HOME/.config/tmux/plugins"
+	[ ! -d "$HOME/.config/tmux/plugins/tpm" ] && git clone "https://github.com/tmux-plugins/tpm" "$HOME/.config/tmux/plugins/tpm"
 }
 
 for i in $(echo $@ | tr " " "\n"); do

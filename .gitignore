@@ -3,3 +3,6 @@
 
 # installed plugins nvim
 .config/nvim/plugged
+
+# installed plugins tmux
+.config/tmux/plugins

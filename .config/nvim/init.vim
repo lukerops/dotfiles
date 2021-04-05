@@ -36,7 +36,8 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'itchyny/lightline.vim'
 
   " colortheme
-  Plug 'joshdick/onedark.vim'
+  Plug 'rakr/vim-one'
+  Plug 'sonph/onehalf', { 'rtp': 'vim' }
 
 call plug#end()
 
@@ -44,6 +45,8 @@ set encoding=utf8
 set number
 set signcolumn=yes
 set noswapfile
+
+set updatetime=200
 
 set ignorecase
 
@@ -57,7 +60,8 @@ endif
 syntax on
 set cursorline
 set termguicolors
-colorscheme onedark
+colorscheme one
+set background=dark
 
 
 
@@ -210,24 +214,24 @@ let bufferline.auto_hide = v:false
 "let bufferline.icon_close_tab_modified = '●'
 
 " Re-order to previous/next
-nnoremap <silent> <A-<> :BufferMovePrevious<CR>
-nnoremap <silent> <A->> :BufferMoveNext<CR>
+nnoremap <silent> <leader>< :BufferMovePrevious<CR>
+nnoremap <silent> <leader>> :BufferMoveNext<CR>
 " Move to previous/next
-nnoremap <silent> <A-,>  :BufferPrevious<CR>
-nnoremap <silent> <A-.> :BufferNext<CR>
+nnoremap <silent> <leader>,  :BufferPrevious<CR>
+nnoremap <silent> <leader>. :BufferNext<CR>
 " Goto buffer in position...
-nnoremap <silent> <A-1> :BufferGoto 1<CR>
-nnoremap <silent> <A-2> :BufferGoto 2<CR>
-nnoremap <silent> <A-3> :BufferGoto 3<CR>
-nnoremap <silent> <A-4> :BufferGoto 4<CR>
-nnoremap <silent> <A-5> :BufferGoto 5<CR>
-nnoremap <silent> <A-6> :BufferGoto 6<CR>
-nnoremap <silent> <A-7> :BufferGoto 7<CR>
-nnoremap <silent> <A-8> :BufferGoto 8<CR>
-nnoremap <silent> <A-9> :BufferLast<CR>
+nnoremap <silent> <leader>1 :BufferGoto 1<CR>
+nnoremap <silent> <leader>2 :BufferGoto 2<CR>
+nnoremap <silent> <leader>3 :BufferGoto 3<CR>
+nnoremap <silent> <leader>4 :BufferGoto 4<CR>
+nnoremap <silent> <leader>5 :BufferGoto 5<CR>
+nnoremap <silent> <leader>6 :BufferGoto 6<CR>
+nnoremap <silent> <leader>7 :BufferGoto 7<CR>
+nnoremap <silent> <leader>8 :BufferGoto 8<CR>
+nnoremap <silent> <leader>9 :BufferLast<CR>
 " Close buffer
-nnoremap <silent> <A-c> :BufferClose<CR>
-nnoremap <silent> <A-n> :tabnew<CR>
+nnoremap <silent> <leader>c :BufferClose<CR>
+nnoremap <silent> <leader>n :tabnew<CR>
 
 
 
@@ -249,6 +253,6 @@ autocmd BufEnter *.graphql setf graphql
 
 " status line (lightline)
 let g:lightline = {
-  \ 'colorscheme': 'onedark',
+  \ 'colorscheme': 'one',
   \ }
 set noshowmode
