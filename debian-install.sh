@@ -51,6 +51,7 @@ apt install -y --no-install-recommends --no-install-suggests \
 	bash-completion \
 	xorg \
 	xdg-user-dirs \
+	xdg-utils \
 	pipewire \
 	pipewire-audio-client-libraries \
 	network-manager \
@@ -98,10 +99,10 @@ apt install -y \
 
 # Install gnome extensions
 apt install -y --no-install-recommends --no-install-suggests \
-	gnome-shell-extensions \
 	gnome-shell-extension-desktop-icons \
 	gnome-shell-extension-dashtodock \
-	gnome-shell-extension-appindicator
+	gnome-shell-extension-appindicator \
+	libappindicator3-1
 
 # Install desktop nvidia drivers (GTX 1660)
 apt install -y --no-install-recommends --no-install-suggests \

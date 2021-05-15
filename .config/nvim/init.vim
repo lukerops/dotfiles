@@ -239,7 +239,7 @@ nnoremap <silent> <leader>n :tabnew<CR>
 " hightligh (nvim-treesitter)
 lua <<EOF
   require'nvim-treesitter.configs'.setup {
-    ensure_installed = { "go", "graphql", "json", "yaml" },
+    ensure_installed = { "go", "javascript", "python", "graphql", "json", "yaml", "lua" },
 
     highlight = { enable = true },
     -- incremental_selection = { enable = true },

@@ -2,6 +2,11 @@
 
 #set -x
 
+mkdir -p $HOME/.local/bin
+
+APPIMAGES=$HOME/.appimages
+mkdir -p $APPIMAGES
+
 install_fonts() {
 	TMPFILE=`mktemp`
 	wget "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip" -O $TMPFILE
@@ -27,8 +32,6 @@ install_deps() {
 }
 
 update_nvim() {
-	APPIMAGES=$HOME/.appimages
-	mkdir -p $APPIMAGES
 	mkdir -p $HOME/.local/bin
 	wget -q "https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage" -O $APPIMAGES/nvim_new.appimage
 	chmod u+x $APPIMAGES/nvim_new.appimage
@@ -44,6 +47,9 @@ install_nvim() {
 }
 
 install_tmux() {
+	TMUX_URL="https://github.com/nelsonenzo/tmux-appimage/releases/download/tmux3.1b/tmux-3.1b-x86_64.AppImage"
+	[ ! -f "$APPIMAGES/tmux.appimage" ] && wget -q $TMUX_URL -O $APPIMAGES/tmux.appimage && chmod a+x $APPIMAGES/tmux.appimage
+	[ ! -f $HOME/.local/bin/tmux ] && ln -sf $APPIMAGES/tmux.appimage $HOME/.local/bin/tmux
 	[ ! -d "$HOME/.config/tmux" ] && ln -s "`pwd`/.config/tmux" "$HOME/.config/tmux" && mkdir -p "$HOME/.config/tmux/plugins"
 	[ ! -d "$HOME/.config/tmux/plugins/tpm" ] && git clone "https://github.com/tmux-plugins/tpm" "$HOME/.config/tmux/plugins/tpm"
 }
