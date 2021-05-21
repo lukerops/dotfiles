@@ -8,10 +8,13 @@ APPIMAGES=$HOME/.appimages
 mkdir -p $APPIMAGES
 
 install_fonts() {
-	TMPFILE=`mktemp`
-	wget "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip" -O $TMPFILE
-	unzip -d "$HOME/.local/share/fonts" $TMPFILE
-	rm $TMPFILE
+	[ ! -d "$HOME/.local/share/fonts" ] && mkdir -p "$HOME/.local/share/fonts"
+	if [[ $(find ~/.local/share/fonts -name *JetBrains* | grep --count -w ".*") -eq 0 ]]; then
+		TMPFILE=`mktemp`
+		wget "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip" -O $TMPFILE
+		unzip -d "$HOME/.local/share/fonts" $TMPFILE
+		rm $TMPFILE
+	fi
 }
 
 install_deps() {
@@ -62,6 +65,10 @@ for i in $(echo $@ | tr " " "\n"); do
 
 		"--tmux")
 			install_tmux
+			;;
+
+		"--fonts")
+			install_fonts
 			;;
 
 		*)
