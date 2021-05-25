@@ -49,6 +49,10 @@ install_nvim() {
 	[ ! -f "$HOME/.config/nvim/autoload/plug.vim" ] && curl -sfLo $HOME/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 }
 
+install_lsp() {
+	pip3 install --upgrade 'python-lsp-server[all]'
+}
+
 install_tmux() {
 	TMUX_URL="https://github.com/nelsonenzo/tmux-appimage/releases/download/tmux3.1b/tmux-3.1b-x86_64.AppImage"
 	[ ! -f "$APPIMAGES/tmux.appimage" ] && wget -q $TMUX_URL -O $APPIMAGES/tmux.appimage && chmod a+x $APPIMAGES/tmux.appimage
@@ -61,6 +65,9 @@ for i in $(echo $@ | tr " " "\n"); do
 	case $i in
 		"--nvim")
 			install_nvim
+			;;
+		"--lsp")
+			install_lsp
 			;;
 
 		"--tmux")

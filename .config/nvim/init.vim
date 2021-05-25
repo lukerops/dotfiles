@@ -111,6 +111,14 @@ lua <<EOF
     },
   }
 
+  -- lspconfig.jedi_language_server.setup{
+  --   capabilities = capabilities,
+  -- }
+
+  lspconfig.pylsp.setup{
+    capabilities = capabilities,
+  }
+
   -- lspconfig.graphql.setup{}
 
   function goimports(timeoutms)
