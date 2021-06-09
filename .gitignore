@@ -4,5 +4,8 @@
 # installed plugins nvim
 .config/nvim/plugged
 
+# nvim packer
+.config/nvim/plugin
+
 # installed plugins tmux
 .config/tmux/plugins
