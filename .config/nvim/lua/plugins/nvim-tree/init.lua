@@ -3,7 +3,7 @@ return {
   cmd = {'NvimTreeToggle','NvimTreeOpen'},
   after = 'onedark.nvim',
   requires = 'kyazdani42/nvim-web-devicons',
-  config = function()
+  setup = function()
     require('plugins.nvim-tree.config')
   end,
 }

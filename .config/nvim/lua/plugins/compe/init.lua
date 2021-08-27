@@ -4,6 +4,6 @@ return {
   after = 'nvim-lspconfig',
   requires = 'norcalli/snippets.nvim',
   config = function()
-    require('plugins.nvim-compe.config')
+    require('plugins.compe.config')
   end,
 }

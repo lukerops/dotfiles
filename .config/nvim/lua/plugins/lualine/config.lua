@@ -1,12 +1,12 @@
 local lualine = require('lualine')
 
-lualine.setup {
+lualine.setup({
   options = {
     icons_enabled = true,
     theme = 'onedark',
     component_separators = {'', ''},
     section_separators = {'', ''},
-    disabled_filetypes = {'NvimTree', 'packer'}
+    disabled_filetypes = {'NvimTree', 'packer', 'Outline', 'UltestSummary'}
   },
   sections = {
     lualine_a = {'mode'},
@@ -26,4 +26,4 @@ lualine.setup {
   },
   tabline = {},
   extensions = {}
-}
+})

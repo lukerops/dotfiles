@@ -5,6 +5,6 @@ return {
   after = {'onedark.nvim', 'telescope.nvim'},
   run = 'TSUpdate',
   config = function()
-    require('plugins.nvim-treesitter.config')
+    require('plugins.treesitter.config')
   end,
 }

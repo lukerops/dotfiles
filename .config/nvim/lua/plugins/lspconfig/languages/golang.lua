@@ -1,5 +1,4 @@
 return {
-  cmd = {"gopls", "serve"},
   settings = {
     gopls = {
       usePlaceholders = true,

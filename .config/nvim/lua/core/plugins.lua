@@ -1,5 +1,3 @@
-
-
 local Plugins = {
   config = {
     packer_install_path = string.format('%s/site/pack/packer/opt/', vim.fn.stdpath('data')),
@@ -60,17 +58,22 @@ function Plugins.start(use)
   -- import all plugins bellow
 
   plugins = {
-    require('plugins.nvim-lspconfig'),
+    require('plugins.lspconfig'),
+    require('plugins.lspsignature'),
     require('plugins.nvim-tree'),
-    require('plugins.nvim-treesitter'),
-    require('plugins.nvim-compe'),
-    require('plugins.nvim-bufferline'),
+    require('plugins.treesitter'),
+    require('plugins.compe'),
+    require('plugins.bufferline'),
     -- require('plugins.tokyonight'),
     require('plugins.onedark'),
     require('plugins.lualine'),
     require('plugins.indent-blankline'),
     require('plugins.telescope'),
     require('plugins.gitsigns'),
+    require('plugins.symbols-outline'),
+    require('plugins.lspkind'),
+    require('plugins.vim-ultest'),
+    require('plugins.diffview'),
   }
 
   for index, plugin in ipairs(plugins) do

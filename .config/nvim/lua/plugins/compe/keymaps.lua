@@ -1,4 +1,4 @@
-require('plugins.nvim-compe.utils')
+require('plugins.compe.utils')
 
 local set_keymap = vim.api.nvim_set_keymap
 

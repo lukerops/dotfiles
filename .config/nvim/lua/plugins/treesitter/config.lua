@@ -1,6 +1,6 @@
 local configs = require('nvim-treesitter.configs')
 
-configs.setup {
+configs.setup({
   ensure_installed = {
     'go', 'javascript',
     'python', 'graphql',
@@ -11,4 +11,4 @@ configs.setup {
     enable = true,
   },
   -- incremental_selection = { enable = true },
-}
+})

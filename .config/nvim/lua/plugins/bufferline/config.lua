@@ -1,12 +1,13 @@
 local bufferline = require('bufferline')
 
 local config = {
-  mappings = true,
   enforce_regular_tabs = true,
   --view = 'multiwindow',
   offsets = {
     {filetype = 'NvimTree', text = 'File Explorer', text_align = 'center'},
     {filetype = 'packer', text = 'Packer', text_align = 'center'},
+    {filetype = 'Outline', text = 'File Symbols', text_align = 'center'},
+    {filetype = 'UltestSummary', text = 'Tests Summary', text_align = 'center'},
   },
   diagnostics = 'nvim_lsp',
   diagnostics_indicator = function(count, level, diagnostics_dict, context)
@@ -20,7 +21,6 @@ local config = {
   end
 }
 
-bufferline.setup {
+bufferline.setup({
   options = config,
-}
-
+})

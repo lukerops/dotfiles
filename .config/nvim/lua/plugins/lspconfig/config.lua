@@ -31,8 +31,8 @@ local default_config = {
 }
 
 local servers = {
-  gopls = require('plugins.nvim-lspconfig.languages.golang'),
-  pylsp = require('plugins.nvim-lspconfig.languages.python'),
+  gopls = require('plugins.lspconfig.languages.golang'),
+  pylsp = require('plugins.lspconfig.languages.python'),
 }
 
 for server, config in pairs(servers) do

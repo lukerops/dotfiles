@@ -2,6 +2,6 @@ local telescope = require('telescope')
 
 local config = {}
 
-telescope.setup{
+telescope.setup({
   defaults = config,
-}
+})

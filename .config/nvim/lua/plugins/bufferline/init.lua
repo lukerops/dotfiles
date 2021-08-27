@@ -1,7 +1,8 @@
 return {
   'akinsho/nvim-bufferline.lua',
+  after = 'onedark.nvim',
   requires = 'kyazdani42/nvim-web-devicons',
   config = function()
-    require('plugins.nvim-bufferline.config')
+    require('plugins.bufferline.config')
   end,
 }

@@ -1,7 +1,8 @@
 return {
   'neovim/nvim-lspconfig',
   event = 'BufReadPre',
+  after = 'onedark.nvim',
   config = function()
-    require('plugins.nvim-lspconfig.config')
+    require('plugins.lspconfig.config')
   end,
 }

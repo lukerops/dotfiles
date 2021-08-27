@@ -1,4 +1,6 @@
-require('plugins.nvim-compe.keymaps')
-require('plugins.nvim-lspconfig.keymaps')
+require('plugins.compe.keymaps')
+require('plugins.lspconfig.keymaps')
 require('plugins.nvim-tree.keymaps')
 require('plugins.telescope.keymaps')
+require('plugins.symbols-outline.keymaps')
+require('plugins.vim-ultest.keymaps')

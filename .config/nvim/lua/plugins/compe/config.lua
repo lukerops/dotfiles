@@ -2,7 +2,7 @@ local nvim_compe = require('compe')
 
 vim.o.completeopt = 'menuone,noselect'
 
-nvim_compe.setup {
+nvim_compe.setup({
   enabled = true,
   autocomplete = true,
   debug = false,
@@ -18,7 +18,7 @@ nvim_compe.setup {
 
   source = {
     path = true,
-    buffer = true,
+    buffer = false,
     calc = false,
     nvim_lsp = true,
     nvim_lua = true,
@@ -26,4 +26,4 @@ nvim_compe.setup {
     ultisnips = false,
     snippets_nvim = true,
   },
-}
+})
