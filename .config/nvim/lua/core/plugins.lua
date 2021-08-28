@@ -2,37 +2,12 @@ local Plugins = {
   config = {
     packer_install_path = string.format('%s/site/pack/packer/opt/', vim.fn.stdpath('data')),
     packer_config = {} 
-  }
+  },
+  plugins = {}
 }
 Plugins.__index = Plugins
 
-function Plugins:init()
-  if not self:import_packer() then
-    return
-  end
-
-  self.packer.reset()
-
-  return self.packer.startup({
-    Plugins.start,
-    config = self.config.packer_config
-  })
-end
-
-function Plugins:import_packer()
-  -- check if nvim can import packer
-  if vim.fn.isdirectory(self.config.packer_install_path) == 0 then
-    if not self:install_packer() then
-      return false
-    end
-  end
-
-  vim.api.nvim_command('packadd packer.nvim')
-  self.packer = require('packer')
-  return true
-end
-
-function Plugins:install_packer()
+function Plugins:installPacker()
   if vim.fn.input("Download Packer? (y for yes)") ~= "y" then
     return false
   end
@@ -52,33 +27,61 @@ function Plugins:install_packer()
   return true
 end
 
-function Plugins.start(use)
-  use { 'wbthomason/packer.nvim', opt = true }
-
-  -- import all plugins bellow
-
-  plugins = {
-    require('plugins.lspconfig'),
-    require('plugins.lspsignature'),
-    require('plugins.nvim-tree'),
-    require('plugins.treesitter'),
-    require('plugins.compe'),
-    require('plugins.bufferline'),
-    -- require('plugins.tokyonight'),
-    require('plugins.onedark'),
-    require('plugins.lualine'),
-    require('plugins.indent-blankline'),
-    require('plugins.telescope'),
-    require('plugins.gitsigns'),
-    require('plugins.symbols-outline'),
-    require('plugins.lspkind'),
-    require('plugins.vim-ultest'),
-    require('plugins.diffview'),
-  }
-
-  for index, plugin in ipairs(plugins) do
-    use(plugin)
+function Plugins:importPacker()
+  -- check if nvim can import packer
+  if vim.fn.isdirectory(self.config.packer_install_path) == 0 then
+    if not self:installPacker() then
+      return false
+    end
   end
+
+  vim.api.nvim_command('packadd packer.nvim')
+  self.packer = require('packer')
+  return true
 end
 
-return Plugins:init()
+function Plugins:new()
+  if not self:importPacker() then
+    return
+  end
+
+  self.packer.reset()
+  return self
+end
+
+function Plugins:add(plugin)
+  table.insert(self.plugins, plugin)
+end
+
+function Plugins:load()
+  require('plugins.lsp')
+  require('plugins.style')
+  require('plugins.telescope')
+  require('plugins.tests')
+  require('plugins.utils')
+  require('plugins.git')
+end
+
+function Plugins:startup()
+  local plugins = self.plugins
+
+  return function(use)
+    use { 'wbthomason/packer.nvim', opt = true }
+
+    for index, plugin in ipairs(plugins) do
+      use(plugin)
+    end
+  end
+
+end
+
+function Plugins:start(use)
+  self:load()
+
+  return self.packer.startup({
+    self:startup(),
+    config = self.config.packer_config
+  })
+end
+
+return Plugins:new()

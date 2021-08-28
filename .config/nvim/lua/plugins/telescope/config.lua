@@ -1,7 +1,11 @@
-local telescope = require('telescope')
+local M = {}
 
-local config = {}
+function M.telescope()
+  local config = {}
 
-telescope.setup({
-  defaults = config,
-})
+  require('telescope').setup({
+    defaults = config,
+  })
+end
+
+return M
