@@ -1,1 +1,2 @@
-require('core')
+require("global")
+require("plugins")

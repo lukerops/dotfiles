@@ -1,6 +1,6 @@
 local M = {}
 
-function M.nvimTree()
+function M.setup()
   vim.g.nvim_tree_follow = 1
   vim.g.nvim_tree_indent_markers = 1
   vim.g.nvim_tree_git_hl = 1
@@ -10,10 +10,12 @@ function M.nvimTree()
     folders = 1,
     files = 1,
   }
-end
 
-function M.toggleterm()
-  require('toggleterm').setup({})
+  -- keymaps
+  local utils = require("utils")
+
+  utils.nnoremap("nt", ":NvimTreeToggle<CR>")
+  utils.nnoremap("ntr", ":NvimTreeRefresh<CR>")
 end
 
 return M
