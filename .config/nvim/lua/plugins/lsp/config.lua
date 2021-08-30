@@ -82,4 +82,14 @@ function M.lspsignature()
   })
 end
 
+function M.trouble()
+  require('trouble').setup({})
+end
+
+function M.lspkind()
+  require('lspkind').init({
+    preset = 'codicons',
+  })
+end
+
 return M

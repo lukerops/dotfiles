@@ -8,6 +8,10 @@ plugins:add({
 })
 
 plugins:add({
+  'folke/lsp-colors.nvim',
+})
+
+plugins:add({
   'akinsho/nvim-bufferline.lua',
   after = 'onedark.nvim',
   requires = 'kyazdani42/nvim-web-devicons',

@@ -39,7 +39,13 @@ function M.lualine()
       theme = 'onedark',
       component_separators = {'', ''},
       section_separators = {'', ''},
-      disabled_filetypes = {'NvimTree', 'packer', 'Outline', 'UltestSummary', 'DiffviewFiles'}
+      disabled_filetypes = {
+        'NvimTree',
+	'packer',
+	'UltestSummary',
+	'DiffviewFiles',
+	'Trouble',
+      },
     },
     sections = {
       lualine_a = {'mode'},

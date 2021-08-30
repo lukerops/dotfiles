@@ -58,4 +58,8 @@ function M.compe()
   set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 end
 
+function M.trouble()
+  set_keymap('n', "<leader>tb", "<cmd>Trouble<cr>", {silent = true, noremap = true})
+end
+
 return M

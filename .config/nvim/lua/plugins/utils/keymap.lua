@@ -19,6 +19,7 @@ function M.toggleterm()
   end
 
   set_keymap('n', '<leader>gt', '<cmd>lua togleLazygit()<CR>', {noremap = true, silent = true})
+  set_keymap('n', '<C-t>', ':ToggleTerm<CR>', {noremap = true, silent = true})
 end
 
 return M
