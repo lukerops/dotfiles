@@ -4,7 +4,8 @@ function M.config()
   require("lualine").setup({
     options = {
       icons_enabled = true,
-      theme = "onedark",
+      -- theme = "onedark",
+      theme = "tokyonight",
       component_separators = {"", ""},
       section_separators = {"", ""},
       disabled_filetypes = {
@@ -13,6 +14,11 @@ function M.config()
         "UltestSummary",
         "DiffviewFiles",
         "Trouble",
+        "dapui_watches",
+        "dapui_stacks",
+        "dapui_breakpoints",
+        "dapui_scopes",
+        "dap-repl",
       },
     },
     sections = {

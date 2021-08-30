@@ -10,6 +10,7 @@ function M.config()
       {filetype = "Outline", text = "File Symbols", text_align = "center"},
       {filetype = "UltestSummary", text = "Tests Summary", text_align = "center"},
       {filetype = "DiffviewFiles", text = "Git Diff", text_align = "center"},
+      {filetype = "dapui_watches", text = "Debug", text_align = "center"},
     },
     diagnostics = "nvim_lsp",
     diagnostics_indicator = function(count, level, diagnostics_dict, context)

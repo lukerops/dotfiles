@@ -40,7 +40,7 @@ packer.add({
 packer.add({
   "nvim-telescope/telescope.nvim",
   cmd = "Telescope",
-  after = "onedark.nvim",
+  after = "colortheme",
   requires = {
     "nvim-lua/popup.nvim",
     "nvim-lua/plenary.nvim",
@@ -49,11 +49,18 @@ packer.add({
   config = require("config.telescope").config,
 })
 
+packer.add({
+  "nvim-telescope/telescope-dap.nvim",
+  after = "telescope.nvim",
+  requires = "nvim-dap",
+  config = require("config.telescope-dap").config,
+})
+
 -- Utils
 packer.add({
   "kyazdani42/nvim-tree.lua",
   cmd = {"NvimTreeToggle","NvimTreeOpen"},
-  after = "onedark.nvim",
+  after = "colortheme",
   requires = "kyazdani42/nvim-web-devicons",
   setup = require("config.nvimtree").setup,
 })
@@ -68,16 +75,30 @@ packer.add({
 -- Tests
 packer.add({
   "rcarriga/vim-ultest",
-  cmd = {"Ultest", "UltestNearest", "UltestSummary", "UltestOutput", "UltestClear", "UltestStop"},
+  cmd = {"Ultest", "UltestNearest", "UltestDebugNearest", "UltestSummary", "UltestOutput", "UltestClear", "UltestStop"},
+  after = "nvim-dap",
   requires = {"vim-test/vim-test"},
   run = ":UpdateRemotePlugins",
-  setup = require("config.ultest").config,
+  setup = require("config.ultest").setup,
+  config = require("config.ultest").config,
+})
+
+-- Debug
+packer.add({
+  "mfussenegger/nvim-dap",
+  config = require("config.dap").config,
+})
+
+packer.add({
+  "rcarriga/nvim-dap-ui",
+  requires = {"mfussenegger/nvim-dap"},
+  config = require("config.dap-ui").config,
 })
 
 -- Git
 packer.add({
   "lewis6991/gitsigns.nvim",
-  after = "onedark.nvim",
+  after = "colortheme",
   requires = "nvim-lua/plenary.nvim",
   config = require("config.gitsigns").config,
 })
@@ -88,9 +109,15 @@ packer.add({
 })
 
 -- Style
+-- packer.add({
+--   "navarasu/onedark.nvim",
+--   config = require("config.onedark").config,
+-- })
+
 packer.add({
-  "navarasu/onedark.nvim",
-  config = require("config.onedark").config,
+  'folke/tokyonight.nvim',
+  as = "colortheme",
+  config = require("config.tokyonight").config,
 })
 
 packer.add({
@@ -99,14 +126,14 @@ packer.add({
 
 packer.add({
   "akinsho/nvim-bufferline.lua",
-  after = "onedark.nvim",
+  after = "colortheme",
   requires = "kyazdani42/nvim-web-devicons",
   config = require("config.bufferline").config,
 })
 
 packer.add({
   "hoob3rt/lualine.nvim",
-  after = "onedark.nvim",
+  after = "colortheme",
   requires = "kyazdani42/nvim-web-devicons",
   config = require("config.lualine").config,
 })
@@ -115,7 +142,7 @@ packer.add({
   "nvim-treesitter/nvim-treesitter",
   cmd = {"TSInstall","TSInstallInfo", "TSUpdate"},
   event = "BufRead",
-  after = {"onedark.nvim", "telescope.nvim"},
+  after = "telescope.nvim",
   run = "TSUpdate",
   config = require("config.treesitter").config,
 })
