@@ -72,6 +72,15 @@ packer.add({
   config = require("config.toggleterm").config,
 })
 
+packer.add({
+  "folke/todo-comments.nvim",
+  cmd = { "TodoTrouble", "TodoLocList" },
+  after = "trouble.nvim",
+  requires = "nvim-lua/plenary.nvim",
+  setup = require("config.todo").setup,
+  config = require("config.todo").config,
+})
+
 -- Tests
 packer.add({
   "rcarriga/vim-ultest",
