@@ -38,4 +38,9 @@ function M.setup()
   utils.nnoremap("ntr", ":NvimTreeRefresh<CR>")
 end
 
+function M.config()
+  local nvim_tree = require("nvim-tree")
+  nvim_tree.setup()
+end
+
 return M

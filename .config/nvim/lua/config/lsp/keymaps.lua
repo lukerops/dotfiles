@@ -1,8 +1,8 @@
-local utils = require("utils")
-
 local M = {}
 
 function M.setup(client, bufnr)
+  local utils = require("utils")
+  
   opts = { buffer = bufnr }
 
   utils.nnoremap("gd", "<cmd>lua vim.lsp.buf.definition()<CR>",     opts)

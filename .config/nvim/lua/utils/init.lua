@@ -2,7 +2,15 @@ local M = {}
 
 function M.map(mode, key, cmd, opt, defaults)
   opts = vim.tbl_deep_extend("force", { silent = true }, defaults or {}, opts or {})
-  return vim.api.nvim_set_keymap(mode, key, cmd, opts)
+
+  if opts.buffer ~= nil then
+    local buffer = opts.buffer
+    opts.buffer = nil
+    
+    return vim.api.nvim_buf_set_keymap(buffer, mode, key, cmd, opts)
+  else
+    return vim.api.nvim_set_keymap(mode, key, cmd, opts)
+  end
 end
 
 function M.nmap(key, cmd, opts)

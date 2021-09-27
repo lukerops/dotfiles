@@ -32,6 +32,7 @@ packer.add({
 
 packer.add({
   "onsails/lspkind-nvim",
+  disable = true,
   after = "nvim-compe",
   config = require("config.lsp.lspkind").config,
 })
@@ -63,6 +64,7 @@ packer.add({
   after = "colortheme",
   requires = "kyazdani42/nvim-web-devicons",
   setup = require("config.nvimtree").setup,
+  config = require("config.nvimtree").config,
 })
 
 packer.add({

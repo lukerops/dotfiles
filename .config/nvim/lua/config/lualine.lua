@@ -13,6 +13,7 @@ function M.config()
         "packer",
         "UltestSummary",
         "DiffviewFiles",
+	"toggleterm",
         "Trouble",
         "dapui_watches",
         "dapui_stacks",

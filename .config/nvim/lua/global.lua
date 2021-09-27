@@ -1,3 +1,5 @@
+vim.opt.hidden = true
+
 vim.o.termguicolors = true
 vim.o.ignorecase = true
 vim.o.encoding = "utf-8"

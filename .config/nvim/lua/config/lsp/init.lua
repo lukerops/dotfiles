@@ -1,9 +1,6 @@
 local M = {}
 
 function M.config()
-  local utils = require("utils")
-  local lspconfig = require("lspconfig")
-  
   vim.fn.sign_define("LspDiagnosticsSignError", {text = ""})
   vim.fn.sign_define("LspDiagnosticsSignWarning", {text = ""})
   vim.fn.sign_define("LspDiagnosticsSignInformation", {text = ""})
@@ -32,23 +29,32 @@ function M.config()
   end
   
   local default_config = {
-    -- on_attach = on_attach,
+    on_attach = on_attach,
     capabilities = capabilities,
   }
   
   local servers = {
     gopls = {
-      usePlaceholders = true,
-      analyses = {
-        unusedparams = true,
+      settings = {
+        gopls = {
+          usePlaceholders = true,
+          analyses = {
+            unusedparams = true,
+          },
+          staticcheck = true,
+        },
       },
-      staticcheck = true,
     },
     pylsp = {
-      configurationSources = {"flake8"},
+      settings = {
+        pylsp = {
+          configurationSources = {"flake8"},
+        },
+      },
     },
   }
   
+  local lspconfig = require("lspconfig")
   for server, config in pairs(servers) do
     lspconfig[server].setup(vim.tbl_deep_extend("force", default_config, config))
   end
