@@ -9,6 +9,10 @@ vim.wo.number = true
 vim.wo.cursorline = true
 vim.wo.signcolumn = "yes"
 
+vim.cmd([[
+set noswapfile
+]])
+
 -- keymaps
 local utils = require("utils")
 
