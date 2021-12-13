@@ -35,8 +35,14 @@ install_deps() {
 }
 
 update_nvim() {
+	if [[ -z "$1" ]] || [[ "$1" == 'stable' ]]; then
+		NVIM_BRANCH='stable'
+	else
+		NVIM_BRANCH='nightly'
+	fi
+
 	mkdir -p $HOME/.local/bin
-	wget -q "https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage" -O $APPIMAGES/nvim_new.appimage
+	wget -q "https://github.com/neovim/neovim/releases/download/$NVIM_BRANCH/nvim.appimage" -O $APPIMAGES/nvim_new.appimage
 	chmod u+x $APPIMAGES/nvim_new.appimage
 	[ -f $APPIMAGES/nvim.appimage ] && mv $APPIMAGES/nvim.appimage $APPIMAGES/nvim`date +[%d%m%y]`.appimage
 	mv $APPIMAGES/nvim_new.appimage $APPIMAGES/nvim.appimage
@@ -44,7 +50,7 @@ update_nvim() {
 }
 
 install_nvim() {
-	update_nvim
+	update_nvim $1
 	[ ! -d "$HOME/.config/nvim" ] && ln -s "`pwd`/.config/nvim" "$HOME/.config/nvim"
 	[ ! -f "$HOME/.config/nvim/autoload/plug.vim" ] && curl -sfLo $HOME/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 }
@@ -64,7 +70,10 @@ install_tmux() {
 for i in $(echo $@ | tr " " "\n"); do
 	case $i in
 		"--nvim")
-			install_nvim
+			install_nvim 'stable'
+			;;
+		"--nvim-beta")
+			install_nvim 'nightly'
 			;;
 		"--lsp")
 			install_lsp
