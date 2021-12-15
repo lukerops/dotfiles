@@ -83,6 +83,11 @@ packer.add({
   config = require("config.todo").config,
 })
 
+packer.add({
+  "terryma/vim-multiple-cursors",
+  event = "BufReadPre",
+})
+
 -- Tests
 packer.add({
   "rcarriga/vim-ultest",
