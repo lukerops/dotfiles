@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/env bash
 
 #set -x
 
@@ -60,11 +60,12 @@ install_lsp() {
 }
 
 install_tmux() {
-	TMUX_URL="https://github.com/nelsonenzo/tmux-appimage/releases/download/tmux3.1b/tmux-3.1b-x86_64.AppImage"
-	[ ! -f "$APPIMAGES/tmux.appimage" ] && wget -q $TMUX_URL -O $APPIMAGES/tmux.appimage && chmod a+x $APPIMAGES/tmux.appimage
-	[ ! -f $HOME/.local/bin/tmux ] && ln -sf $APPIMAGES/tmux.appimage $HOME/.local/bin/tmux
+	# TMUX_URL="https://github.com/nelsonenzo/tmux-appimage/releases/download/tmux3.1b/tmux-3.1b-x86_64.AppImage"
+	# [ ! -f "$APPIMAGES/tmux.appimage" ] && wget -q $TMUX_URL -O $APPIMAGES/tmux.appimage && chmod a+x $APPIMAGES/tmux.appimage
+	# [ ! -f $HOME/.local/bin/tmux ] && ln -sf $APPIMAGES/tmux.appimage $HOME/.local/bin/tmux
 	[ ! -d "$HOME/.config/tmux" ] && ln -s "`pwd`/.config/tmux" "$HOME/.config/tmux" && mkdir -p "$HOME/.config/tmux/plugins"
 	[ ! -d "$HOME/.config/tmux/plugins/tpm" ] && git clone "https://github.com/tmux-plugins/tpm" "$HOME/.config/tmux/plugins/tpm"
+	[ ! -f "tmux_tokyonight_storm.tmux" ] && wget -q https://raw.githubusercontent.com/folke/tokyonight.nvim/main/extras/tmux_tokyonight_storm.tmux -O "$HOME/.config/tmux/tmux_tokyonight_storm.tmux"
 }
 
 for i in $(echo $@ | tr " " "\n"); do
