@@ -9,3 +9,4 @@
 
 # installed plugins tmux
 .config/tmux/plugins
+.config/tmux/tmux_tokyonight_storm.tmux
