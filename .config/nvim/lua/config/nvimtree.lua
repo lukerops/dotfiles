@@ -1,19 +1,8 @@
 local M = {}
 
 function M.setup()
-  vim.g.nvim_tree_ignore = {
-    ".git",
-    "node_modules",
-    ".cache",
-    ".pytest_cache",
-    ".vscode",
-    "__pycache__",
-  }
-  vim.g.nvim_tree_follow = 1
   vim.g.nvim_tree_indent_markers = 1
   vim.g.nvim_tree_git_hl = 1
-  vim.g.nvim_tree_tab_open = 1
-  vim.g.nvim_tree_lsp_diagnostics = 1
   vim.g.nvim_tree_window_picker_exclude = {
     filetype = {
       "packer",
@@ -35,12 +24,35 @@ function M.setup()
   local utils = require("utils")
 
   utils.nnoremap("nt", ":NvimTreeToggle<CR>")
-  utils.nnoremap("ntr", ":NvimTreeRefresh<CR>")
 end
 
 function M.config()
   local nvim_tree = require("nvim-tree")
-  nvim_tree.setup()
+  nvim_tree.setup({
+    diagnostics = {
+      enable = true,
+    },
+    update_focused_file = {
+      enable = true,
+    },
+    filters = {
+      custom = {
+        ".git",
+        "node_modules",
+        ".cache",
+        ".pytest_cache",
+        ".vscode",
+        "__pycache__",
+      },
+    },
+    git = {
+      ignore = false,
+    },
+    view = {
+      hide_root_folder = true,
+      auto_resize = true,
+    },
+  })
 end
 
 return M
