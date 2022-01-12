@@ -123,6 +123,7 @@ install_gnome() {
 		desktop-base \
 		plymouth \
 		plymouth-label \
+		power-profiles-daemon \
 		gnome-shell \
 		gnome-session \
 		gdm3 \
