@@ -131,6 +131,7 @@ install_gnome() {
 		libpam-gnome-keyring \
 		gnome-online-accounts \
 		gnome-control-center \
+		libcanberra-pulse \
 		gnome-themes-standard \
 		gnome-icon-theme \
 		gnome-backgrounds \
