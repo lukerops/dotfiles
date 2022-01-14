@@ -50,9 +50,8 @@ update_nvim() {
 }
 
 install_nvim() {
-	update_nvim $1
+	# update_nvim $1
 	[ ! -d "$HOME/.config/nvim" ] && ln -s "`pwd`/.config/nvim" "$HOME/.config/nvim"
-	[ ! -f "$HOME/.config/nvim/autoload/plug.vim" ] && curl -sfLo $HOME/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 }
 
 install_lsp() {
