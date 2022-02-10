@@ -42,7 +42,7 @@ Pin-Priority: 150
 
 Package: *
 Pin: release a=experimental
-Pin-Priority: 150
+Pin-Priority: 50
 EOF
 
 	apt update && apt full-upgrade -y
@@ -50,13 +50,13 @@ EOF
 
 update_kernel() {
 	# Update kernel and install for nvidia drivers support
-	apt install -y --no-install-recommends --no-install-suggests \
+	apt install -y --no-install-suggests \
 		linux-image-amd64 \
 		linux-headers-amd64
 }
 
 install_base_pkgs() {
-	apt install -y --no-install-recommends --no-install-suggests \
+	apt install -y --no-install-suggests \
 		avahi-daemon \
 		thermald \
 		bash-completion \
@@ -80,7 +80,7 @@ install_base_pkgs() {
 }
 
 install_pipewire() {
-	apt install -y --no-install-recommends --no-install-suggests \
+	apt install -y --no-install-suggests \
 		pipewire \
 		wireplumber \
 		pipewire-audio-client-libraries \
@@ -98,7 +98,7 @@ install_pipewire() {
 }
 
 install_gnome() {
-	apt install -y --no-install-recommends --no-install-suggests \
+	apt install -y --no-install-suggests \
 		xserver-xorg \
 		xserver-xorg-video-all \
 		xclip \
@@ -156,7 +156,6 @@ install_gnome() {
 		gnome-system-monitor \
 		evince \
 		celluloid \
-		gdebi \
 		eog \
 		gnome-shell-extension-desktop-icons-ng \
 		gnome-shell-extension-dashtodock \
@@ -192,7 +191,7 @@ stone_notebook() {
 	install_gnome
 	install_bluetooth
 
-	apt install -y --no-install-recommends --no-install-suggests \
+	apt install -y --no-install-suggests \
 		intel-microcode \
 		iucode-tool \
 		firmware-iwlwifi \
@@ -201,14 +200,36 @@ stone_notebook() {
 		mesa-va-drivers
 }
 
+desktop() {
+	configure_apt_repositories
+	update_kernel
+	install_base_pkgs
+	install_pipewire
+	install_gnome
+	install_bluetooth
+
+	apt install -y --no-install-suggests \
+		r8168-dkms \
+		nvidia-driver \
+		firmware-misc-nonfree \
+		libnvcuvid1 \
+		libnvidia-encode1 \
+		nvidia-vdpau-driver
+}
+
 case $1 in
 	stone)
 		stone_notebook
+		;;
+
+	desktop)
+		desktop
 		;;
 	
 	*)
 		echo "select one installation:"
 		echo " - stone"
+		echo " - desktop"
 esac
 
 ## # Install basic gnome environment
