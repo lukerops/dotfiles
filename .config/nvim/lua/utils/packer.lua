@@ -1,6 +1,6 @@
 local M = {
   packer = {
-    install_path = string.format("%s/site/pack/packer/opt/packer.nvim", vim.fn.stdpath("data")),
+    install_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim",
     config = {},
   },
   plugins = {},
@@ -14,7 +14,7 @@ function M.bootstrap()
   fn.mkdir(install_path, "p")
 
   -- clone the repo if not exists
-  if fn.empty(fn.glob(install_path)) > 0 then
+  if fn.empty(fn.glob(install_path .. "/*")) > 0 then
     fn.system({ "git", "clone", "https://github.com/wbthomason/packer.nvim", install_path })
   end
 
@@ -27,7 +27,7 @@ end
 
 function M.startup()
   return function(use)
-    use { "wbthomason/packer.nvim", opt = true }
+    use { "wbthomason/packer.nvim" }
     
     for index, plugin in ipairs(M.plugins) do
       use(plugin)

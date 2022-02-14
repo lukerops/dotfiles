@@ -10,8 +10,8 @@ function M.setup(client, bufnr)
   utils.nnoremap("gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
   utils.nnoremap("gr", "<cmd>lua vim.lsp.buf.references()<CR>",     opts)
 
-  utils.nnoremap("<leader>ft", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-  utils.nnoremap("<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>",     opts)
+  utils.nnoremap("<leader>fmt", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+  utils.nnoremap("<leader>rn",  "<cmd>lua vim.lsp.buf.rename()<CR>",     opts)
 end
 
 return M
