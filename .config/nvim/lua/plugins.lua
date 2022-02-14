@@ -112,6 +112,12 @@ packer.add({
   event = "BufReadPre",
 })
 
+packer.add({
+  "numToStr/Comment.nvim",
+  event = "BufReadPre",
+  config = require("config.comment").config,
+})
+
 -- Tests
 packer.add({
   "rcarriga/vim-ultest",
