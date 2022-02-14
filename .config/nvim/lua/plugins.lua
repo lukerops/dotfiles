@@ -5,15 +5,46 @@ packer.add({
   "neovim/nvim-lspconfig",
   event = "BufReadPre",
   -- after = "onedark.nvim",
+  after = {"cmp-nvim-lsp"},
   config = require("config.lsp").config,
 })
 
 packer.add({
-  "hrsh7th/nvim-compe",
-  event = "InsertEnter",
-  after = "nvim-lspconfig",
-  requires = "norcalli/snippets.nvim",
-  config = require("config.lsp.compe").config,
+  "onsails/lspkind-nvim",
+  -- config = require("config.lsp.lspkind").config,
+})
+
+packer.add({
+  "hrsh7th/nvim-cmp",
+  -- after = "nvim-lspconfig",
+  requires = {"lspkind-nvim"},
+  config = require("config.lsp.cmp").config,
+})
+
+packer.add({
+  "hrsh7th/cmp-nvim-lsp",
+  after = {"nvim-cmp"},
+})
+
+packer.add({
+  "hrsh7th/cmp-buffer",
+  after = {"nvim-cmp"},
+})
+
+packer.add({
+  "hrsh7th/cmp-path",
+  after = {"nvim-cmp"},
+})
+
+packer.add({
+  "hrsh7th/cmp-cmdline",
+  after = {"nvim-cmp"},
+})
+
+packer.add({
+  "saadparwaiz1/cmp_luasnip",
+  requires = {"L3MON4D3/LuaSnip"},
+  after = {"nvim-cmp"},
 })
 
 packer.add({
@@ -28,13 +59,6 @@ packer.add({
   cmd = "Trouble",
   setup = require("config.lsp.trouble").setup,
   config = require("config.lsp.trouble").config,
-})
-
-packer.add({
-  "onsails/lspkind-nvim",
-  disable = true,
-  after = "nvim-compe",
-  config = require("config.lsp.lspkind").config,
 })
 
 -- Telescope
