@@ -118,6 +118,12 @@ packer.add({
   config = require("config.comment").config,
 })
 
+packer.add({
+  "petertriho/nvim-scrollbar",
+  after = {"colortheme"},
+  config = require("config.scrollbar").config,
+})
+
 -- Tests
 packer.add({
   "rcarriga/vim-ultest",
