@@ -65,7 +65,10 @@ packer.add({
 packer.add({
   "nvim-telescope/telescope.nvim",
   cmd = "Telescope",
-  after = "colortheme",
+  after = {
+    "colortheme",
+    "nvim-treesitter",
+  },
   requires = {
     "nvim-lua/popup.nvim",
     "nvim-lua/plenary.nvim",
@@ -198,10 +201,19 @@ packer.add({
 packer.add({
   "nvim-treesitter/nvim-treesitter",
   cmd = {"TSInstall","TSInstallInfo", "TSUpdate"},
-  event = "BufRead",
-  after = "telescope.nvim",
+  event = "VimEnter",
   run = "TSUpdate",
   config = require("config.treesitter").config,
+})
+
+packer.add({
+  "p00f/nvim-ts-rainbow",
+  after = "nvim-treesitter",
+})
+
+packer.add({
+  "nvim-treesitter/nvim-treesitter-textobjects",
+  after = "nvim-treesitter",
 })
 
 return packer.setup()
