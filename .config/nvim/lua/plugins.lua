@@ -167,6 +167,11 @@ packer.add({
 })
 
 packer.add({
+  "lukas-reineke/indent-blankline.nvim",
+  config = require("config.indent-blankline").config,
+})
+
+packer.add({
   "folke/lsp-colors.nvim",
 })
 
