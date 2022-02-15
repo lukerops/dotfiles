@@ -1,10 +1,21 @@
 local M = {}
 
 function M.config()
-  local config = {}
+  local actions = require("telescope.actions")
 
   require("telescope").setup({
-    defaults = config,
+    defaults = {
+      mappings = {
+        i = {
+          ["<C-Up>"] = actions.preview_scrolling_up,
+          ["<C-Down>"] = actions.preview_scrolling_down,
+        },
+        n = {
+          ["<C-Up>"] = actions.preview_scrolling_up,
+          ["<C-Down>"] = actions.preview_scrolling_down,
+        },
+      },
+    },
   })
 end
 
