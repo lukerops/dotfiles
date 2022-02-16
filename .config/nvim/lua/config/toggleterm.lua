@@ -14,9 +14,10 @@ function M.config()
 
   -- keymaps
   local utils = require("utils")
+  local terminal = require("toggleterm.terminal").Terminal
 
-  local Terminal = require("toggleterm.terminal").Terminal
-  local lazygit = Terminal:new({
+  -- Lazygit
+  local lazygit = terminal:new({
     cmd = "lazygit",
     direction = "float",
     hidden = true,
@@ -27,6 +28,19 @@ function M.config()
   end
 
   utils.nnoremap("<leader>gt", "<cmd>lua toggle_lazygit()<CR>")
+
+  -- Git Graph
+  local gitgraph = terminal:new({
+    cmd = "git log --graph --pretty=short --all",
+    direction = "float",
+    hidden = true,
+  })
+
+  function toggle_gitgraph()
+    gitgraph:toggle()
+  end
+
+  utils.nnoremap("<leader>gtg", "<cmd>lua toggle_gitgraph()<CR>")
 end
 
 return M
