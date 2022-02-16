@@ -163,6 +163,16 @@ packer.add({
   config = require("config.diffview").config,
 })
 
+packer.add({
+  "pwntester/octo.nvim",
+  requires = {
+    "nvim-lua/plenary.nvim",
+    "nvim-telescope/telescope.nvim",
+    "kyazdani42/nvim-web-devicons",
+  },
+  config = require("config.octo").config,
+})
+
 -- Style
 -- packer.add({
 --   "navarasu/onedark.nvim",
