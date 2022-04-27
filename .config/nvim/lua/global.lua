@@ -1,4 +1,5 @@
 vim.opt.hidden = true
+vim.opt.title = true
 
 vim.o.termguicolors = true
 vim.o.ignorecase = true

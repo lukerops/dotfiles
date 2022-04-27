@@ -3,13 +3,10 @@ local M = {}
 function M.config()
   require("toggleterm").setup({
     open_mapping = [[<C-t>]],
-    size = function(term)
-            if term.direction == 'horizontal' then
-              return 15
-            elseif term.direction == 'vertical' then
-              return math.floor(vim.o.columns * 0.4)
-            end
-          end,
+    direction = 'float',
+    float_opts = {
+      border = 'curved',
+    },
   })
 
   -- keymaps
@@ -22,7 +19,7 @@ function M.config()
     direction = "float",
     hidden = true,
   })
-  
+
   function toggle_lazygit()
     lazygit:toggle()
   end

@@ -29,11 +29,13 @@ end
 function M.config()
   local nvim_tree = require("nvim-tree")
   nvim_tree.setup({
+    update_cwd = true,
     diagnostics = {
       enable = true,
     },
     update_focused_file = {
       enable = true,
+      update_cwd = false,
     },
     filters = {
       custom = {
