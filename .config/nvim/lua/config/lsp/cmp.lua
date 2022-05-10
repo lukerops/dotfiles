@@ -1,26 +1,58 @@
-local has_words_before = function()
-  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-end
-
 local M = {}
 
 function M.config()
   vim.o.completeopt = "menuone,noselect"
 
   local cmp = require("cmp")
-  local lspkind = require('lspkind')
+  -- local lspkind = require('lspkind')
+  local luasnip = require('luasnip')
+
+  local icons = {
+    Text = "",
+    Method = "",
+    Function = "",
+    Constructor = "⌘",
+    Field = "ﰠ",
+    Variable = "",
+    Class = "ﴯ",
+    Interface = "",
+    Module = "",
+    Property = "ﰠ",
+    Unit = "塞",
+    Value = "",
+    Enum = "",
+    Keyword = "廓",
+    Snippet = "",
+    Color = "",
+    File = "",
+    Reference = "",
+    Folder = "",
+    EnumMember = "",
+    Constant = "",
+    Struct = "פּ",
+    Event = "",
+    Operator = "",
+    TypeParameter = "",
+  }
 
   cmp.setup({
+    -- formatting = {
+    --   format = lspkind.cmp_format({
+    --     mode = 'symbol', -- show only symbol annotations
+    --     maxwidth = 100, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+    --   })
+    -- },
     formatting = {
-      format = lspkind.cmp_format({
-        mode = 'symbol', -- show only symbol annotations
-        maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
-      })
+      fields = { "kind", "abbr", "menu" },
+      format = function(entry, vim_item)
+        vim_item.menu = vim_item.kind
+        vim_item.kind = icons[vim_item.kind]
+        return vim_item
+      end,
     },
     snippet = {
       expand = function(args)
-        require('luasnip').lsp_expand(args.body)
+        luasnip.lsp_expand(args.body)
       end
     },
     mapping = {
@@ -38,12 +70,10 @@ function M.config()
           cmp.select_next_item()
         elseif luasnip.expand_or_jumpable() then
           luasnip.expand_or_jump()
-        elseif has_words_before() then
-          cmp.complete()
         else
           fallback()
         end
-      end, { 'i', 's' }),
+      end, { 'i', 'c' }),
       ['<S-Tab>'] = cmp.mapping(function(fallback)
         if cmp.visible() then
           cmp.select_prev_item()
@@ -52,7 +82,7 @@ function M.config()
         else
           fallback()
         end
-      end, { 'i', 's' }),
+      end, { 'i', 'c' }),
     },
     sources = cmp.config.sources({
       { name = 'nvim_lsp' },

@@ -9,15 +9,15 @@ packer.add({
   config = require("config.lsp").config,
 })
 
-packer.add({
-  "onsails/lspkind-nvim",
-  -- config = require("config.lsp.lspkind").config,
-})
+-- packer.add({
+--   "onsails/lspkind-nvim",
+--   -- config = require("config.lsp.lspkind").config,
+-- })
 
 packer.add({
   "hrsh7th/nvim-cmp",
   -- after = "nvim-lspconfig",
-  requires = {"lspkind-nvim"},
+  -- requires = {"lspkind-nvim"},
   config = require("config.lsp.cmp").config,
 })
 
