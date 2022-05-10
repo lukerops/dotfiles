@@ -1,14 +1,24 @@
+-- disable line number when in terminal
+vim.api.nvim_create_autocmd("TermOpen", {
+  callback = function()
+    vim.o.number = false
+  end,
+})
+
 vim.opt.hidden = true
 vim.opt.title = true
 
-vim.o.termguicolors = true
-vim.o.ignorecase = true
-vim.o.encoding = "utf-8"
-vim.o.clipboard = "unnamedplus"
-vim.o.mouse = "a"
-vim.wo.number = true
-vim.wo.cursorline = true
-vim.wo.signcolumn = "yes"
+-- global statusbar
+vim.opt.laststatus = 3
+
+vim.opt.termguicolors = true
+vim.opt.ignorecase = true
+vim.opt.encoding = "utf-8"
+vim.opt.clipboard = "unnamedplus"
+vim.opt.mouse = "a"
+vim.opt.number = true
+vim.opt.cursorline = true
+vim.opt.signcolumn = "yes"
 
 vim.cmd([[
 set noswapfile

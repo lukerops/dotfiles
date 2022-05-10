@@ -15,7 +15,8 @@ function M.config()
       signs = true,
       -- Disable a feature
       update_in_insert = true,
-  })
+    }
+  )
   
   local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
   
