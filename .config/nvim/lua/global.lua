@@ -5,6 +5,22 @@ vim.api.nvim_create_autocmd("TermOpen", {
   end,
 })
 
+-- fix tab width for some filetypes
+vim.api.nvim_create_autocmd({"BufEnter"}, {
+  pattern = {"*.tf", "*.lua"},
+  callback = function()
+    vim.o.filetype = "terraform"
+    vim.o.shiftwidth = 2
+  end,
+})
+
+-- set tab width
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 0
+vim.opt.expandtab = true
+vim.opt.shiftwidth = 4
+vim.opt.smarttab = true
+
 vim.opt.hidden = true
 vim.opt.title = true
 
@@ -28,17 +44,17 @@ set guicursor=n-v-c:block-Cursor/lCursor,i-ci-ve:ver25-Cursor/lCursor,r-cr:hor20
 -- keymaps
 local utils = require("utils")
 
-utils.nnoremap("<leader>1",   "<cmd>tabnext 1<cr>")
-utils.nnoremap("<leader>2",   "<cmd>tabnext 2<cr>")
-utils.nnoremap("<leader>3",   "<cmd>tabnext 3<cr>")
-utils.nnoremap("<leader>4",   "<cmd>tabnext 4<cr>")
-utils.nnoremap("<leader>5",   "<cmd>tabnext 5<cr>")
-utils.nnoremap("<leader>6",   "<cmd>tabnext 6<cr>")
-utils.nnoremap("<leader>7",   "<cmd>tabnext 7<cr>")
-utils.nnoremap("<leader>8",   "<cmd>tabnext 8<cr>")
-utils.nnoremap("<leader>9",   "<cmd>tabnext 9<cr>")
-utils.nnoremap("<leader>0",   "<cmd>tablast<cr>")
-utils.nnoremap("<leader>tbn", "<cmd>tabnew<cr>")
+-- utils.nnoremap("<leader>1",   "<cmd>tabnext 1<cr>")
+-- utils.nnoremap("<leader>2",   "<cmd>tabnext 2<cr>")
+-- utils.nnoremap("<leader>3",   "<cmd>tabnext 3<cr>")
+-- utils.nnoremap("<leader>4",   "<cmd>tabnext 4<cr>")
+-- utils.nnoremap("<leader>5",   "<cmd>tabnext 5<cr>")
+-- utils.nnoremap("<leader>6",   "<cmd>tabnext 6<cr>")
+-- utils.nnoremap("<leader>7",   "<cmd>tabnext 7<cr>")
+-- utils.nnoremap("<leader>8",   "<cmd>tabnext 8<cr>")
+-- utils.nnoremap("<leader>9",   "<cmd>tabnext 9<cr>")
+-- utils.nnoremap("<leader>0",   "<cmd>tablast<cr>")
+-- utils.nnoremap("<leader>tbn", "<cmd>tabnew<cr>")
 
 utils.nnoremap("<M-Up>", ":m .-2<CR>==")
 utils.nnoremap("<M-Down>", ":m .+1<CR>==")
