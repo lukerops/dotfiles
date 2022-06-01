@@ -27,6 +27,18 @@ function M.config()
   require("bufferline").setup({
     options = config,
   })
+
+  local utils = require("utils")
+
+  utils.nnoremap("<leader>1",   "<cmd>BufferLineGoToBuffer 1<cr>")
+  utils.nnoremap("<leader>2",   "<cmd>BufferLineGoToBuffer 2<cr>")
+  utils.nnoremap("<leader>3",   "<cmd>BufferLineGoToBuffer 3<cr>")
+  utils.nnoremap("<leader>4",   "<cmd>BufferLineGoToBuffer 4<cr>")
+  utils.nnoremap("<leader>5",   "<cmd>BufferLineGoToBuffer 5<cr>")
+  utils.nnoremap("<leader>6",   "<cmd>BufferLineGoToBuffer 6<cr>")
+  utils.nnoremap("<leader>7",   "<cmd>BufferLineGoToBuffer 7<cr>")
+  utils.nnoremap("<leader>8",   "<cmd>BufferLineGoToBuffer 8<cr>")
+  utils.nnoremap("<leader>9",   "<cmd>BufferLineGoToBuffer 9<cr>")
 end
 
 return M
