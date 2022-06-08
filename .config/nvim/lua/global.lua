@@ -1,7 +1,7 @@
 -- disable line number when in terminal
 vim.api.nvim_create_autocmd("TermOpen", {
   callback = function()
-    vim.o.number = false
+    vim.wo.number = false
   end,
 })
 
@@ -9,8 +9,8 @@ vim.api.nvim_create_autocmd("TermOpen", {
 vim.api.nvim_create_autocmd({"BufEnter"}, {
   pattern = {"*.tf", "*.lua"},
   callback = function()
-    vim.o.filetype = "terraform"
-    vim.o.shiftwidth = 2
+    vim.bo.filetype = "terraform"
+    vim.bo.shiftwidth = 2
   end,
 })
 
