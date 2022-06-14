@@ -46,6 +46,7 @@ function M.config()
       },
     },
     pylsp = {
+      cmd = { "/var/home/lucas/.pyenv/shims/python", "-m", "poetry", "run", "pylsp" },
       settings = {
         pylsp = {
           configurationSources = {"flake8"},
