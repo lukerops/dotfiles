@@ -61,6 +61,8 @@ function M.config()
         },
       },
     },
+    terraformls = {},
+    -- terraform_lsp = {},
   }
   
   local lspconfig = require("lspconfig")
