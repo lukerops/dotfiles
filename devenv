@@ -1,0 +1,116 @@
+#!/bin/bash
+
+build() {
+    podman build \
+        -t devenv:debian-testing \
+        --build-arg UID=$(id -u) \
+        --build-arg GID=$(id -g) \
+        --build-arg USER=$(id -nu) \
+        --build-arg GROUP=$(id -ng) \
+        --stdin \
+        . #build-context
+}
+
+create() {
+    podman create \
+        --name devenv \
+        --network host \
+        --ipc host \
+        --pid host \
+        --userns keep-id \
+        --ulimit host \
+        --security-opt label=disable \
+        --hostname devenv \
+        --env XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR \
+        --mount type=devpts,destination=/dev/pts \
+        -v /:/run/host:rslave \
+        -v /dev:/dev:rslave \
+        -v /run/dbus/system_bus_socket:/run/dbus/system_bus_socket \
+        -v /run/user/$(id -u):/run/user/$(id -u) \
+        -v /run/avahi-daemon/socket:/run/avahi-daemon/socket \
+        -v /run/.heim_org.h5l.kcm-socket:/run/.heim_org.h5l.kcm-socket \
+        -v /run/pcscd/pcscd.comm:/run/pcscd/pcscd.comm \
+        -v /run/media:/run/media:rslave \
+        -v /var/run/user/$(id -u)/podman/podman.sock:/var/run/docker.sock \
+        -v ${HOME}/.ssh:/home/${USER}/.ssh \
+        -v $(xdg-user-dir DOWNLOAD):/home/${USER}/$(basename "$(xdg-user-dir DOWNLOAD)") \
+        -v $(xdg-user-dir DOCUMENTS):/home/${USER}/$(basename "$(xdg-user-dir DOCUMENTS)") \
+        -v /tmp/.X11-unix:/tmp/.X11-unix \
+        -v ${HOME}/github/:/home/${USER}/git/ \
+        devenv:debian-testing
+}
+
+run() {
+    podman start devenv
+    podman exec \
+        --interactive \
+        --tty \
+        --env COLORTERM=$COLORTERM \
+        --env DBUS_SESSION_BUS_ADDRESS=$DBUS_SESSION_BUS_ADDRESS \
+        --env DBUS_SYSTEM_BUS_ADDRESS=$DBUS_SYSTEM_BUS_ADDRESS \
+        --env DESKTOP_SESSION=$DESKTOP_SESSION \
+        --env DISPLAY=$DISPLAY \
+        --env LANG=$LANG \
+        --env SHELL=$SHELL \
+        --env SSH_AUTH_SOCK=$SSH_AUTH_SOCK \
+        --env TERM=$TERM \
+        --env USER=$USER \
+        --env VTE_VERSION=$VTE_VERSION \
+        --env WAYLAND_DISPLAY=$WAYLAND_DISPLAY \
+        --env XAUTHORITY=$XAUTHORITY \
+        --env XDG_CURRENT_DESKTOP=$XDG_CURRENT_DESKTOP \
+        --env XDG_DATA_DIRS=$XDG_DATA_DIRS \
+        --env XDG_MENU_PREFIX=$XDG_MENU_PREFIX \
+        --env XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR \
+        --env XDG_SEAT=$XDG_SEAT \
+        --env XDG_SESSION_DESKTOP=$XDG_SESSION_DESKTOP \
+        --env XDG_SESSION_ID=$XDG_SESSION_ID \
+        --env XDG_SESSION_TYPE=$XDG_SESSION_TYPE \
+        --env XDG_VTNR=$XDG_VTNR \
+        devenv bash
+}
+
+rm() {
+    podman stop devenv
+    podman rm -f devenv
+}
+
+rmi() {
+    podman rmi devenv:debian-testing
+}
+
+install() {
+    mkdir -p ${HOME}/.local/bin
+    cp $(pwd)/devenv ${HOME}/.local/bin/devenv
+    sed -i "s|. #build-context|$(pwd) #build-context|" ${HOME}/.local/bin/devenv
+}
+
+case $1 in
+    'build')
+        build
+        ;;
+
+    'create')
+        create
+        ;;
+
+    'run')
+        run
+        ;;
+
+    'rm')
+        rm
+        ;;
+
+    'rmi')
+        rmi
+        ;;
+
+    'install')
+        install
+        ;;
+
+    *)
+        echo 'devenv v0.1.0'
+        ;;
+esac
