@@ -65,7 +65,7 @@ function M.config()
         c = cmp.mapping.close(),
       }),
       ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-      ['<Tab>'] = cmp.mapping(function(fallback)
+      ['<C-Down>'] = cmp.mapping(function(fallback)
         if cmp.visible() then
           cmp.select_next_item()
         elseif luasnip.expand_or_jumpable() then
@@ -74,7 +74,7 @@ function M.config()
           fallback()
         end
       end, { 'i', 'c' }),
-      ['<S-Tab>'] = cmp.mapping(function(fallback)
+      ['<C-Up>'] = cmp.mapping(function(fallback)
         if cmp.visible() then
           cmp.select_prev_item()
         elseif luasnip.jumpable(-1) then
