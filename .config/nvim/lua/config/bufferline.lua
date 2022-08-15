@@ -2,10 +2,13 @@ local M = {}
 
 function M.config()
   local config = {
-    enforce_regular_tabs = true,
-    --view = "multiwindow",
+    -- enforce_regular_tabs = true,
+    -- view = "multiwindow",
+    show_close_icon = true,
+    always_show_bufferline = true,
+    separator_style = "thick",
     offsets = {
-      {filetype = "NvimTree", text = "File Explorer", text_align = "center"},
+      {filetype = "NvimTree", text = "File Explorer", highlight = "Directory", text_align = "center"},
       {filetype = "packer", text = "Packer", text_align = "center"},
       {filetype = "Outline", text = "File Symbols", text_align = "center"},
       {filetype = "UltestSummary", text = "Tests Summary", text_align = "center"},
