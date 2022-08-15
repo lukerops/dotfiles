@@ -129,14 +129,26 @@ packer.add({
 
 -- Tests
 packer.add({
-  "rcarriga/vim-ultest",
-  cmd = {"Ultest", "UltestNearest", "UltestDebugNearest", "UltestSummary", "UltestOutput", "UltestClear", "UltestStop"},
+  "nvim-neotest/neotest",
   after = "nvim-dap",
-  requires = {"vim-test/vim-test"},
-  run = ":UpdateRemotePlugins",
-  setup = require("config.ultest").setup,
-  config = require("config.ultest").config,
+  requires = {
+    "nvim-lua/plenary.nvim",
+    "nvim-treesitter/nvim-treesitter",
+    "antoinemadec/FixCursorHold.nvim",
+    -- language plugins
+    "nvim-neotest/neotest-python",
+  },
+  config = require("config.neotest").config,
 })
+-- packer.add({
+--   "rcarriga/vim-ultest",
+--   cmd = {"Ultest", "UltestNearest", "UltestDebugNearest", "UltestSummary", "UltestOutput", "UltestClear", "UltestStop"},
+--   after = "nvim-dap",
+--   requires = {"vim-test/vim-test"},
+--   run = ":UpdateRemotePlugins",
+--   setup = require("config.ultest").setup,
+--   config = require("config.ultest").config,
+-- })
 
 -- Debug
 packer.add({
