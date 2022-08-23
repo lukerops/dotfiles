@@ -9,8 +9,14 @@ vim.api.nvim_create_autocmd("TermOpen", {
 vim.api.nvim_create_autocmd({"BufEnter"}, {
   pattern = {"*.tf", "*.lua"},
   callback = function()
-    vim.bo.filetype = "terraform"
     vim.bo.shiftwidth = 2
+  end,
+})
+
+vim.api.nvim_create_autocmd({"BufEnter"}, {
+  pattern = {"*.tf"},
+  callback = function()
+    vim.bo.filetype = "terraform"
   end,
 })
 
