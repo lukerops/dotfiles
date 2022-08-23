@@ -68,3 +68,6 @@ utils.inoremap("<M-Up>", "<Esc>:m .-2<CR>==gi")
 utils.inoremap("<M-Down>", "<Esc>:m .+1<CR>==gi")
 utils.vnoremap("<M-Up>", ":m '<-2<CR>==gv")
 utils.vnoremap("<M-Down>", ":m '>+1<CR>==gv")
+
+local envs = require("utils.envs")
+envs.setup()
