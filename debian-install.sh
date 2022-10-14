@@ -67,63 +67,63 @@ EOF
   apt update
   apt full-upgrade -y
   apt install -y --no-install-suggests \
-		linux-image-amd64 \
-		linux-headers-amd64
+    linux-image-amd64 \
+    linux-headers-amd64
 }
 
 # Instala os pacotes básicos
 {
   apt install -y --no-install-suggests \
-		avahi-daemon \
-		rtkit \
-		curl \
-		wget \
-		bash-completion \
-		flatpak \
-		ntfs-3g \
-		p7zip-full \
-		p7zip-rar \
-		rar \
-		unrar-free \
-		zip \
-		unzip \
-		xdg-user-dirs \
-		xdg-utils \
-		sudo \
-		fuse3 \
-		xdg-desktop-portal \
-		fonts-noto \
-		fonts-roboto \
-		fonts-open-sans \
-		fonts-firacode \
-		fonts-jetbrains-mono \
-		fonts-hack \
-		fonts-font-awesome \
-		fonts-fork-awesome \
-		fonts-dejavu \
-		mesa-utils \
-		mesa-utils-extra \
-		network-manager \
-		network-manager-openvpn \
-		network-manager-openconnect \
-		plymouth \
-		plymouth-themes
-		
-	if [ $(uname -m) = 'x86_64' ]; then
-	  apt install -y --no-install-suggests \
-	    thermald
-	fi
-	
-	usermod -aG sudo $username
-	
-	# Gera as pastas básicas na home
-	sudo -u $username sh -c 'cd $HOME && xdg-user-dirs-update'
-	
-	# Habilita a ethernet no network manager
-	sed -i "s/managed=false/managed=true/g" /etc/NetworkManager/NetworkManager.conf
-	
-	# Habilita o flathub
-	flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+    avahi-daemon \
+    rtkit \
+    curl \
+    wget \
+    bash-completion \
+    flatpak \
+    ntfs-3g \
+    p7zip-full \
+    p7zip-rar \
+    rar \
+    unrar-free \
+    zip \
+    unzip \
+    xdg-user-dirs \
+    xdg-utils \
+    sudo \
+    fuse3 \
+    xdg-desktop-portal \
+    fonts-noto \
+    fonts-roboto \
+    fonts-open-sans \
+    fonts-firacode \
+    fonts-jetbrains-mono \
+    fonts-hack \
+    fonts-font-awesome \
+    fonts-fork-awesome \
+    fonts-dejavu \
+    mesa-utils \
+    mesa-utils-extra \
+    network-manager \
+    network-manager-openvpn \
+    network-manager-openconnect \
+    plymouth \
+    plymouth-themes
+
+  if [ $(uname -m) = 'x86_64' ]; then
+    apt install -y --no-install-suggests \
+      thermald
+  fi
+
+  usermod -aG sudo $username
+
+  # Gera as pastas básicas na home
+  sudo -u $username sh -c 'cd $HOME && xdg-user-dirs-update'
+
+  # Habilita a ethernet no network manager
+  sed -i "s/managed=false/managed=true/g" /etc/NetworkManager/NetworkManager.conf
+
+  # Habilita o flathub
+  flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 }
 
 # Instala o áudio
@@ -141,7 +141,7 @@ EOF
     echo 'Erro ao obter audio'
     exit 1
   fi
-  
+
   if [ $audio = 'pipewire' ]; then
     apt install -y --no-install-suggests \
       pipewire \
@@ -185,61 +185,61 @@ EOF
       waybar \
       wofi \
       mako-notifier
-      
-		# keychain
+
+    # keychain
   elif [ $interface = 'gnome' ]; then
     apt install -y --no-install-suggests \
-		  xserver-xorg \
-		  xserver-xorg-video-all \
-		  xwayland \
-		  xdg-user-dirs-gtk \
-		  xdg-desktop-portal-gnome \
-		  desktop-file-utils \
-		  network-manager-gnome \
-		  network-manager-openvpn-gnome \
-		  network-manager-openconnect-gnome \
-		  desktop-base \
-		  power-profiles-daemon \
-		  gnome-shell \
-		  gnome-session \
-		  gdm3 \
-		  gnome-keyring \
-		  libpam-gnome-keyring \
-		  gnome-online-accounts \
-		  gnome-control-center \
-		  libcanberra-pulse \
-		  gnome-themes-standard \
-		  gnome-icon-theme \
-		  gnome-backgrounds \
-		  gnome-initial-setup \
-		  gnome-disk-utility \
-		  gnome-power-manager \
-		  gnome-color-manager \
-		  gnome-terminal \
-		  nautilus \
-		  nautilus-extension-gnome-terminal \
-		  gnome-sushi \
-		  file-roller \
-		  gnome-maps \
-		  gnome-font-viewer \
-		  gnome-extensions-app \
-		  gnome-clocks \
-		  gnome-calendar \
-		  gnome-calculator \
-		  gnome-screenshot \
-		  gnome-weather \
-		  gnome-tweaks \
-		  gnome-system-monitor \
-		  evince \
-		  celluloid \
-		  eog \
-		  gnome-shell-extension-desktop-icons-ng \
-		  gnome-shell-extension-dashtodock \
-		  gnome-shell-extension-sound-device-chooser \
-		  gnome-shell-extension-appindicator \
-		  libayatana-appindicator3-1 \
-		  adwaita-qt \
-		  adwaita-icon-theme
+      xserver-xorg \
+      xserver-xorg-video-all \
+      xwayland \
+      xdg-user-dirs-gtk \
+      xdg-desktop-portal-gnome \
+      desktop-file-utils \
+      network-manager-gnome \
+      network-manager-openvpn-gnome \
+      network-manager-openconnect-gnome \
+      desktop-base \
+      power-profiles-daemon \
+      gnome-shell \
+      gnome-session \
+      gdm3 \
+      gnome-keyring \
+      libpam-gnome-keyring \
+      gnome-online-accounts \
+      gnome-control-center \
+      libcanberra-pulse \
+      gnome-themes-standard \
+      gnome-icon-theme \
+      gnome-backgrounds \
+      gnome-initial-setup \
+      gnome-disk-utility \
+      gnome-power-manager \
+      gnome-color-manager \
+      gnome-terminal \
+      nautilus \
+      nautilus-extension-gnome-terminal \
+      gnome-sushi \
+      file-roller \
+      gnome-maps \
+      gnome-font-viewer \
+      gnome-extensions-app \
+      gnome-clocks \
+      gnome-calendar \
+      gnome-calculator \
+      gnome-screenshot \
+      gnome-weather \
+      gnome-tweaks \
+      gnome-system-monitor \
+      evince \
+      celluloid \
+      eog \
+      gnome-shell-extension-desktop-icons-ng \
+      gnome-shell-extension-dashtodock \
+      gnome-shell-extension-sound-device-chooser \
+      gnome-shell-extension-appindicator \
+      libayatana-appindicator3-1 \
+      adwaita-qt \
+      adwaita-icon-theme
   fi
 }
 
@@ -256,19 +256,26 @@ EOF
   if [ $status = 0 ]; then
     apt install -y --no-install-suggests --no-install-recommends \
       bluetooth \
-		  bluez-obexd \
-		  bluez-tools
-    
+      bluez-obexd \
+      bluez-tools
+
     if [ $audio = 'pipewire' ]; then
       apt install -y --no-install-suggests --no-install-recommends \
         libspa-0.2-bluetooth
     fi
-    
+
     if [ $interface = 'gnome' ]; then
       apt install -y --no-install-suggests --no-install-recommends \
         gnome-bluetooth
     fi
   fi
+}
+
+# Instala Utilitários Básicos
+{
+  apt install -y --no-install-suggests --no-install-recommends \
+    neovim \
+    kitty
 }
 
 # Instala Utilitários
@@ -290,28 +297,28 @@ EOF
   for util in $utilities; do
     if [ $util = 'stone-notebook' ]; then
       apt install -y --no-install-suggests \
-		    intel-microcode \
-		    iucode-tool \
-		    firmware-iwlwifi \
-		    mesa-vulkan-drivers \
-		    mesa-va-drivers
-		  
-		  if [ $interface = 'gnome' ]; then
-		    apt install -y --no-install-suggests \
-		      gnome-firmware
-		  fi
+        intel-microcode \
+        iucode-tool \
+        firmware-iwlwifi \
+        mesa-vulkan-drivers \
+        mesa-va-drivers
+
+      if [ $interface = 'gnome' ]; then
+        apt install -y --no-install-suggests \
+          gnome-firmware
+      fi
     fi
-    
+
     if [ $util = 'firefox' ]; then
       apt install -y --no-install-suggests \
         firefox \
         firefox-l10n-pt-br
     fi
-    
+
     if [ $util = 'firefox-flatpak' ]; then
       flatpak install -y flathub org.mozilla.firefox
     fi
-    
+
     if [ $util = 'google-chrome' ]; then
       if [ $(uname -m) != 'x86_64' ]; then
         whiptail \
@@ -320,21 +327,21 @@ EOF
           8 60 \
           3>&1 1>&2 2>&3
       fi
-      
+
       wget -O /tmp/google-chrome.deb 'https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb'
       apt install /tmp/google-chrome.deb
       rm /tmp/google-chrome.deb
     fi
-    
+
     if [ $util = 'google-chrome-flatpak' ]; then
       flatpak install -y flathub com.google.Chrome
     fi
-    
+
     if [ $util = 'mpv' ]; then
       apt install -y --no-install-suggests \
         mpv
     fi
-    
+
     if [ $util = 'celluloid' ]; then
       flatpak install -y flathub io.github.celluloid_player.Celluloid
     fi
@@ -348,6 +355,6 @@ EOF
     --msgbox 'Parabens!! A instalacao foi concluida com sucesso' \
     8 60 \
     3>&1 1>&2 2>&3
-  
+
   systemctl reboot
 }
