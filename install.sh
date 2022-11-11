@@ -4,8 +4,8 @@
 
 mkdir -p $HOME/.local/bin
 
-APPIMAGES=$HOME/.appimages
-mkdir -p $APPIMAGES
+#APPIMAGES=$HOME/.appimages
+#mkdir -p $APPIMAGES
 
 install_fonts() {
 	[ ! -d "$HOME/.local/share/fonts" ] && mkdir -p "$HOME/.local/share/fonts"
@@ -51,7 +51,7 @@ update_nvim() {
 
 install_nvim() {
 	# update_nvim $1
-	[ ! -d "$HOME/.config/nvim" ] && ln -s "`pwd`/.config/nvim" "$HOME/.config/nvim"
+	[ ! -d "$HOME/.config/nvim" ] && ln -s "`pwd`/nvim" "$HOME/.config/nvim"
 }
 
 install_lsp() {
