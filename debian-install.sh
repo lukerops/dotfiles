@@ -76,6 +76,8 @@ EOF
   apt install -y --no-install-suggests \
     avahi-daemon \
     rtkit \
+    rsync \
+    git \
     curl \
     wget \
     bash-completion \
@@ -91,6 +93,8 @@ EOF
     xdg-utils \
     sudo \
     fuse3 \
+    sshfs \
+    nfs-common \
     xdg-desktop-portal \
     fonts-noto \
     fonts-roboto \
@@ -102,7 +106,6 @@ EOF
     fonts-fork-awesome \
     fonts-dejavu \
     mesa-utils \
-    mesa-utils-extra \
     network-manager \
     network-manager-openvpn \
     network-manager-openconnect \
@@ -182,9 +185,12 @@ EOF
       sway-backgrounds \
       xwayland \
       xdg-desktop-portal-wlr \
-      waybar \
+      yambar \
       wofi \
-      mako-notifier
+      mako-notifier \
+      gdm3 \
+      nautilus \
+      gvfs-fuse
 
     # keychain
   elif [ $interface = 'gnome' ]; then
@@ -274,8 +280,7 @@ EOF
 # Instala Utilitários Básicos
 {
   apt install -y --no-install-suggests --no-install-recommends \
-    neovim \
-    kitty
+    foot
 }
 
 # Instala Utilitários
@@ -295,6 +300,8 @@ EOF
   )
 
   for util in $utilities; do
+    util=$(echo $util | sed 's/"//g')
+
     if [ $util = 'stone-notebook' ]; then
       apt install -y --no-install-suggests \
         intel-microcode \
@@ -311,8 +318,8 @@ EOF
 
     if [ $util = 'firefox' ]; then
       apt install -y --no-install-suggests \
-        firefox \
-        firefox-l10n-pt-br
+        firefox-esr \
+        firefox-esr-l10n-pt-br
     fi
 
     if [ $util = 'firefox-flatpak' ]; then
@@ -356,5 +363,5 @@ EOF
     8 60 \
     3>&1 1>&2 2>&3
 
-  systemctl reboot
+#  systemctl reboot
 }
