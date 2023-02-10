@@ -111,7 +111,12 @@ EOF
     network-manager-openconnect \
     firewalld \
     plymouth \
-    plymouth-themes
+    plymouth-themes \
+    podman \
+    fuse-overlayfs \
+    slirp4netns \
+    crun \
+    uidmap
 
   if [ $(uname -m) = 'x86_64' ]; then
     apt install -y --no-install-suggests \
