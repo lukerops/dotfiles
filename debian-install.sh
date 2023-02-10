@@ -109,6 +109,7 @@ EOF
     network-manager \
     network-manager-openvpn \
     network-manager-openconnect \
+    firewalld \
     plymouth \
     plymouth-themes
 
