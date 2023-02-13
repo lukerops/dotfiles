@@ -1,0 +1,212 @@
+particles-space: &particles-space 5
+icons-space: &icons-space 2
+
+bar:
+  # monitor: DP-1
+  height: 30
+  spacing: *particles-space
+  margin: 5
+  location: top
+  background: 00000077
+  font: "style=solid:size=13"
+
+  left:
+    - i3:
+        sort: ascending
+        content:
+          "":
+            map:
+              default:
+                string:
+                  text: "{name}"
+                  margin: 9
+                  on-click:
+                    left: swaymsg workspace {name}
+              conditions:
+                state == focused:
+                  string:
+                    text: "{name}"
+                    margin: 9
+                    deco:
+                      stack:
+                        - background:
+                            color: 33333377
+                        - underline:
+                            size: 2
+                            color: ffffffff
+    - label:
+        content:
+          string:
+            text: "|"
+
+    - i3:
+        content:
+          "":
+            empty: {}
+          current:
+            string:
+              text: "{title}"
+              max: 100
+    # - script:
+    #     path: /usr/bin/playerctl
+    #     args:
+    #       - "--follow"
+    #       - "metadata"
+    #       - "-f"
+    #       - |
+    #         status|string|{{status}}
+    #         artist|string|{{artist}}
+    #         title|string|{{title}}
+    #     content:
+    #       map:
+    #         conditions:
+    #           status == Paused:
+    #             empty: {}
+    #           status == Playing:
+    #             string:
+    #               text: "{artist} - {title}"
+    #               max: 50
+
+  # center:
+  #   - i3:
+  #       content:
+  #         "":
+  #           empty: {}
+  #         current:
+  #           string:
+  #             text: "{application}: {title}"
+  #             max: 100
+
+  right:
+    - label:
+        content:
+          string:
+            text: "|"
+    - cpu:
+        # interval: 2500
+        content:
+          map:
+            conditions:
+              id < 0:
+                - list:
+                    spacing: *icons-space
+                    items:
+                      - string:
+                          text: 
+                      - string:
+                          text: "{cpu}%"
+    - script:
+        path: /home/lucas/.config/yambar/scripts/cpu_temp.sh
+        poll-interval: 2
+        content:
+          list:
+            spacing: *icons-space
+            items:
+              - string:
+                  text: 
+              - string:
+                  text: "{temp}°C"
+    - label:
+        content:
+          string:
+            text: "|"
+    - backlight:
+        name: intel_backlight
+        content:
+          list:
+            spacing: *icons-space
+            items:
+              - string:
+                  text: ☀
+                  font: "style=solid:size=18"
+              - string:
+                  text: "{percent}%"
+    - label:
+        content:
+          string:
+            text: "|"
+    - battery:
+        name: BAT0
+        poll-interval: 60
+        anchors:
+          battery-capacity: &battery-capacity
+            spacing: *icons-space
+            items:
+              - ramp:
+                  tag: capacity
+                  items:
+                    - string:
+                        text: 
+                    - string:
+                        text: 
+                    - string:
+                        text: 
+                    - string:
+                        text: 
+                    - string:
+                        text: 
+              - string:
+                  text: "{capacity}%"
+        content:
+          map:
+            default: &default-battery-icons
+              list:
+                spacing: *particles-space
+                  # foreground: 000000ff
+                  # margin: 10
+                  # deco:
+                  #   background:
+                  #     color: ffffffff
+                items:
+                  - list: *battery-capacity
+                  - string:
+                      text: "{estimate}"
+            conditions:
+              state == unknow:
+                <<: *default-battery-icons
+              state == discharging:
+                <<: *default-battery-icons
+              state == charging:
+                list:
+                  spacing: *particles-space
+                    # foreground: 000000ff
+                    # margin: 10
+                    # deco:
+                    #   background:
+                    #     color: ffffffff
+                  items:
+                    - string:
+                        text: 
+                    - list: *battery-capacity
+                    - string:
+                        text: "{estimate}"
+              state == full:
+                list:
+                  <<: *battery-capacity
+              state == "not charging":
+                list:
+                  <<: *battery-capacity
+    - label:
+        content:
+          string:
+            text: "|"
+    - clock:
+        time-format: "%H:%M"
+        content:
+          list:
+            spacing: *particles-space
+            items:
+              - list:
+                  spacing: *icons-space
+                  items:
+                    - string:
+                        text: 
+                    - string:
+                        text: "{time}"
+              - list:
+                  spacing: *icons-space
+                  items:
+                    - string: 
+                        text: 
+                    - string:
+                        text: "{date}"
