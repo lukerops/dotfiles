@@ -195,6 +195,8 @@ EOF
       yambar \
       wofi \
       mako-notifier \
+      notification-daemon \
+      libnotify-bin \
       gdm3 \
       nautilus \
       gvfs-fuse \
