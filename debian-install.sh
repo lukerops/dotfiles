@@ -116,7 +116,8 @@ EOF
     fuse-overlayfs \
     slirp4netns \
     crun \
-    uidmap
+    uidmap \
+    wl-clipboard
 
   if [ $(uname -m) = 'x86_64' ]; then
     apt install -y --no-install-suggests \
@@ -196,7 +197,14 @@ EOF
       mako-notifier \
       gdm3 \
       nautilus \
-      gvfs-fuse
+      gvfs-fuse \
+      keychain \
+      pulseaudio-utils \
+      brightnessctl \
+      playerctl \
+      wob
+
+    sudo -u $username bash -c "echo -e '/usr/bin/keychain \$HOME/.ssh/id_ed25519\nsource \$HOME/.keychain/\$HOSTNAME-sh' > \$HOME/.bashrc"
 
     # keychain
   elif [ $interface = 'gnome' ]; then
