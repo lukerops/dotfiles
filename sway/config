@@ -83,7 +83,7 @@ input type:touchpad {
     tap                 enabled
     scroll_method       two_finger
     tap_button_map      lrm
-    natural_scroll      enabled
+    natural_scroll      disabled
     middle_emulation    enabled
 }
 
