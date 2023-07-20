@@ -9,7 +9,7 @@
 
   exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
   exec hash dbus-update-activation-environment 2>/dev/null && \
-         dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP
+        dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP
 
 
 ##----------------
@@ -63,42 +63,42 @@ bindswitch --reload --locked lid:off exec 'swaymsg output $laptop enable'
 # bindswitch --reload --locked lid:on exec 'swaymsg output $laptop disable; pkill --signal SIGTERM yambar; yambar'
 # bindswitch --reload --locked lid:off exec 'swaymsg output $laptop enable; pkill --signal SIGTERM yambar; yambar'
 
-  output eDP-1 {
+output eDP-1 {
     resolution 1920x1080@60Hz
     position 0,0
     scale 1
-  }
+}
 
-  output DP-1 {
+output DP-1 {
     resolution 1920x1080@75Hz
     position 1920,0
     scale 1
-  }
+}
 
 
 ##----------------
 ## Input Config
-  input type:touchpad {
+input type:touchpad {
     dwt                 enabled
     tap                 enabled
     scroll_method       two_finger
     tap_button_map      lrm
     natural_scroll      enabled
     middle_emulation    enabled
-  }
+}
 
-  input "1:1:AT_Translated_Set_2_keyboard" {
+input "1:1:AT_Translated_Set_2_keyboard" {
     xkb_layout  br
     xkb_variant abnt2
     xkb_model   abnt2
-  }
+}
 
-  input "1133:16522:Logitech_MX_Keys" {
+input "1133:16522:Logitech_MX_Keys" {
     xkb_layout  us
     xkb_variant intl
     xkb_model   intl
     xkb_numlock enable
-  }
+}
 
 
 ##---------------
