@@ -104,8 +104,8 @@ bindswitch --reload --locked lid:off exec 'swaymsg output $laptop enable'
 ##---------------
 ## Wallpaper
   # Sway Default
-  # output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
-  output * bg /home/lucas/Imagens/9dy0gvxq7fl61.png fill
+  output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+  # output * bg /home/lucas/Imagens/9dy0gvxq7fl61.png fill
 
 
 ##---------------
