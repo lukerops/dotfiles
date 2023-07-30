@@ -33,7 +33,7 @@ exec mako
 
 ##----------------
 ## Application Menu
-  set $menu wofi --show drun | xargs swaymsg exec --
+  set $menu tofi-drun | xargs swaymsg exec --
 
 
 ##----------------
@@ -261,10 +261,10 @@ input "1133:16522:Logitech_MX_Keys" {
   bindsym $mod+r mode "resize"
 
 ## Power Manager
-  bindsym $mod+Shift+p exec systemctl $(echo -n 'poweroff\nreboot\nsuspend' | wofi --show dmenu --prompt 'Power Management' --insensitive)
+  bindsym $mod+Shift+p exec systemctl $(echo -n 'poweroff\nreboot\nsuspend' | tofi --prompt-text 'Power Management:')
 
 ## Bluetooth
-  bindsym $mod+Shift+b exec bluetoothctl connect $(bluetoothctl devices | grep "$(bluetoothctl devices | awk '{print $2}' | while read uuid; do bluetoothctl info $uuid; done | grep 'Name:' | sed 's/[ \t]*Name: //g' | wofi --show dmenu --prompt 'Bluetooth Devices' --insensitive)" | awk '{ print $2 }')
+  bindsym $mod+Shift+b exec bluetoothctl connect $(bluetoothctl devices | grep "$(bluetoothctl devices | awk '{print $2}' | while read uuid; do bluetoothctl info $uuid; done | grep 'Name:' | sed 's/[ \t]*Name: //g' | tofi --prompt-text 'Bluetooth Devices:')" | awk '{ print $2 }')
 
 ## PrintScreen
   bindsym Print                 exec grimshot --notify save screen
