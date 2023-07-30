@@ -58,10 +58,8 @@ exec mako
 ##----------------
 ## Output Config
 set $laptop eDP-1
-bindswitch --reload --locked lid:on exec 'swaymsg output $laptop disable'
-bindswitch --reload --locked lid:off exec 'swaymsg output $laptop enable'
-# bindswitch --reload --locked lid:on exec 'swaymsg output $laptop disable; pkill --signal SIGTERM yambar; yambar'
-# bindswitch --reload --locked lid:off exec 'swaymsg output $laptop enable; pkill --signal SIGTERM yambar; yambar'
+bindswitch --reload --locked lid:on exec 'swaymsg output $laptop disable; pkill --signal SIGTERM yambar; yambar'
+bindswitch --reload --locked lid:off exec 'swaymsg output $laptop enable; pkill --signal SIGTERM yambar; yambar'
 
 output eDP-1 {
     resolution 1920x1080@60Hz
@@ -112,24 +110,11 @@ input "1133:16522:Logitech_MX_Keys" {
 ## Bar
   # bar swaybar_command waybar
   # bar swaybar_command yambar
-  # exec_always {
-  #   pkill --signal SIGTERM yambar
-  #   yambar
-  # }
+  exec_always {
+    pkill --signal SIGTERM yambar
+    yambar
+  }
 
-bar {
-    position top
-
-    # When the status_command prints a new line to stdout, swaybar updates.
-    # The default just shows the current date and time.
-    status_command while date +'%Y-%m-%d %I:%M:%S %p'; do sleep 1; done
-
-    colors {
-        statusline #ffffff
-        background #323232
-        inactive_workspace #32323200 #32323200 #5c5c5c
-    }
-}
 
 
 ##---------------
