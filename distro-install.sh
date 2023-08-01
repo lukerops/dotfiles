@@ -1,5 +1,7 @@
 #!/bin/sh
 
+UBUNTU_VERSION='lunar'
+UBUNTU_CODENAME=$(cat /etc/os-release | grep UBUNTU_CODENAME | cut -d '=' -f2)
 LOGGER_NAME='distro-install'
 
 distro_error() {
@@ -85,7 +87,8 @@ install_basic_tools() {
     plymouth-themes \
     wl-clipboard \
     ca-certificates \
-    btop
+    btop \
+    ufw
 
   if [ $(uname -m) = 'x86_64' ]; then
     apt install -y --no-install-suggests \
@@ -128,23 +131,20 @@ install_sway() {
     sway-backgrounds \
     xwayland \
     xdg-desktop-portal-wlr \
-    wofi \
-    mako-notifier \
     notification-daemon \
     libnotify-bin \
-    gdm3 \
-    nautilus \
-    keychain \
     pulseaudio-utils \
     brightnessctl \
     brightness-udev \
     playerctl \
+    mako-notifier \
+    tofi \
     wob \
     grimshot \
     foot
 
   # configura o sway
-  sudo -u $1 sh -c 'mkdir $HOME.config'
+  sudo -u $1 sh -c 'mkdir $HOME/config'
   sudo -u $1 sh -c 'ln -s $(pwd)/sway $HOME/.config/sway'
   sudo -u $1 sh -c 'ln -s $(pwd)/yambar $HOME/.config/yambar'
   sudo -u $1 sh -c 'ln -s $(pwd)/foot $HOME/.config/foot'
@@ -214,18 +214,59 @@ install_wireless() {
     wpasupplicant
 }
 
-stone_laptop() {
+install_nix() {
+  nix-env -iA \
+    nixpkgs#ghq \
+    nixpkgs#sway-contrib.grimshot \
+    nixpkgs#mako \
+    nixpkgs#wob \
+    nixpkgs#wofi \
+    nixpkgs#yambar \
+    nixpkgs#nerdfonts \
+    nixpkgs#foot \
+    nixpkgs#act \
+    nixpkgs#k9s \
+    nixpkgs#lazygit \
+    nixpkgs#terramate \
+    nixpkgs#kustomize
+}
+
+stone_laptop_1() {
   if [ "$1" != 'Ubuntu' ]; then
     distro_error 'Ubuntu' $1
     exit 1
   fi
 
-  apt remove -y --auto-remove \
+  apt purge -y --auto-remove \
     pulseaudio* \
     ubuntu-desktop* \
+    ubuntu-standard \
+    cups* \
     gnome* \
     xterm \
     notification-daemon
+
+  apt update
+  apt upgrade -y
+
+  # atualiza os repositórios do apt para a versão desejada
+  sed -i "s/$UBUNTU_CODENAME/$UBUNTU_VERSION/g" /etc/apt/sources.list
+
+  # atualiza o ubuntu
+  apt update
+  apt full-upgrade -y
+}
+
+stone_laptop_2() {
+  if [ "$1" != 'Ubuntu' ]; then
+    distro_error 'Ubuntu' $1
+    exit 1
+  fi
+
+  if [ "$UBUNTU_CODENAME" != "$UBUNTU_VERSION" ]; then
+    logger -st $LOGGER_NAME "A instalação só pode continuar na versão \"$UBUNTU_VERSION\" do Ubuntu (CODENAME \"$UBUNTU_CODENAME\")"
+    exit 1
+  fi
 
   install_basic_tools $2
   install_audio $2
@@ -287,8 +328,12 @@ if [ $(id "$username" | grep -c .) != 1 ]; then
 fi
 
 case "$pc" in
-  stone_laptop)
-    stone_laptop $distro $username
+  stone_laptop_1)
+    stone_laptop_1 $distro $username
+    ;;
+
+  stone_laptop_2)
+    stone_laptop_2 $distro $username
     ;;
 
   vostro5320)
