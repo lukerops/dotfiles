@@ -18,6 +18,8 @@
 # Notification Daemon
 exec mako
 
+# terminal server
+exec foot --server
 
 ##----------------
 ## Mod Key
@@ -28,7 +30,7 @@ exec mako
 
 ##----------------
 ## Terminal
-  set $term foot
+  set $term footclient
 
 
 ##----------------
