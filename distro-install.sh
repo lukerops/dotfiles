@@ -144,7 +144,7 @@ install_sway() {
     foot
 
   # configura o sway
-  sudo -u $1 sh -c 'mkdir $HOME/config'
+  sudo -u $1 sh -c 'mkdir $HOME/.config'
   sudo -u $1 sh -c 'ln -s $(pwd)/sway $HOME/.config/sway'
   sudo -u $1 sh -c 'ln -s $(pwd)/yambar $HOME/.config/yambar'
   sudo -u $1 sh -c 'ln -s $(pwd)/foot $HOME/.config/foot'
