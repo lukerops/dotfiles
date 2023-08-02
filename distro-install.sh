@@ -231,9 +231,9 @@ install_nix() {
     nixpkgs#kustomize
 }
 
-stone_laptop_1() {
-  if [ "$1" != 'Ubuntu' ]; then
-    distro_error 'Ubuntu' $1
+stone_laptop() {
+  if [ "$1" != 'ubuntu' ]; then
+    distro_error 'ubuntu' $1
     exit 1
   fi
 
@@ -258,8 +258,8 @@ stone_laptop_1() {
 }
 
 stone_laptop_2() {
-  if [ "$1" != 'Ubuntu' ]; then
-    distro_error 'Ubuntu' $1
+  if [ "$1" != 'ubuntu' ]; then
+    distro_error 'ubuntu' $1
     exit 1
   fi
 
@@ -284,8 +284,8 @@ stone_laptop_2() {
 }
 
 vostro5320() {
-  if [ "$1" != 'Debian' ]; then
-    distro_error 'Debian' $1
+  if [ "$1" != 'debian' ]; then
+    distro_error 'debian' $1
     exit 1
   fi
 
@@ -311,7 +311,7 @@ if [ -z "$1" ] || [ "$1" = '--help' ]; then
   exit 0
 fi
 
-distro=$(cat /etc/os-release | grep -P '^NAME="(.*)"' | sed -r 's/NAME="(.*)"/\1/g')
+distro=$(cat /etc/os-release | grep -P '^ID=(.*)' | sed -r 's/ID=(.*)/\1/g')
 username=$2
 pc=$1
 
