@@ -123,6 +123,15 @@ install_audio() {
     pipewire-pulse.service
 }
 
+install_container() {
+  apt install -y --no-install-suggests \
+    podman \
+    fuse-overlayfs \
+    slirp4netns \
+    crun \
+    uidmap
+}
+
 install_sway() {
   apt install -y --no-install-suggests --no-install-recommends \
     sway \
@@ -299,6 +308,73 @@ vostro5320() {
 
   flatpak install -y flathub \
     io.gitlab.librewolf-community
+}
+
+desktop_gaming() {
+  if [ "$1" != 'debian' ]; then
+    distro_error 'debian' $1
+    exit 1
+  fi
+
+  install_audio $2
+  install_container
+
+  dpkg --add-architecture i386
+  apt update
+
+  apt install -y --no-install-recommends --no-install-suggests \
+    nvidia-driver \
+    firmware-misc-nonfree \
+    steam-installer \
+    gamescope \
+    seatd \
+    cage
+
+  # habilita o uso do seatd
+  usermod -aG video $1
+  systemctl enable seatd
+
+  # habilita a nvidia no gamescope
+  sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="quiet/GRUB_CMDLINE_LINUX_DEFAULT="quiet nvidia-drm.modeset=1/g' /etc/default/grub
+  update-grub
+
+  # modifica configuração do sshd
+  cat <<EOF > /etc/ssh/sshd_config.d/00-security.conf
+# modifica a porta padrão de SSH porque vamos usar o rclone
+Port 2222
+
+# desabilita o login como root
+PermitRootLogin no
+
+# habilita o login somente como user lucas
+AllowUsers lucas
+
+# desabilita login usando senha
+AuthenticationMethods publickey
+PubkeyAuthentication yes
+PasswordAuthentication no
+PermitEmptyPasswords no
+
+# configura timeout
+ClientAliveInterval 300
+ClientAliveCountMax 10
+
+HostbasedAuthentication no
+IgnoreRhosts yes
+EOF
+  systemctl restart sshd.service
+
+  # configura o rsyncd
+  cat <<EOF > /etc/rsyncd.conf
+[storage]
+path = /mnt/storage
+comment = "Storage BTRFS raid1"
+read only = no
+use chroot = yes
+uid = lucas
+gid = lucas
+EOF
+  systemctl enable rsync.service
 }
 
 help_message() {
