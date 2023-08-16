@@ -40,9 +40,9 @@ exec foot --server
 
 ##----------------
 ## Generic Config
-  default_border pixel 2
-  gaps inner  5
-  gaps outer  0
+  default_border pixel 3
+  gaps inner 2
+  gaps outer 0
 
   # Activate smart borders (always)
   smart_borders on
