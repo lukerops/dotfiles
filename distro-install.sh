@@ -247,7 +247,12 @@ stone_laptop() {
     exit 1
   fi
 
+  for pkg in $(snap list | tail -n +2 | cut -d' ' -f1); do
+    snap remove --purge $pkg
+  done
+
   apt purge -y --auto-remove \
+    snapd* \
     pulseaudio* \
     ubuntu-desktop* \
     ubuntu-standard \
