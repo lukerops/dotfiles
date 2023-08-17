@@ -247,6 +247,7 @@ stone_laptop_1() {
     exit 1
   fi
 
+  # remove todos os pacotes instalados com o snap
   for pkg in $(snap list | tail -n +2 | cut -d' ' -f1); do
     snap remove --purge $pkg
   done
@@ -260,6 +261,16 @@ stone_laptop_1() {
     gnome* \
     xterm \
     notification-daemon | tee -a /home/$2/ubuntu-cleaned-packages.txt
+
+  # bloqueia o snapd de ser instalado novamente
+  cat <<EOF > /etc/apt/preferences.d/nosnap.pref
+# Para evitar que os pacotes de repositório acionem a instalação do snap,
+# este arquivo proíbe o snapd de ser instalado pelo APT.
+
+Package: snapd
+Pin: release a=*
+Pin-Priority: -10
+EOF
 
   apt update
   apt upgrade -y
