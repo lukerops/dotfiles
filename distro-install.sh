@@ -261,6 +261,9 @@ stone_laptop_1() {
     cups* \
     gnome* \
     xterm \
+    byobu \
+    zutty \
+    ubuntu-server* \
     notification-daemon | tee -a /home/$2/ubuntu-cleaned-packages.txt
 
   # bloqueia o snapd de ser instalado novamente
