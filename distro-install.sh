@@ -275,6 +275,9 @@ EOF
   apt update
   apt upgrade -y
 
+  # remove ppas que vieram habilitadas
+  rm /etc/apt/sources.list.d/deadsnakes-ubuntu-ppa-jammy.list /etc/apt/sources.list.d/emoraes25-ubuntu-cid-jammy.list
+
   # atualiza os repositórios do apt para a versão desejada
   sed -i "s/$UBUNTU_CODENAME/$UBUNTU_VERSION/g" /etc/apt/sources.list
 
