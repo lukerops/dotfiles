@@ -241,7 +241,7 @@ install_nix() {
     nixpkgs#kustomize
 }
 
-stone_laptop() {
+stone_laptop_1() {
   if [ "$1" != 'ubuntu' ]; then
     distro_error 'ubuntu' $1
     exit 1
