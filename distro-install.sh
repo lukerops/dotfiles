@@ -150,7 +150,8 @@ install_sway() {
     tofi \
     wob \
     grimshot \
-    foot
+    foot \
+    yambar
 
   # configura o sway
   sudo -u $1 sh -c 'mkdir $HOME/.config'
