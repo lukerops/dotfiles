@@ -254,7 +254,7 @@ stone_laptop() {
     cups* \
     gnome* \
     xterm \
-    notification-daemon
+    notification-daemon | tee -a /home/$2/ubuntu-cleaned-packages.txt
 
   apt update
   apt upgrade -y
