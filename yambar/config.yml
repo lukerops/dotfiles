@@ -47,25 +47,6 @@ bar:
             string:
               text: "{title}"
               max: 100
-    # - script:
-    #     path: /usr/bin/playerctl
-    #     args:
-    #       - "--follow"
-    #       - "metadata"
-    #       - "-f"
-    #       - |
-    #         status|string|{{status}}
-    #         artist|string|{{artist}}
-    #         title|string|{{title}}
-    #     content:
-    #       map:
-    #         conditions:
-    #           status == Paused:
-    #             empty: {}
-    #           status == Playing:
-    #             string:
-    #               text: "{artist} - {title}"
-    #               max: 50
 
   # center:
   #   - i3:
@@ -78,6 +59,26 @@ bar:
   #             max: 100
 
   right:
+    - script:
+        poll-interval: 500
+        path: /usr/bin/playerctl
+        args:
+          - "--follow"
+          - "metadata"
+          - "-f"
+          - |
+            status|string|{{status}}
+            artist|string|{{artist}}
+            title|string|{{title}}
+        content:
+          map:
+            conditions:
+              status == Paused:
+                empty: {}
+              status == Playing:
+                string:
+                  text: "{artist} - {title}"
+                  max: 50
     - label:
         content:
           string:
@@ -95,21 +96,21 @@ bar:
                           text: 
                       - string:
                           text: "{cpu}%"
-    - script:
-        path: /home/lucas/.config/yambar/scripts/cpu_temp.sh
-        poll-interval: 2
-        content:
-          list:
-            spacing: *icons-space
-            items:
-              - string:
-                  text: 
-              - string:
-                  text: "{temp}°C"
-    - label:
-        content:
-          string:
-            text: "|"
+    # - script:
+    #     path: /home/lucas/.config/yambar/scripts/cpu_temp.sh
+    #     poll-interval: 2
+    #     content:
+    #       list:
+    #         spacing: *icons-space
+    #         items:
+    #           - string:
+    #               text: 
+    #           - string:
+    #               text: "{temp}°C"
+    # - label:
+    #     content:
+    #       string:
+    #         text: "|"
     - backlight:
         name: intel_backlight
         content:
@@ -127,7 +128,7 @@ bar:
             text: "|"
     - battery:
         name: BAT0
-        poll-interval: 60
+        # poll-interval: 60
         anchors:
           battery-capacity: &battery-capacity
             spacing: *icons-space
