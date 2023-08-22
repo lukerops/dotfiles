@@ -79,6 +79,7 @@ install_basic_tools() {
     fonts-noto \
     fonts-roboto \
     fonts-open-sans \
+    fonts-font-awesome \
     fonts-dejavu \
     mesa-utils \
     network-manager \
