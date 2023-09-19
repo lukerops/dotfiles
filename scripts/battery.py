@@ -46,11 +46,14 @@ def save(rows):
 
 
 def main():
+    capacity = measure()
+    print('Capacity: {:.3f}%'.format(capacity['capacity']))
+
     rows = load()
     if date.today() in [row['date'] for row in rows]:
         return
 
-    rows.append(measure())
+    rows.append(capacity)
     save(rows)
 
 
