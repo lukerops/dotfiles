@@ -174,7 +174,6 @@ install_gnome() {
     xdg-desktop-portal-gnome \
     desktop-file-utils \
     network-manager-gnome \
-    network-manager-openvpn-gnome \
     desktop-base \
     power-profiles-daemon \
     gnome-shell \
@@ -185,7 +184,6 @@ install_gnome() {
     gnome-online-accounts \
     gnome-control-center \
     libcanberra-pulse \
-    gnome-themes-standard \
     gnome-icon-theme \
     gnome-backgrounds \
     gnome-initial-setup \
@@ -196,19 +194,51 @@ install_gnome() {
     gnome-screenshot \
     gnome-tweaks \
     gnome-system-monitor \
-    libayatana-appindicator3-1 \
-    adwaita-qt \
     adwaita-icon-theme
 
   flatpak install -y flathub \
-    org.gnome.TextEditor \
-    org.gnome.eog \
-    org.gnome.PowerStats \
-    org.gnome.FileRoller \
-    org.gnome.Evince \
-    org.gnome.Calculator \
+    app.drey.Damask \
+    app.drey.Dialect \
+    com.belmoussaoui.Authenticator \
+    com.bitwarden.desktop \
+    com.discordapp.Discord \
+    com.github.GradienceTeam.Gradience \
+    com.github.hugolabe.Wike \
+    com.github.marhkb.Pods \
+    com.github.tchx84.Flatseal \
+    com.lakoliu.Furtherance \
+    com.mardojai.ForgeSparks \
+    com.mattjakeman.ExtensionManager \
+    com.rafaelmardojai.Blanket \
+    com.raggesilver.BlackBox \
+    de.philippun1.Snoop \
+    dev.geopjr.Collision \
+    io.github.alainm23.planify \
     io.github.celluloid_player.Celluloid \
-    com.raggesilver.BlackBox
+    io.github.diegoivanme.flowtime \
+    io.github.fsobolev.TimeSwitch \
+    io.github.giantpinkrobots.flatsweep \
+    io.github.realmazharhussain.GdmSettings \
+    io.github.vikdevelop.SaveDesktop \
+    io.gitlab.idevecore.Pomodoro \
+    io.gitlab.news_flash.NewsFlash \
+    io.gitlab.zehkira.Monophony \
+    org.gabmus.whatip \
+    org.gnome.Calculator \
+    org.gnome.Calendar \
+    org.gnome.Contacts \
+    org.gnome.Evince \
+    org.gnome.FileRoller \
+    org.gnome.Geary \
+    org.gnome.Logs \
+    org.gnome.Loupe \
+    org.gnome.PowerStats \
+    org.gnome.TextEditor \
+    org.gnome.World.PikaBackup \
+    org.gnome.baobab \
+    org.gnome.clocks \
+    org.gnome.font-viewer \
+    re.sonny.Junction \
 }
 
 install_bluetooth() {
