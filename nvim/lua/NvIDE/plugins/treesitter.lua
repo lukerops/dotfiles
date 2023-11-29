@@ -1,7 +1,9 @@
-local M = {}
-
-function M.config()
-  require("nvim-treesitter.configs").setup({
+return {
+  "nvim-treesitter/nvim-treesitter",
+  build = ":TSUpdate",
+  event = "BufReadPost",
+  dependencies = { "nvim-treesitter/nvim-treesitter-textobjects", "p00f/nvim-ts-rainbow", },
+  opts = {
     ensure_installed = {
       "go",
       "javascript",
@@ -16,9 +18,14 @@ function M.config()
       "query",
       "regex",
       "toml",
+      "hcl",
+      "terraform",
     },
     highlight = {
       enable = true,
+    },
+    indent = {
+      enable = true
     },
     -- incremental_selection = { enable = true },
     rainbow = {
@@ -29,7 +36,9 @@ function M.config()
       -- colors = {}, -- table of hex strings
       -- termcolors = {} -- table of colour name strings
     }
-  })
-end
-
-return M
+  },
+  ---@param opts TSConfig
+  config = function(plugin, opts)
+    require("nvim-treesitter.configs").setup(opts)
+  end,
+}
