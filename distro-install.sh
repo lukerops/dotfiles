@@ -89,7 +89,8 @@ install_basic_tools() {
     wl-clipboard \
     ca-certificates \
     btop \
-    ufw
+    ufw \
+    tlp
 
   if [ $(uname -m) = 'x86_64' ]; then
     apt install -y --no-install-suggests \
@@ -166,6 +167,7 @@ install_sway() {
 }
 
 install_gnome() {
+  # power-profiles-daemon \
   apt install -y --no-install-suggests \
     xserver-xorg \
     xserver-xorg-video-all \
@@ -175,10 +177,10 @@ install_gnome() {
     desktop-file-utils \
     network-manager-gnome \
     desktop-base \
-    power-profiles-daemon \
     gnome-shell \
     gnome-session \
     gdm3 \
+    gjs \
     gnome-keyring \
     libpam-gnome-keyring \
     gnome-online-accounts \
@@ -194,7 +196,9 @@ install_gnome() {
     gnome-screenshot \
     gnome-tweaks \
     gnome-system-monitor \
-    adwaita-icon-theme
+    adwaita-icon-theme \
+    gnome-software \
+    gnome-software-plugin-flatpak
 
   flatpak install -y flathub \
     app.drey.Damask \
@@ -202,28 +206,16 @@ install_gnome() {
     com.belmoussaoui.Authenticator \
     com.bitwarden.desktop \
     com.discordapp.Discord \
-    com.github.GradienceTeam.Gradience \
-    com.github.hugolabe.Wike \
     com.github.marhkb.Pods \
-    com.github.tchx84.Flatseal \
-    com.lakoliu.Furtherance \
-    com.mardojai.ForgeSparks \
     com.mattjakeman.ExtensionManager \
     com.rafaelmardojai.Blanket \
     com.raggesilver.BlackBox \
-    de.philippun1.Snoop \
     dev.geopjr.Collision \
-    io.github.alainm23.planify \
     io.github.celluloid_player.Celluloid \
-    io.github.diegoivanme.flowtime \
-    io.github.fsobolev.TimeSwitch \
     io.github.giantpinkrobots.flatsweep \
-    io.github.realmazharhussain.GdmSettings \
-    io.github.vikdevelop.SaveDesktop \
     io.gitlab.idevecore.Pomodoro \
     io.gitlab.news_flash.NewsFlash \
     io.gitlab.zehkira.Monophony \
-    org.gabmus.whatip \
     org.gnome.Calculator \
     org.gnome.Calendar \
     org.gnome.Contacts \
@@ -234,11 +226,10 @@ install_gnome() {
     org.gnome.Loupe \
     org.gnome.PowerStats \
     org.gnome.TextEditor \
-    org.gnome.World.PikaBackup \
     org.gnome.baobab \
     org.gnome.clocks \
     org.gnome.font-viewer \
-    re.sonny.Junction \
+    re.sonny.Junction
 }
 
 install_bluetooth() {
