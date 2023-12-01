@@ -54,12 +54,12 @@ return {
 
     cmp.setup.cmdline(":", {
       mapping = cmp.mapping.preset.cmdline(),
-      sources = {{ name = "cmdline" }}
+      sources = { { name = "cmdline" } }
     })
 
     cmp.setup.cmdline("/", {
       mapping = cmp.mapping.preset.cmdline(),
-      sources = {{ name = "buffer" }}
+      sources = { { name = "buffer" } }
     })
   end,
 }

@@ -27,14 +27,14 @@ vim.opt.cursorline = true
 vim.opt.signcolumn = "yes"
 
 -- fix tab width for some filetypes
-vim.api.nvim_create_autocmd({"BufEnter"}, {
+vim.api.nvim_create_autocmd({ "BufEnter" }, {
   pattern = { "*.tf", "*.lua" },
   callback = function()
     vim.bo.shiftwidth = 2
   end,
 })
 
-vim.api.nvim_create_autocmd({"BufEnter"}, {
+vim.api.nvim_create_autocmd({ "BufEnter" }, {
   pattern = { "*.norg" },
   callback = function()
     vim.opt.conceallevel = 2

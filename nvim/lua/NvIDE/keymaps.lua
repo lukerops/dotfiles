@@ -6,4 +6,4 @@ vim.keymap.set("v", "<M-Up>", ":m '<-2<CR>==gv", { noremap = true })
 vim.keymap.set("v", "<M-Down>", ":m '>+1<CR>==gv", { noremap = true })
 
 -- Adiciona suporte ao Lazygit
-vim.keymap.set("n", "<leader>go", function() require("lazy.util").float_term("lazygit") end, {desc = "Open Lazygit"})
+vim.keymap.set("n", "<leader>go", function() require("lazy.util").float_term("lazygit") end, { desc = "Open Lazygit" })

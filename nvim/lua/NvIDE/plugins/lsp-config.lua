@@ -19,11 +19,11 @@ return {
     lsp_zero.on_attach(function(client, bufnr)
       -- see :help lsp-zero-keybindings
       -- to learn the available actions
-      lsp_zero.default_keymaps({buffer = bufnr})
+      lsp_zero.default_keymaps({ buffer = bufnr })
     end)
 
     -- configura alguns LSPs com a configuração padrão
-    lsp_zero.setup_servers({"pylsp"})
+    lsp_zero.setup_servers({ "pylsp" })
 
     require("mason-lspconfig").setup({
       ensure_installed = { "lua_ls", },
