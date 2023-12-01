@@ -1,49 +1,23 @@
 return {
-  "VonHeikemen/lsp-zero.nvim",
-  branch = "v2.x",
+  "hrsh7th/nvim-cmp",
+  -- lazy = true,
+  event = "VeryLazy",
+  -- event = "InsertEnter",
   dependencies = {
-    -- LSP Support
-    "neovim/nvim-lspconfig",
-    {
-      "williamboman/mason.nvim",
-      build = ":MasonUpdate",
-      opts = {
-        ui = {
-          border = "rounded"
-        }
-      }
-    },
-    "williamboman/mason-lspconfig.nvim",
-    "ray-x/lsp_signature.nvim",
-
-    -- Autocompletion
-    "hrsh7th/nvim-cmp",
-    "hrsh7th/cmp-nvim-lsp",
-    "hrsh7th/cmp-buffer",
     "hrsh7th/cmp-path",
     "hrsh7th/cmp-cmdline",
+    -- "hrsh7th/cmp-buffer",
+    "saadparwaiz1/cmp_luasnip",
     "L3MON4D3/LuaSnip",
   },
   config = function(plugin, opts)
-    local lsp = require("lsp-zero").preset({
-      float_border = "rounded",
-      manage_nvim_cmp = {
-        documentation_window = true,
-      },
-    })
+    -- Here is where you configure the autocompletion settings.
+    local lsp_zero = require("lsp-zero")
+    lsp_zero.extend_cmp()
 
-    lsp.on_attach(function(client, bufnr)
-      lsp.default_keymaps({ buffer = bufnr })
-    end)
-
-    local lspconfig = require("lspconfig")
-    lspconfig.pylsp.setup({})
-
-    lsp.setup()
-
-    -- You need to setup `cmp` after lsp-zero
+    -- And you can configure cmp even more, if you want to.
     local cmp = require("cmp")
-    local cmp_action = require("lsp-zero").cmp_action()
+    local cmp_action = lsp_zero.cmp_action()
 
     cmp.setup({
       window = {
