@@ -5,7 +5,7 @@ return {
   config = true,
   dependencies = {
     "folke/trouble.nvim",
-    -- TODO: adicionar telescope
+    "nvim-telescope/telescope.nvim",
   },
   keys = {
     { "]t", function() require("todo-comments").jump_next() end, desc = "Next todo comment" },
