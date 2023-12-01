@@ -336,15 +336,15 @@ stone_laptop_2() {
   install_audio $2
   install_wireless
   install_bluetooth
-  install_sway $2
+  install_gnome $2
 
   flatpak install -y flathub \
     org.mozilla.firefox
 
   # disabilita a regra do apparmor para o mako
   # obs: isso é necessário para fazer o mako funcionar no ubuntu 22.04
-  apparmor_parser -R /etc/apparmor.d/fr.emersion.Mako
-  ln -s /etc/apparmor.d/fr.emersion.Mako /etc/apparmor.d/disable/
+  # apparmor_parser -R /etc/apparmor.d/fr.emersion.Mako
+  # ln -s /etc/apparmor.d/fr.emersion.Mako /etc/apparmor.d/disable/
 }
 
 vostro5320() {
