@@ -16,6 +16,13 @@ return {
     local lsp_zero = require("lsp-zero")
     lsp_zero.extend_lspconfig()
 
+    lsp_zero.set_sign_icons({
+      error = '',
+      warn = '',
+      hint = '',
+      info = ''
+    })
+
     lsp_zero.on_attach(function(client, bufnr)
       -- see :help lsp-zero-keybindings
       -- to learn the available actions
