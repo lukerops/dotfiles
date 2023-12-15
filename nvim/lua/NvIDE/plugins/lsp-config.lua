@@ -8,7 +8,7 @@ return {
     "ray-x/lsp_signature.nvim",
     "folke/neodev.nvim",
   },
-  config = function(plugin, opts)
+  config = function()
     -- IMPORTANT: make sure to setup neodev BEFORE lspconfig
     require("neodev").setup({})
 
@@ -23,14 +23,28 @@ return {
       info = ''
     })
 
-    lsp_zero.on_attach(function(client, bufnr)
+    lsp_zero.on_attach(function(_, bufnr)
       -- see :help lsp-zero-keybindings
       -- to learn the available actions
       lsp_zero.default_keymaps({ buffer = bufnr })
     end)
 
     -- configura alguns LSPs com a configuração padrão
-    lsp_zero.setup_servers({ "pylsp" })
+    -- lsp_zero.setup_servers({ "pylsp" })
+    lsp_zero.configure("pylsp", {
+      settings = {
+        pylsp = {
+          plugins = {
+            flake8 = {
+              maxLineLength = 120,
+            },
+            pycodestyle = {
+              maxLineLength = 120,
+            }
+          }
+        }
+      }
+    })
 
     require("mason-lspconfig").setup({
       ensure_installed = { "lua_ls", },
