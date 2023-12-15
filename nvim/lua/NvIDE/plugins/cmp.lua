@@ -7,10 +7,10 @@ return {
     "hrsh7th/cmp-path",
     "hrsh7th/cmp-cmdline",
     -- "hrsh7th/cmp-buffer",
-    "saadparwaiz1/cmp_luasnip",
-    "L3MON4D3/LuaSnip",
+    -- "saadparwaiz1/cmp_luasnip",
+    -- "L3MON4D3/LuaSnip",
   },
-  config = function(plugin, opts)
+  config = function()
     -- Here is where you configure the autocompletion settings.
     local lsp_zero = require("lsp-zero")
     lsp_zero.extend_cmp()

@@ -1,7 +1,8 @@
 return {
   "nvim-treesitter/nvim-treesitter",
   build = ":TSUpdate",
-  event = "BufReadPost",
+  -- event = "BufReadPost",
+  lazy = false,
   dependencies = { "nvim-treesitter/nvim-treesitter-textobjects", "p00f/nvim-ts-rainbow", },
   opts = {
     ensure_installed = {
@@ -38,7 +39,7 @@ return {
     }
   },
   ---@param opts TSConfig
-  config = function(plugin, opts)
+  config = function(_, opts)
     require("nvim-treesitter.configs").setup(opts)
   end,
 }
