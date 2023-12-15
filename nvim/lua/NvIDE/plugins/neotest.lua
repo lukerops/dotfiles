@@ -10,14 +10,14 @@ return {
     {
       "<leader>tf",
       function()
-        require("neotest").run.run({ vim.fn.expand("%") })
+        require("neotest").run.run({ vim.fn.expand("%"), env = require("dotenv").get_envs() })
       end,
       desc = "Run All Tests in the file",
     },
     {
       "<leader>tn",
       function()
-        require("neotest").run.run()
+        require("neotest").run.run({ env = require("dotenv").get_envs() })
       end,
       desc = "Run the nearest test",
     },
@@ -38,15 +38,15 @@ return {
     {
       "<leader>tdbg",
       function()
-        require("neotest").run.run({ strategy = "dap" })
+        require("neotest").run.run({ strategy = "dap", env = require("dotenv").get_envs() })
       end,
       desc = "Run the nearest test in debug",
     },
   },
-  config = function(plugin, opts)
+  config = function()
     require("neotest").setup({
       adapters = {
-        require("neotest-python")
+        require("neotest-python"),
       }
     })
   end,
