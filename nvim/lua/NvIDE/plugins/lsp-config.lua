@@ -17,10 +17,10 @@ return {
     lsp_zero.extend_lspconfig()
 
     lsp_zero.set_sign_icons({
-      error = '',
-      warn = '',
-      hint = '',
-      info = ''
+      error = '●',
+      warn = '●',
+      hint = '●',
+      info = '●'
     })
 
     lsp_zero.on_attach(function(_, bufnr)
