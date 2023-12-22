@@ -19,7 +19,7 @@
 exec mako
 
 # terminal server
-exec foot --server
+# exec foot --server
 
 ##----------------
 ## Mod Key
@@ -30,7 +30,8 @@ exec foot --server
 
 ##----------------
 ## Terminal
-  set $term footclient
+  # set $term footclient
+  set $term env -u WAYLAND_DISPLAY alacritty
 
 
 ##----------------
