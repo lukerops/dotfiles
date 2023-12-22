@@ -1,0 +1,19 @@
+# shell:
+#   program: /usr/bin/tmux
+window:
+  decorations: None
+  # startup_mode: Fullscreen
+  # padding:
+  #   x: 10
+  #   y: 10
+font:
+  normal:
+    family: JetBrainsMono Nerd Font
+    style: Bold
+  bold:
+    style: ExtraBold
+  italic:
+    style: Bold Italic
+  bold_italic:
+    style: ExtraBold Italic
+  size: 15
