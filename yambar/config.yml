@@ -20,8 +20,7 @@ bar:
                 string:
                   text: "{name}"
                   margin: 9
-                  on-click:
-                    left: swaymsg workspace {name}
+                  on-click: {left: "swaymsg workspace {name}"}
               conditions:
                 state == focused:
                   string:
@@ -29,11 +28,8 @@ bar:
                     margin: 9
                     deco:
                       stack:
-                        - background:
-                            color: 33333377
-                        - underline:
-                            size: 2
-                            color: ffffffff
+                        - background: {color: "33333377"}
+                        - underline: {size: 2, color: "ffffffff"}
     - label:
         content:
           string:
@@ -47,16 +43,6 @@ bar:
             string:
               text: "{title}"
               max: 100
-
-  # center:
-  #   - i3:
-  #       content:
-  #         "":
-  #           empty: {}
-  #         current:
-  #           string:
-  #             text: "{application}: {title}"
-  #             max: 100
 
   right:
     - script:
@@ -83,34 +69,33 @@ bar:
         content:
           string:
             text: "|"
-    - cpu:
-        # interval: 2500
+    - pipewire:
         content:
-          map:
-            conditions:
-              id < 0:
-                - list:
-                    spacing: *icons-space
-                    items:
-                      - string:
-                          text: 
-                      - string:
-                          text: "{cpu}%"
-    # - script:
-    #     path: /home/lucas/.config/yambar/scripts/cpu_temp.sh
-    #     poll-interval: 2
-    #     content:
-    #       list:
-    #         spacing: *icons-space
-    #         items:
-    #           - string:
-    #               text: 
-    #           - string:
-    #               text: "{temp}°C"
-    # - label:
-    #     content:
-    #       string:
-    #         text: "|"
+          list:
+            spacing: *icons-space
+            items:
+              - map:
+                  conditions:
+                    type == "sink":
+                      map:
+                        conditions:
+                          icon == "audio‐headset‐bluetooth":
+                            string: {text: "🎧"}
+                        default:
+                          - ramp:
+                              tag: cubic_volume
+                              items:
+                                - string: {text: "🔈"}
+                                - string: {text: "🔉"}
+                                - string: {text: "🔊"}
+                    type == "source":
+                      - string: {text: "🎙"}
+              - map:
+                  conditions:
+                    muted:
+                      string: {text: "{cubic_volume}%"}
+                    ~muted:
+                      string: {text: "{cubic_volume}%"}
     - backlight:
         name: intel_backlight
         content:
@@ -128,7 +113,6 @@ bar:
             text: "|"
     - battery:
         name: BAT0
-        # poll-interval: 60
         anchors:
           battery-capacity: &battery-capacity
             spacing: *icons-space
@@ -136,32 +120,20 @@ bar:
               - ramp:
                   tag: capacity
                   items:
-                    - string:
-                        text: 
-                    - string:
-                        text: 
-                    - string:
-                        text: 
-                    - string:
-                        text: 
-                    - string:
-                        text: 
-              - string:
-                  text: "{capacity}%"
+                    - string: {text: ""}
+                    - string: {text: ""}
+                    - string: {text: ""}
+                    - string: {text: ""}
+                    - string: {text: ""}
+              - string: {text: "{capacity}%"}
         content:
           map:
             default: &default-battery-icons
               list:
                 spacing: *particles-space
-                  # foreground: 000000ff
-                  # margin: 10
-                  # deco:
-                  #   background:
-                  #     color: ffffffff
                 items:
                   - list: *battery-capacity
-                  - string:
-                      text: "{estimate}"
+                  - string: {text: "{estimate}"}
             conditions:
               state == unknow:
                 <<: *default-battery-icons
@@ -170,17 +142,10 @@ bar:
               state == charging:
                 list:
                   spacing: *particles-space
-                    # foreground: 000000ff
-                    # margin: 10
-                    # deco:
-                    #   background:
-                    #     color: ffffffff
                   items:
-                    - string:
-                        text: 
+                    - string: {text: ""}
                     - list: *battery-capacity
-                    - string:
-                        text: "{estimate}"
+                    - string: {text: "{estimate}"}
               state == full:
                 list:
                   <<: *battery-capacity
@@ -200,14 +165,10 @@ bar:
               - list:
                   spacing: *icons-space
                   items:
-                    - string:
-                        text: 
-                    - string:
-                        text: "{time}"
+                    - string: {text: ""}
+                    - string: {text: "{time}"}
               - list:
                   spacing: *icons-space
                   items:
-                    - string: 
-                        text: 
-                    - string:
-                        text: "{date}"
+                    - string: {text: ""}
+                    - string: {text: "{date}"}
