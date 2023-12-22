@@ -1,18 +1,18 @@
 return {
   -- tokyonight
-  -- {
-  --   "folke/tokyonight.nvim",
-  --   -- opts = {
-  --   --   transparent = true,
-  --   --   styles = {
-  --   --     sidebars = "transparent",
-  --   --     floats = "transparent",
-  --   --   },
-  --   -- },
-  --   -- init = function()
-  --   --   vim.cmd.colorscheme("tokyonight")
-  --   -- end,
-  -- },
+  {
+    "folke/tokyonight.nvim",
+    -- opts = {
+    --   transparent = true,
+    --   styles = {
+    --     sidebars = "transparent",
+    --     floats = "transparent",
+    --   },
+    -- },
+    init = function()
+      vim.cmd.colorscheme("tokyonight")
+    end,
+  },
   -- {
   --   "navarasu/onedark.nvim",
   --   opts = {
@@ -28,17 +28,17 @@ return {
   --   --   vim.cmd.colorscheme("github_dark")
   --   -- end,
   -- },
-  {
-    "Mofiqul/vscode.nvim",
-    init = function()
-      require("vscode").load("dark")
-    end,
-  },
+  -- {
+  --   "Mofiqul/vscode.nvim",
+  --   init = function()
+  --     require("vscode").load("dark")
+  --   end,
+  -- },
   -- {
   --   "Mofiqul/dracula.nvim",
-  --   -- init = function()
-  --   --   vim.cmd.colorscheme("dracula")
-  --   -- end,
+  --   init = function()
+  --     vim.cmd.colorscheme("dracula")
+  --   end,
   -- },
   -- {
   --   "catppuccin/nvim",
