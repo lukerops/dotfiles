@@ -8,6 +8,31 @@ distro_error() {
   logger -st $LOGGER_NAME "Apenas a distro \"$1\" é suportada para esse computador (DISTRO \"$2\")"
 }
 
+github_latest_url() {
+    local repo=$1
+    local file=$2
+    curl -s https://api.github.com/repos/$repo/releases/latest | \
+        grep -o "browser_download_url.*$file" | \
+        cut -d : -f 2,3 | \
+        tr -d \" | \
+        head -1
+}
+
+download_and_extract_tar() {
+    local repo=$1
+    local git_file=$2
+    local file=$3
+
+    local url=$(github_latest_url $repo $git_file)
+
+    local tmp=$(mktemp)
+    wget -P $tmp $url
+    tar -zxv -C $HOME/.local/bin -f $tmp/$(ls $tmp) $file
+    rm -rf $tmp
+}
+
+# download_and_extract_tar 'charmbracelet/glow' 'glow_Linux_x86_64.tar.gz' glow
+
 configure_apt() {
   cat > /etc/apt/sources.list << EOF
 deb https://deb.debian.org/debian/ testing main contrib non-free non-free-firmware
