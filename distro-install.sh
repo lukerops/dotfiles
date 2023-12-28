@@ -108,7 +108,8 @@ install_basic_tools() {
   # habilita o flathub
   flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
   flatpak install -y flathub \
-    com.github.tchx84.Flatseal
+    com.github.tchx84.Flatseal \
+    io.github.hrkfdn.ncspot
 }
 
 install_audio() {
