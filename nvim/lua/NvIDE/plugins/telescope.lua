@@ -3,7 +3,7 @@ return {
   cmd = "Telescope",
   -- event = "VeryLazy",
   lazy = true,
-  tag = "0.1.2",
+  tag = "0.1.5",
   dependencies = { "nvim-lua/plenary.nvim", "nvim-tree/nvim-web-devicons", },
   keys = {
     { "<leader>/",  "<cmd>Telescope live_grep<cr>",       desc = "Find in Files (Grep)" },
