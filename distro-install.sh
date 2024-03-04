@@ -224,7 +224,8 @@ install_gnome() {
     gnome-system-monitor \
     adwaita-icon-theme \
     gnome-software \
-    gnome-software-plugin-flatpak
+    gnome-software-plugin-flatpak \
+    power-profiles-daemon
 
   flatpak install -y flathub \
     app.drey.Damask \
