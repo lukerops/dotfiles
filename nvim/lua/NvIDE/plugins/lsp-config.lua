@@ -32,6 +32,7 @@ return {
     -- configura alguns LSPs com a configuração padrão
     -- lsp_zero.setup_servers({ "pylsp" })
     lsp_zero.configure("pylsp", {
+      on_init = require('python').on_init,
       settings = {
         pylsp = {
           plugins = {
