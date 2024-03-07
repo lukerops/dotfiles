@@ -183,10 +183,10 @@ install_sway() {
 
   # configura o sway
   sudo -u $1 sh -c 'mkdir $HOME/.config'
-  sudo -u $1 sh -c 'ln -s $(pwd)/sway $HOME/.config/sway'
-  sudo -u $1 sh -c 'ln -s $(pwd)/yambar $HOME/.config/yambar'
-  sudo -u $1 sh -c 'ln -s $(pwd)/foot $HOME/.config/foot'
-  sudo -u $1 sh -c 'ln -s $(pwd)/tofi $HOME/.config/tofi'
+  sudo -u $1 sh -c 'ln -s $(pwd)/xdg-config/sway $HOME/.config/sway'
+  sudo -u $1 sh -c 'ln -s $(pwd)/xdg-config/yambar $HOME/.config/yambar'
+  sudo -u $1 sh -c 'ln -s $(pwd)/xdg-config/foot $HOME/.config/foot'
+  sudo -u $1 sh -c 'ln -s $(pwd)/xdg-config/tofi $HOME/.config/tofi'
 
   # habilita o uso do brightnessctl sem sudo
   usermod -aG video $1
