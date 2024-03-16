@@ -113,9 +113,7 @@ install_basic_tools() {
     plymouth-themes \
     wl-clipboard \
     ca-certificates \
-    btop \
-    ufw \
-    tlp
+    btop
 
   if [ $(uname -m) = 'x86_64' ]; then
     apt install -y --no-install-suggests \
@@ -133,8 +131,7 @@ install_basic_tools() {
   # habilita o flathub
   flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
   flatpak install -y flathub \
-    com.github.tchx84.Flatseal \
-    io.github.hrkfdn.ncspot
+    com.github.tchx84.Flatseal
 }
 
 install_audio() {
@@ -232,17 +229,11 @@ install_gnome() {
     app.drey.Dialect \
     com.belmoussaoui.Authenticator \
     com.bitwarden.desktop \
-    com.discordapp.Discord \
     com.github.marhkb.Pods \
     com.mattjakeman.ExtensionManager \
-    com.rafaelmardojai.Blanket \
     com.raggesilver.BlackBox \
     dev.geopjr.Collision \
     io.github.celluloid_player.Celluloid \
-    io.github.giantpinkrobots.flatsweep \
-    io.gitlab.idevecore.Pomodoro \
-    io.gitlab.news_flash.NewsFlash \
-    io.gitlab.zehkira.Monophony \
     org.gnome.Calculator \
     org.gnome.Calendar \
     org.gnome.Contacts \
@@ -255,8 +246,7 @@ install_gnome() {
     org.gnome.TextEditor \
     org.gnome.baobab \
     org.gnome.clocks \
-    org.gnome.font-viewer \
-    re.sonny.Junction
+    org.gnome.font-viewer
 }
 
 install_bluetooth() {
@@ -371,12 +361,13 @@ vostro5320() {
     exit 1
   fi
 
-  configure_apt
+  # configure_apt
   install_basic_tools $2
   install_audio $2
   install_wireless
   install_bluetooth
-  install_sway $2
+  install_gnome $2
+  install_container
 
   flatpak install -y flathub \
     io.gitlab.librewolf-community
