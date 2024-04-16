@@ -48,7 +48,7 @@ return {
     })
 
     require("mason-lspconfig").setup({
-      ensure_installed = { "lua_ls", 'pylsp' },
+      ensure_installed = { "lua_ls", "pylsp", "gopls", "terraformls" },
       handlers = {
         lsp_zero.default_setup,
       }
