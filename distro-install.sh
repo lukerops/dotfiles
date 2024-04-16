@@ -176,14 +176,18 @@ install_sway() {
     wob \
     grimshot \
     foot \
-    yambar
+    yambar \
+    imv \
+    lf
 
   # configura o sway
-  sudo -u $1 sh -c 'mkdir $HOME/.config'
-  sudo -u $1 sh -c 'ln -s $(pwd)/xdg-config/sway $HOME/.config/sway'
-  sudo -u $1 sh -c 'ln -s $(pwd)/xdg-config/yambar $HOME/.config/yambar'
-  sudo -u $1 sh -c 'ln -s $(pwd)/xdg-config/foot $HOME/.config/foot'
-  sudo -u $1 sh -c 'ln -s $(pwd)/xdg-config/tofi $HOME/.config/tofi'
+  sudo -u $1 sh <<'  EOL'
+    mkdir $HOME/.config
+    ln -s $(pwd)/xdg-config/sway $HOME/.config/sway'
+    ln -s $(pwd)/xdg-config/yambar $HOME/.config/yambar'
+    ln -s $(pwd)/xdg-config/foot $HOME/.config/foot'
+    ln -s $(pwd)/xdg-config/tofi $HOME/.config/tofi'
+  EOL
 
   # habilita o uso do brightnessctl sem sudo
   usermod -aG video $1
@@ -344,7 +348,7 @@ stone_laptop_2() {
   install_audio $2
   install_wireless
   install_bluetooth
-  install_gnome $2
+  install_sway $2
 
   flatpak install -y flathub \
     org.mozilla.firefox
