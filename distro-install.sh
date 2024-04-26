@@ -194,7 +194,6 @@ install_sway() {
 }
 
 install_gnome() {
-  # power-profiles-daemon \
   apt install -y --no-install-suggests \
     xserver-xorg \
     xserver-xorg-video-all \
@@ -233,7 +232,6 @@ install_gnome() {
     app.drey.Dialect \
     com.belmoussaoui.Authenticator \
     com.bitwarden.desktop \
-    com.github.marhkb.Pods \
     com.mattjakeman.ExtensionManager \
     com.raggesilver.BlackBox \
     dev.geopjr.Collision \
@@ -348,7 +346,7 @@ stone_laptop_2() {
   install_audio $2
   install_wireless
   install_bluetooth
-  install_sway $2
+  install_gnome $2
 
   flatpak install -y flathub \
     org.mozilla.firefox
