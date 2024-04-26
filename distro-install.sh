@@ -1,6 +1,6 @@
 #!/bin/sh
 
-UBUNTU_VERSION='mantic'
+UBUNTU_VERSION='noble'
 UBUNTU_CODENAME=$(cat /etc/os-release | grep UBUNTU_CODENAME | cut -d '=' -f2)
 LOGGER_NAME='distro-install'
 
