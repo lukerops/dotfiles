@@ -183,10 +183,10 @@ install_sway() {
   # configura o sway
   sudo -u $1 sh <<'  EOL'
     mkdir $HOME/.config
-    ln -s $(pwd)/xdg-config/sway $HOME/.config/sway'
-    ln -s $(pwd)/xdg-config/yambar $HOME/.config/yambar'
-    ln -s $(pwd)/xdg-config/foot $HOME/.config/foot'
-    ln -s $(pwd)/xdg-config/tofi $HOME/.config/tofi'
+    ln -s $(pwd)/xdg-config/sway $HOME/.config/sway
+    ln -s $(pwd)/xdg-config/yambar $HOME/.config/yambar
+    ln -s $(pwd)/xdg-config/foot $HOME/.config/foot
+    ln -s $(pwd)/xdg-config/tofi $HOME/.config/tofi
   EOL
 
   # habilita o uso do brightnessctl sem sudo
