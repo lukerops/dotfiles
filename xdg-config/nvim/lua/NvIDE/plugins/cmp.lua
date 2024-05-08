@@ -16,6 +16,7 @@ return {
         },
       },
     },
+    "onsails/lspkind.nvim",
   },
   config = function()
     -- Here is where you configure the autocompletion settings.
@@ -61,15 +62,15 @@ return {
           require('luasnip').lsp_expand(args.body)
         end,
       },
-      -- formatting = {
-      --   fields = { "kind", "abbr", "menu" },
-      --   format = function(_, item)
-      --     local icons = require("nvide.core.ui.icons").kinds
-      --     item.menu = item.kind
-      --     item.kind = icons[item.kind]
-      --     return item
-      --   end,
-      -- },
+      formatting = {
+        fields = { 'abbr', 'kind', 'menu' },
+        format = require('lspkind').cmp_format({
+          mode = 'symbol_text',     -- show only symbol annotations
+          maxwidth = 50,            -- prevent the popup from showing more than provided characters
+          ellipsis_char = '...',    -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead
+          show_labelDetails = true, -- show labelDetails in menu. Disabled by default
+        })
+      },
     })
 
     cmp.setup.cmdline(":", {
