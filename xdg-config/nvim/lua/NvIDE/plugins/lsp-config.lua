@@ -32,7 +32,7 @@ return {
     -- configura alguns LSPs com a configuração padrão
     -- lsp_zero.setup_servers({ "pylsp" })
     lsp_zero.configure("pylsp", {
-      on_init = require('python').on_init,
+      -- on_init = require('python').on_init,
       settings = {
         pylsp = {
           plugins = {
@@ -48,7 +48,7 @@ return {
     })
 
     require("mason-lspconfig").setup({
-      ensure_installed = { "lua_ls", "pylsp", "gopls", "terraformls" },
+      ensure_installed = { "lua_ls", "gopls", "terraformls" },
       handlers = {
         lsp_zero.default_setup,
       }
