@@ -17,6 +17,11 @@ return {
       },
     },
     "onsails/lspkind.nvim",
+    {
+      "zbirenbaum/copilot-cmp",
+      dependencies = { "zbirenbaum/copilot.lua" },
+      config = true,
+    },
   },
   config = function()
     -- Here is where you configure the autocompletion settings.
@@ -39,8 +44,9 @@ return {
         { name = "path" },
         { name = "nvim_lsp" },
         -- { name = "buffer", keyword_length = 3 },
-        { name = "luasnip", keyword_length = 2 },
+        { name = "luasnip" },
         -- { name = "neorg" },
+        { name = "copilot" },
       },
       mapping = {
         -- `Enter` key to confirm completion
@@ -69,6 +75,7 @@ return {
           maxwidth = 50,            -- prevent the popup from showing more than provided characters
           ellipsis_char = '...',    -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead
           show_labelDetails = true, -- show labelDetails in menu. Disabled by default
+          symbol_map = { Copilot = "" },
         })
       },
     })
