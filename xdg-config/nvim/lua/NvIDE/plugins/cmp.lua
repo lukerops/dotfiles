@@ -51,6 +51,10 @@ return {
         -- Navigate between snippet placeholder
         ["<C-f>"] = cmp_action.luasnip_jump_forward(),
         ["<C-b>"] = cmp_action.luasnip_jump_backward(),
+
+        -- scroll up and down the documentation window
+        ['<C-Up>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-Down>'] = cmp.mapping.scroll_docs(4),
       },
       snippet = {
         expand = function(args)
