@@ -7,13 +7,23 @@ return {
     "hrsh7th/cmp-path",
     "hrsh7th/cmp-cmdline",
     -- "hrsh7th/cmp-buffer",
-    -- "saadparwaiz1/cmp_luasnip",
-    -- "L3MON4D3/LuaSnip",
+    {
+      "saadparwaiz1/cmp_luasnip",
+      dependencies = {
+        {
+          "L3MON4D3/LuaSnip",
+          dependencies = { "rafamadriz/friendly-snippets" },
+        },
+      },
+    },
   },
   config = function()
     -- Here is where you configure the autocompletion settings.
     local lsp_zero = require("lsp-zero")
     lsp_zero.extend_cmp()
+
+    -- Load all snipts from friendly-snippets
+    require('luasnip.loaders.from_vscode').lazy_load()
 
     -- And you can configure cmp even more, if you want to.
     local cmp = require("cmp")
@@ -28,8 +38,8 @@ return {
         { name = "path" },
         { name = "nvim_lsp" },
         -- { name = "buffer", keyword_length = 3 },
-        -- { name = "luasnip", keyword_length = 2 },
-        { name = "neorg" },
+        { name = "luasnip", keyword_length = 2 },
+        -- { name = "neorg" },
       },
       mapping = {
         -- `Enter` key to confirm completion
@@ -41,6 +51,11 @@ return {
         -- Navigate between snippet placeholder
         ["<C-f>"] = cmp_action.luasnip_jump_forward(),
         ["<C-b>"] = cmp_action.luasnip_jump_backward(),
+      },
+      snippet = {
+        expand = function(args)
+          require('luasnip').lsp_expand(args.body)
+        end,
       },
       -- formatting = {
       --   fields = { "kind", "abbr", "menu" },
