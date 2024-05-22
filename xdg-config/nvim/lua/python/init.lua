@@ -40,7 +40,7 @@ local function get_pyenv_python_path(version)
   return vim.fs.normalize(paths[1] .. '/bin/python3')
 end
 
-local function get_python_path(workspace)
+function M.get_python_path(workspace)
   local python = 'python3'
 
   if uses_pyenv(workspace) then
@@ -74,8 +74,8 @@ local function get_python_path(workspace)
   return python
 end
 
-function M.on_init(client)
-  local python_path = get_python_path(client.config.root_dir)
+function M.lsp_on_init(client)
+  local python_path = M.get_python_path(client.config.root_dir)
   local settings = {
     -- python = {
     --   pythonPath = python_path,
@@ -83,7 +83,7 @@ function M.on_init(client)
     pylsp = {
       plugins = {
         jedi = {
-          environment = python_path
+          environment = python_path,
         },
       },
     },
