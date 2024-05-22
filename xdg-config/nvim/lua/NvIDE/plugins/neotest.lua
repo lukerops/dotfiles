@@ -48,7 +48,10 @@ return {
   config = function()
     require("neotest").setup({
       adapters = {
-        require("neotest-python"),
+        require("neotest-python")({
+          runner = "pytest",
+          python = require("python").get_python_path(vim.loop.cwd()),
+        }),
       }
     })
   end,
