@@ -17,11 +17,11 @@ return {
       },
     },
     "onsails/lspkind.nvim",
-    {
-      "zbirenbaum/copilot-cmp",
-      dependencies = { "zbirenbaum/copilot.lua" },
-      config = true,
-    },
+    -- {
+    --   "zbirenbaum/copilot-cmp",
+    --   dependencies = { "zbirenbaum/copilot.lua" },
+    --   config = true,
+    -- },
   },
   config = function()
     -- Here is where you configure the autocompletion settings.
@@ -46,7 +46,7 @@ return {
         -- { name = "buffer", keyword_length = 3 },
         { name = "luasnip" },
         -- { name = "neorg" },
-        { name = "copilot" },
+        -- { name = "copilot" },
       },
       mapping = {
         -- `Enter` key to confirm completion
