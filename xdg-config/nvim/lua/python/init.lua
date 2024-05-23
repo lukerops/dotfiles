@@ -77,19 +77,19 @@ end
 function M.lsp_on_init(client)
   local python_path = M.get_python_path(client.config.root_dir)
   local settings = {
-    -- python = {
-    --   pythonPath = python_path,
-    -- },
-    pylsp = {
-      plugins = {
-        jedi = {
-          environment = python_path,
-        },
+    plugins = {
+      jedi = {
+        environment = python_path,
       },
     },
   }
 
-  client.config.settings = vim.tbl_deep_extend('force', client.config.settings, settings)
+  client.config.settings.pylsp = vim.tbl_deep_extend('force', client.config.settings.pylsp, settings)
+
+  -- WARNING: gambiarra para notificar a mudança para o LSP.
+  -- NOTE: por algum motivo o neovim não está notificando a
+  -- configuração modificada.
+  client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
 end
 
 return M

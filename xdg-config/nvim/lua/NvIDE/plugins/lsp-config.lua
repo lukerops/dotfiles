@@ -4,11 +4,16 @@ return {
   event = { "BufReadPre", "BufNewFile", },
   dependencies = {
     "hrsh7th/cmp-nvim-lsp",
-    "williamboman/mason-lspconfig.nvim",
     "ray-x/lsp_signature.nvim",
     "folke/neodev.nvim",
+    {
+      "williamboman/mason-lspconfig.nvim",
+      dependencies = { "williamboman/mason.nvim" },
+    },
   },
   config = function()
+    -- vim.lsp.set_log_level(vim.log.levels.DEBUG)
+
     -- IMPORTANT: make sure to setup neodev BEFORE lspconfig
     require("neodev").setup({})
 
@@ -35,24 +40,12 @@ return {
     -- lsp_zero.setup_servers({ "pylsp" })
     lsp_zero.configure("pylsp", {
       on_init = require('python').lsp_on_init,
-      settings = {
-        pylsp = {
-          plugins = {
-            flake8 = {
-              maxLineLength = 120,
-            },
-            pycodestyle = {
-              maxLineLength = 120,
-            },
-            rope_autoimport = {
-              enabled = true,
-            },
-            rope_completion = {
-              enabled = true,
-            },
-          }
-        }
-      }
+      settings = { pylsp = { plugins = {
+        flake8 = { maxLineLength = 120 },
+        pycodestyle = { maxLineLength = 120 },
+        rope_autoimport = { enabled = true },
+        rope_completion = { enabled = true },
+      } } }
     })
 
     require("mason-lspconfig").setup({
