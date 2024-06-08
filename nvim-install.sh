@@ -17,6 +17,11 @@ eval "$(pyenv init -)"
 EOF
 }
 
+function install_tfenv() {
+    git clone --depth=1 https://github.com/tfutils/tfenv.git $BASE_DIR/.tfenv
+    echo 'export PATH=$PATH:$HOME/.tfenv/bin' >> $BASE_DIR/.bashrc
+}
+
 # instala o Neovim via flatpak
 flatpak install -y flathub io.neovim.nvim
 
@@ -38,6 +43,7 @@ flatpak --user override \
     --persist=.bashrc \
     --persist=.bash_history \
     --persist=.pyenv \
+    --persist=.tfenv \
     --persist=go \
     --persist=.start.sh \
         io.neovim.nvim
@@ -57,6 +63,9 @@ mkdir -p \
 
 # instala o pyenv
 [ ! -d $BASE_DIR/.pyenv ] && install_pyenv
+
+# instala o tfenv
+[ ! -d $BASE_DIR/.tfenv ] && install_tfenv
 
 # cria script de inicialização
 [ ! -f $BASE_DIR/.start.sh ] && touch $BASE_DIR/.start.sh && chmod +x $BASE_DIR/.start.sh
