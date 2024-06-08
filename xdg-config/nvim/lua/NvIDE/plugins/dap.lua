@@ -13,7 +13,7 @@ return {
   lazy = true,
   config = function()
     -- configura o dap para o python
-    require("dap-python").setup("python")
+    require("dap-python").setup(vim.fn.expand("$XDG_DATA_HOME/nvim/mason/packages/debugpy/venv/bin/python3"))
 
     local dap, dapui = require("dap"), require("dapui")
     dap.listeners.after.event_initialized["dapui_config"] = function()
