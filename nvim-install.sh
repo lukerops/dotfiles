@@ -2,6 +2,19 @@
 
 BASE_DIR="$HOME/.var/app/io.neovim.nvim"
 
+function install_fonts() {
+	[ ! -d "$HOME/.local/share/fonts" ] && mkdir -p "$HOME/.local/share/fonts"
+
+	if [[ $(find ~/.local/share/fonts -name *JetBrains* | grep --count -w ".*") -eq 0 ]]; then
+        TMPFILE=$(mktemp)
+		wget "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip" -O $TMPFILE
+		unzip -d "$HOME/.local/share/fonts" $TMPFILE
+		rm $TMPFILE
+	fi
+
+    fc-cache -f
+}
+
 function extension() {
     echo $(flatpak info --show-sdk io.neovim.nvim | sed "s/Sdk/Sdk.Extension.$1/")
 }
@@ -96,6 +109,8 @@ PATH="$XDG_DATA_HOME/cargo/bin:$PATH"
 # inicia o nvim
 /app/bin/nvim-wrapper
 EOF
+
+install_fonts
 
 echo 'Adicione o atalho de inicialização:'
 echo '  alias nvim="flatpak run --command=$HOME/.start.sh io.neovim.nvim"'
