@@ -4,7 +4,10 @@ return {
   event = { "BufReadPre", "BufNewFile", },
   dependencies = {
     "hrsh7th/cmp-nvim-lsp",
-    "ray-x/lsp_signature.nvim",
+    {
+      "ray-x/lsp_signature.nvim",
+      config = true,
+    },
     "folke/neodev.nvim",
     {
       "williamboman/mason-lspconfig.nvim",
@@ -37,22 +40,28 @@ return {
       vim.keymap.set('n', '<F3>', function()
         require('conform').format({ bufnr = bufnr, async = true, timeout_ms = 500, lsp_fallback = true })
       end, { buffer = bufnr })
+      vim.keymap.set('n', '<C-k>', function() require('lsp_signature').toggle_float_win() end,
+        { buffer = bufnr, desc = 'toggle signature' })
     end)
 
     -- configura alguns LSPs com a configuração padrão
     -- lsp_zero.setup_servers({ "pylsp" })
     lsp_zero.configure("pylsp", {
       on_init = require('python').lsp_on_init,
-      settings = { pylsp = { plugins = {
-        flake8 = { maxLineLength = 120 },
-        pycodestyle = { maxLineLength = 120 },
-        rope_autoimport = { enabled = true },
-        rope_completion = { enabled = true },
-      } } }
+      settings = {
+        pylsp = {
+          plugins = {
+            flake8 = { maxLineLength = 120 },
+            pycodestyle = { maxLineLength = 120 },
+            rope_autoimport = { enabled = true },
+            rope_completion = { enabled = true },
+          }
+        }
+      }
     })
 
     require("mason-lspconfig").setup({
-      ensure_installed = { "lua_ls", "pylsp", "ruff_lsp", "gopls", "terraformls" },
+      ensure_installed = { "lua_ls", "pylsp", "gopls", "terraformls" },
       handlers = {
         lsp_zero.default_setup,
       }
