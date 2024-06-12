@@ -34,6 +34,9 @@ return {
       lsp_zero.default_keymaps({ buffer = bufnr })
 
       vim.keymap.set('n', 'gr', '<cmd>Trouble lsp_references<cr>', { buffer = bufnr })
+      vim.keymap.set('n', '<F3>', function()
+        require('conform').format({ bufnr = bufnr, async = true, timeout_ms = 500, lsp_fallback = true })
+      end, { buffer = bufnr })
     end)
 
     -- configura alguns LSPs com a configuração padrão
