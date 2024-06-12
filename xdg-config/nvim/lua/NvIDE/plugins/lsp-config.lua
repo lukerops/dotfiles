@@ -13,6 +13,7 @@ return {
       "williamboman/mason-lspconfig.nvim",
       dependencies = { "williamboman/mason.nvim" },
     },
+    "SmiteshP/nvim-navic",
   },
   config = function()
     -- vim.lsp.set_log_level(vim.log.levels.DEBUG)
@@ -31,7 +32,11 @@ return {
       info = '●'
     })
 
-    lsp_zero.on_attach(function(_, bufnr)
+    lsp_zero.on_attach(function(client, bufnr)
+      if client.server_capabilities.documentSymbolProvider then
+        require("nvim-navic").attach(client, bufnr)
+      end
+
       -- see :help lsp-zero-keybindings
       -- to learn the available actions
       lsp_zero.default_keymaps({ buffer = bufnr })
