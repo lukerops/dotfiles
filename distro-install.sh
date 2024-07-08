@@ -138,6 +138,10 @@ install_audio() {
   apt install -y --no-install-suggests \
     pipewire \
     pipewire-pulse \
+    pipewire-audio \
+    pipewire-libcamera \
+    pipewire-jack \
+    pipewire-alsa \
     wireplumber
 
   # habilita o pipewire
