@@ -175,7 +175,6 @@ install_sway() {
     tofi \
     wob \
     grimshot \
-    foot \
     yambar \
     swayimg \
     lf
@@ -185,7 +184,7 @@ install_sway() {
     mkdir $HOME/.config
     ln -s $(pwd)/xdg-config/sway $HOME/.config/sway
     ln -s $(pwd)/xdg-config/yambar $HOME/.config/yambar
-    ln -s $(pwd)/xdg-config/foot $HOME/.config/foot
+    # ln -s $(pwd)/xdg-config/foot $HOME/.config/foot
     ln -s $(pwd)/xdg-config/tofi $HOME/.config/tofi
   EOL
 
@@ -346,7 +345,7 @@ stone_laptop_2() {
   install_audio $2
   install_wireless
   install_bluetooth
-  install_gnome $2
+  install_sway $2
 
   flatpak install -y flathub \
     org.mozilla.firefox
