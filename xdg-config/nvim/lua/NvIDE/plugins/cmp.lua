@@ -37,8 +37,14 @@ return {
 
     cmp.setup({
       window = {
-        completion = cmp.config.window.bordered(),
-        documentation = cmp.config.window.bordered(),
+        --   completion = cmp.config.window.bordered(),
+        completion = {
+          border = "rounded",
+        },
+        --   documentation = cmp.config.window.bordered(),
+        documentation = {
+          border = "rounded",
+        },
       },
       sources = {
         { name = "path" },
@@ -75,7 +81,7 @@ return {
           maxwidth = 50,            -- prevent the popup from showing more than provided characters
           ellipsis_char = '...',    -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead
           show_labelDetails = true, -- show labelDetails in menu. Disabled by default
-          symbol_map = { Copilot = "" },
+          symbol_map = require("NvIDE.config").icons.kinds,
         })
       },
     })
