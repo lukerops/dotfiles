@@ -177,7 +177,7 @@ install_sway() {
     grimshot \
     foot \
     yambar \
-    imv \
+    swayimg \
     lf
 
   # configura o sway
