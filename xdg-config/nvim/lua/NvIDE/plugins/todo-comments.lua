@@ -8,10 +8,10 @@ return {
     "nvim-telescope/telescope.nvim",
   },
   keys = {
-    { "]t",          function() require("todo-comments").jump_next() end, desc = "Next todo comment" },
-    { "[t",          function() require("todo-comments").jump_prev() end, desc = "Previous todo comment" },
-    { "<leader>xt",  "<cmd>TodoTrouble<cr>",                              desc = "Todo Trouble" },
-    { "<leader>xtt", "<cmd>TodoTrouble keywords=TODO,FIX,FIXME<cr>",      desc = "Todo Trouble" },
-    { "<leader>xT",  "<cmd>TodoTelescope<cr>",                            desc = "Todo Telescope" },
+    { "]t",          function() require("todo-comments").jump_next() end,          desc = "Next todo comment" },
+    { "[t",          function() require("todo-comments").jump_prev() end,          desc = "Previous todo comment" },
+    { "<leader>xt",  "<cmd>Trouble todo toggle<cr>",                               desc = "Todo Trouble" },
+    { "<leader>xtt", "<cmd>Trouble todo toggle filter={tag={TODO,FIX,FIXME}}<cr>", desc = "Todo Trouble" },
+    { "<leader>xT",  "<cmd>TodoTelescope<cr>",                                     desc = "Todo Telescope" },
   },
 }

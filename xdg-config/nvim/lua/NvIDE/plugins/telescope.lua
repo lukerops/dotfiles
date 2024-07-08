@@ -4,7 +4,7 @@ return {
   -- event = "VeryLazy",
   lazy = true,
   tag = "0.1.5",
-  dependencies = { "nvim-lua/plenary.nvim", "nvim-tree/nvim-web-devicons", },
+  dependencies = { "nvim-lua/plenary.nvim", "nvim-tree/nvim-web-devicons" },
   keys = {
     { "<leader>/",  "<cmd>Telescope live_grep<cr>",       desc = "Find in Files (Grep)" },
     { "<leader>ff", "<cmd>Telescope find_files<cr>",      desc = "Find Files" },
@@ -16,7 +16,7 @@ return {
     { "<leader>sH", "<cmd>Telescope help_tags<cr>",       desc = "Help Pages" },
     { "<leader>sk", "<cmd>Telescope keymaps<cr>",         desc = "Key Maps" },
   },
-  opts = function()
+  config = function()
     local telescopeConfig = require("telescope.config")
 
     -- Clone the default Telescope configuration
@@ -29,13 +29,14 @@ return {
     table.insert(vimgrep_arguments, "!**/.git/*")
 
     local actions = require("telescope.actions")
+    local telescope = require("telescope")
 
-    return {
+    telescope.setup({
       defaults = {
         vimgrep_arguments = vimgrep_arguments,
         mappings = {
           i = {
-            ["<c-t>"] = require("trouble.providers.telescope").open_with_trouble,
+            ["<c-t>"] = require("trouble.sources.telescope").open,
             ["<C-Up>"] = actions.preview_scrolling_up,
             ["<C-Down>"] = actions.preview_scrolling_down,
           },
@@ -61,7 +62,7 @@ return {
           },
         },
       },
-    }
+    })
   end,
   -- init = function()
   --   require("telescope").load_extension("notify")
