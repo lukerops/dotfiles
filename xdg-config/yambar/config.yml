@@ -10,6 +10,12 @@ bar:
   background: 00000077
   font: "style=solid:size=13"
 
+  border:
+    width: 0
+    top-margin: 2
+    left-margin: 2
+    right-margin: 2
+
   left:
     - i3:
         sort: ascending
@@ -20,7 +26,8 @@ bar:
                 string:
                   text: "{name}"
                   margin: 9
-                  on-click: {left: "swaymsg workspace {name}"}
+                  on-click:
+                    left: "swaymsg workspace {name}"
               conditions:
                 state == focused:
                   string:
@@ -28,21 +35,24 @@ bar:
                     margin: 9
                     deco:
                       stack:
-                        - background: {color: "33333377"}
-                        - underline: {size: 2, color: "ffffffff"}
+                        - background:
+                            color: 33333377
+                        - underline:
+                            size: 2
+                            color: ffffffff
     - label:
         content:
           string:
             text: "|"
-
-    - i3:
-        content:
-          "":
-            empty: {}
-          current:
-            string:
-              text: "{title}"
-              max: 100
+    #
+    # - i3:
+    #     content:
+    #       "":
+    #         empty: {}
+    #       current:
+    #         string:
+    #           text: "{title}"
+    #           max: 100
 
   right:
     - script:
@@ -77,40 +87,72 @@ bar:
               - map:
                   conditions:
                     type == "sink":
-                      map:
-                        conditions:
-                          icon == "audio‐headset‐bluetooth":
-                            string: {text: "🎧"}
-                        default:
-                          - ramp:
-                              tag: cubic_volume
-                              items:
-                                - string: {text: "🔈"}
-                                - string: {text: "🔉"}
-                                - string: {text: "🔊"}
-                    type == "source":
-                      - string: {text: "🎙"}
-              - map:
-                  conditions:
-                    muted:
-                      string: {text: "{cubic_volume}%"}
-                    ~muted:
-                      string: {text: "{cubic_volume}%"}
-    - backlight:
-        name: intel_backlight
+                      - string:
+                          text: "S:"
+                      - map:
+                          conditions:
+                            muted:
+                              string:
+                                text: "{cubic_volume}%"
+                            ~muted:
+                              string:
+                                text: "{cubic_volume}%"
+    - pipewire:
         content:
           list:
             spacing: *icons-space
             items:
-              - string:
-                  text: ☀
-                  font: "style=solid:size=18"
-              - string:
-                  text: "{percent}%"
+              - map:
+                  conditions:
+                    type == "source":
+                      - string:
+                          text: "M:"
+                      - map:
+                          conditions:
+                            muted:
+                              string:
+                                text: "{cubic_volume}%"
+                            ~muted:
+                              string:
+                                text: "{cubic_volume}%"
+    # - backlight:
+    #     name: intel_backlight
+    #     content:
+    #       list:
+    #         spacing: *icons-space
+    #         items:
+    #           - string:
+    #               text: ☀
+    #               font: "style=solid:size=18"
+    #           - string:
+    #               text: "{percent}%"
     - label:
         content:
           string:
             text: "|"
+    - network:
+        name: wlp0s20f3
+        poll-interval: 1000
+        content:
+          map:
+            default: {empty: {}}
+            conditions:
+              name == wlp0s20f3:
+                map:
+                  default:
+                    string:
+                      text: 
+                      foreground: ffffff66
+                  conditions:
+                    state == down:
+                      string:
+                        text: 
+                        foreground: ff0000ff
+                    state == up:
+                      - string:
+                          text: 
+                      - string:
+                          text: "{ssid}"
     - battery:
         name: BAT0
         anchors:
@@ -120,12 +162,18 @@ bar:
               - ramp:
                   tag: capacity
                   items:
-                    - string: {text: ""}
-                    - string: {text: ""}
-                    - string: {text: ""}
-                    - string: {text: ""}
-                    - string: {text: ""}
-              - string: {text: "{capacity}%"}
+                    - string:
+                        text: ""
+                    - string:
+                        text: ""
+                    - string:
+                        text: ""
+                    - string:
+                        text: ""
+                    - string:
+                        text: ""
+              - string:
+                  text: "{capacity}%"
         content:
           map:
             default: &default-battery-icons
@@ -133,7 +181,8 @@ bar:
                 spacing: *particles-space
                 items:
                   - list: *battery-capacity
-                  - string: {text: "{estimate}"}
+                  - string:
+                      text: "{estimate}"
             conditions:
               state == unknow:
                 <<: *default-battery-icons
@@ -143,9 +192,11 @@ bar:
                 list:
                   spacing: *particles-space
                   items:
-                    - string: {text: ""}
+                    - string:
+                        text: ""
                     - list: *battery-capacity
-                    - string: {text: "{estimate}"}
+                    - string:
+                        text: "{estimate}"
               state == full:
                 list:
                   <<: *battery-capacity
@@ -160,15 +211,19 @@ bar:
         time-format: "%H:%M"
         content:
           list:
-            spacing: *particles-space
+            spacing: 5
             items:
               - list:
                   spacing: *icons-space
                   items:
-                    - string: {text: ""}
-                    - string: {text: "{time}"}
+                    - string:
+                        text: ""
+                    - string:
+                        text: "{time}"
               - list:
                   spacing: *icons-space
                   items:
-                    - string: {text: ""}
-                    - string: {text: "{date}"}
+                    - string:
+                        text: ""
+                    - string:
+                        text: "{date}"
