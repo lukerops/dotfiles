@@ -17,11 +17,11 @@ return {
       },
     },
     "onsails/lspkind.nvim",
-    -- {
-    --   "zbirenbaum/copilot-cmp",
-    --   dependencies = { "zbirenbaum/copilot.lua" },
-    --   config = true,
-    -- },
+    {
+      "zbirenbaum/copilot-cmp",
+      dependencies = { "zbirenbaum/copilot.lua" },
+      config = true,
+    },
   },
   config = function()
     -- Here is where you configure the autocompletion settings.
@@ -52,7 +52,7 @@ return {
         -- { name = "buffer", keyword_length = 3 },
         { name = "luasnip" },
         -- { name = "neorg" },
-        -- { name = "copilot" },
+        { name = "copilot" },
       },
       mapping = {
         -- `Enter` key to confirm completion
@@ -83,6 +83,24 @@ return {
           show_labelDetails = true, -- show labelDetails in menu. Disabled by default
           symbol_map = require("NvIDE.config").icons.kinds,
         })
+      },
+      sorting = {
+        priority_weight = 2,
+        comparators = {
+          require("copilot_cmp.comparators").prioritize,
+
+          -- Below is the default comparitor list and order for nvim-cmp
+          cmp.config.compare.offset,
+          cmp.config.compare.exact,
+          -- cmp.config.compare.scopes,
+          cmp.config.compare.score,
+          cmp.config.compare.recently_used,
+          cmp.config.compare.locality,
+          cmp.config.compare.kind,
+          -- cmp.config.compare.sort_text,
+          cmp.config.compare.length,
+          cmp.config.compare.order,
+        },
       },
     })
 
