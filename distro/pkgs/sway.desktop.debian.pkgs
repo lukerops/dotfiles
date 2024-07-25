@@ -1,0 +1,18 @@
+sway
+swayidle
+swaylock
+sway-backgrounds
+xwayland
+xdg-desktop-portal-wlr
+notification-daemon
+libnotify-bin
+brightness-udev
+playerctl
+mako-notifier
+tofi
+wob
+grimshot
+yambar
+swayimg
+lf
+foot foot-terminfo
