@@ -16,7 +16,7 @@ sudo tar --extract --bzip2 --directory /opt --file $tmp/firefox-*.tar.bz2
 [[ ! -L /usr/local/bin/firefox ]] && sudo ln -s /opt/firefox/firefox /usr/local/bin/firefox
 
 # Adiciona atalho no sistema
-[[ ! -f /usr/local/share/applications/firefox.desktop ]] && sudo cp ./firefox.desktop /usr/local/share/applications/
+[[ ! -f /usr/local/share/applications/firefox.desktop ]] && sudo cp ./distro/apps/firefox.desktop /usr/local/share/applications/
 
 # Move os arquivos das instalações anteriores
 if [[ -d $HOME/.var/app/org.mozilla.firefox ]]; then
