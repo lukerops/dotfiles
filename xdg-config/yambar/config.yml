@@ -1,24 +1,29 @@
-particles-space: &particles-space 5
-icons-space: &icons-space 2
+margin-space: &margin-space 25
+empty-space: &empty-space
+  content:
+    empty:
+      margin: 7
 
 bar:
   # monitor: DP-1
   height: 30
-  spacing: *particles-space
-  margin: 5
-  location: top
-  background: 00000077
-  font: "style=solid:size=13"
+  location: bottom
+
+  font: "JetBrainsMono Nerd Font:size=13:weight=Bold"
+  background: 24283bff
+  foreground: c0caf5ff
+  
+  left-margin: 25
+  right-margin: 25
 
   border:
-    width: 0
-    top-margin: 2
-    left-margin: 2
-    right-margin: 2
+    top-width: 2
+    color: c0caf5ff
 
+  
   left:
     - i3:
-        sort: ascending
+        sort: native
         content:
           "":
             map:
@@ -33,28 +38,11 @@ bar:
                   string:
                     text: "{name}"
                     margin: 9
+                    foreground: c0caf5ff
                     deco:
-                      stack:
-                        - background:
-                            color: 33333377
-                        - underline:
-                            size: 2
-                            color: ffffffff
-    - label:
-        content:
-          string:
-            text: "|"
-    #
-    # - i3:
-    #     content:
-    #       "":
-    #         empty: {}
-    #       current:
-    #         string:
-    #           text: "{title}"
-    #           max: 100
-
-  right:
+                      background:
+                        color: 2e3c64ff
+    - label: *empty-space
     - script:
         poll-interval: 500
         path: /usr/bin/playerctl
@@ -66,70 +54,44 @@ bar:
             status|string|{{status}}
             artist|string|{{artist}}
             title|string|{{title}}
+            player|string|{{playerName}}
         content:
           map:
             conditions:
               status == Paused:
                 empty: {}
               status == Playing:
-                string:
-                  text: "{artist} - {title}"
-                  max: 50
-    - label:
+                - map:
+                    right-margin: 8
+                    default:
+                      string:
+                        text: 󰐌
+                    conditions:
+                      player == spotify:
+                        string:
+                          foreground: 1DB954FF
+                          text: 󰓇
+                      player == firefox:
+                        string:
+                          text: 󰈹
+                - string:
+                    text: "{artist} - {title}"
+                    max: 50
+
+  center:
+    - clock:
+        time-format: "%H:%M"
+        date-format: "%d de %B"
         content:
-          string:
-            text: "|"
-    - pipewire:
-        content:
-          list:
-            spacing: *icons-space
-            items:
-              - map:
-                  conditions:
-                    type == "sink":
-                      - string:
-                          text: "S:"
-                      - map:
-                          conditions:
-                            muted:
-                              string:
-                                text: "{cubic_volume}%"
-                            ~muted:
-                              string:
-                                text: "{cubic_volume}%"
-    - pipewire:
-        content:
-          list:
-            spacing: *icons-space
-            items:
-              - map:
-                  conditions:
-                    type == "source":
-                      - string:
-                          text: "M:"
-                      - map:
-                          conditions:
-                            muted:
-                              string:
-                                text: "{cubic_volume}%"
-                            ~muted:
-                              string:
-                                text: "{cubic_volume}%"
-    # - backlight:
-    #     name: intel_backlight
-    #     content:
-    #       list:
-    #         spacing: *icons-space
-    #         items:
-    #           - string:
-    #               text: ☀
-    #               font: "style=solid:size=18"
-    #           - string:
-    #               text: "{percent}%"
-    - label:
-        content:
-          string:
-            text: "|"
+          - list:
+              items:
+                - string:
+                    text: 󱑍
+                    right-margin: 8
+                - string:
+                    text: "{time}"
+
+  right:
     - network:
         name: wlp0s20f3
         poll-interval: 1000
@@ -140,90 +102,161 @@ bar:
               name == wlp0s20f3:
                 map:
                   default:
-                    string:
-                      text: 
-                      foreground: ffffff66
+                    empty: {}
                   conditions:
                     state == down:
                       string:
                         text: 
                         foreground: ff0000ff
                     state == up:
-                      - string:
-                          text: 
+                      - ramp:
+                          right-margin: 10
+                          tag: signal
+                          items:
+                            - string:
+                                text: 󰤨
+                            - string:
+                                text: 󰤥
+                            - string:
+                                text: 󰤢
+                            - string:
+                                text: 󰤟
+                            - string:
+                                text: 󰤯
                       - string:
                           text: "{ssid}"
+    - label: *empty-space
+    - pipewire:
+        content:
+          map:
+            right-margin: 8
+            conditions:
+              type == "sink":
+                - map:
+                    conditions:
+                      muted:
+                        string:
+                          text: 󰸈
+                      ~muted:
+                        - ramp:
+                            tag: cubic_volume
+                            items:
+                              - string:
+                                  right-margin: 5
+                                  text: 󰕿
+                              - string:
+                                  right-margin: 6
+                                  text: 󰖀
+                              - string:
+                                  right-margin: 8
+                                  text: 󰕾
+                        - string:
+                            text: "{cubic_volume}%"
+    - pipewire:
+        content:
+          map:
+            right-margin: 8
+            conditions:
+              type == "source":
+                map:
+                  conditions:
+                    muted:
+                      string:
+                        text: 󰍭
+                    ~muted:
+                      string:
+                        text: 󰍬 {cubic_volume}%
     - battery:
         name: BAT0
         anchors:
           battery-capacity: &battery-capacity
-            spacing: *icons-space
-            items:
-              - ramp:
-                  tag: capacity
-                  items:
-                    - string:
-                        text: ""
-                    - string:
-                        text: ""
-                    - string:
-                        text: ""
-                    - string:
-                        text: ""
-                    - string:
-                        text: ""
-              - string:
-                  text: "{capacity}%"
+            list:
+              items:
+                - ramp:
+                    right-margin: 6
+                    tag: capacity
+                    items:
+                      - string:
+                          text: 󰂎
+                      - string:
+                          text: 󰁺
+                      - string:
+                          text: 󰁻
+                      - string:
+                          text: 󰁼
+                      - string:
+                          text: 󰁽
+                      - string:
+                          text: 󰁾
+                      - string:
+                          text: 󰁿
+                      - string:
+                          text: 󰂀
+                      - string:
+                          text: 󰂁
+                      - string:
+                          text: 󰂂
+                      - string:
+                          text: 󰁹
+                - string:
+                    text: "{capacity}%"
         content:
           map:
-            default: &default-battery-icons
-              list:
-                spacing: *particles-space
-                items:
-                  - list: *battery-capacity
-                  - string:
-                      text: "{estimate}"
+            right-margin: 8
+            default:
+              <<: *battery-capacity
             conditions:
               state == unknow:
-                <<: *default-battery-icons
+                <<: *battery-capacity
               state == discharging:
-                <<: *default-battery-icons
+                <<: *battery-capacity
               state == charging:
                 list:
-                  spacing: *particles-space
                   items:
-                    - string:
-                        text: ""
-                    - list: *battery-capacity
+                    - ramp:
+                        right-margin: 7
+                        tag: capacity
+                        items:
+                          - string:
+                              text: 󰢟
+                          - string:
+                              text: 󰢜
+                          - string:
+                              text: 󰂆
+                          - string:
+                              text: 󰂇
+                          - string:
+                              text: 󰂈
+                          - string:
+                              text: 󰢝
+                          - string:
+                              text: 󰂉
+                          - string:
+                              text: 󰢞
+                          - string:
+                              text: 󰂊
+                          - string:
+                              text: 󰂋
+                          - string:
+                              text: 󰂅
                     - string:
                         text: "{estimate}"
               state == full:
-                list:
-                  <<: *battery-capacity
+                <<: *battery-capacity
               state == "not charging":
-                list:
-                  <<: *battery-capacity
+                <<: *battery-capacity
+    - label: *empty-space
     - label:
         content:
           string:
-            text: "|"
-    - clock:
-        time-format: "%H:%M"
+            right-margin: 9
+            on-click:
+              left: "sh -c '$HOME/.config/sway/scripts/open-application.sh'"
+            text: 󰀻
+    - label:
         content:
-          list:
-            spacing: 5
-            items:
-              - list:
-                  spacing: *icons-space
-                  items:
-                    - string:
-                        text: ""
-                    - string:
-                        text: "{time}"
-              - list:
-                  spacing: *icons-space
-                  items:
-                    - string:
-                        text: ""
-                    - string:
-                        text: "{date}"
+          string:
+            right-margin: 5
+            on-click:
+              left: "sh -c '$HOME/.config/sway/scripts/power-manager.sh'"
+            text: 󰐥
