@@ -92,6 +92,42 @@ bar:
                     text: "{time}"
 
   right:
+    - script:
+        path: ~/.config/yambar/scripts/netskope-status.sh
+        args: []
+        poll-interval: 5000
+        content:
+          map:
+            on-click:
+              left: ~/.config/yambar/scripts/netskope-start-stop.sh
+            right-margin: 8
+            default:
+              empty: {}
+            conditions:
+              status == Stoped:
+                - string:
+                    right-margin: 8
+                    text: 󰦜
+                - string:
+                    text: Netskope
+              status == Initializing:
+                - string:
+                    right-margin: 8
+                    text: 󰒙
+                - string:
+                    text: Netskope
+              status == Disabled:
+                - string:
+                    right-margin: 8
+                    text: 󰞀
+                - string:
+                    text: Netskope
+              status == Connected:
+                - string:
+                    right-margin: 8
+                    text: 󰒘
+                - string:
+                    text: Netskope
     - network:
         name: wlp0s20f3
         poll-interval: 1000
