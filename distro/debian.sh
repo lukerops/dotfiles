@@ -27,7 +27,7 @@ sudo apt install $(cat ./distro/pkgs/pipewire.audio.debian.pkgs | xargs)
 # habilita o audio para o usuário
 systemctl --user daemon-reload
 systemctl --user enable --now \
-    wireplumbler.service \
+    wireplumber.service \
     pipewire.service \
     pipewire-pulse.service
 
