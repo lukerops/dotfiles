@@ -62,7 +62,7 @@ fi
 
 # instala o firefox
 if [[ $(apt-cache search --names-only '^firefox-esr$') ]]; then
-    sudo apt install firefox-esr firefox-esr-l10n-pt-br
+    sudo apt install firefox-esr firefox-esr-l10n-pt-br webext-ublock-origin-firefox webext-privacy-badger
 else
     . ./distro/apps/firefox.sh
 fi
