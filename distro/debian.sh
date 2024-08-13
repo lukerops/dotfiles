@@ -58,10 +58,6 @@ if [[ $DESKTOP == 'sway' ]]; then
 
     # habilita o usuário de mudar o brilho
     sudo usermod -aG video $USER
-
-    # inicia o foot no modo daemon
-    sudo -u $1 systemctl --user enable --now \
-        foot-server.service
 fi
 
 # instala o firefox
