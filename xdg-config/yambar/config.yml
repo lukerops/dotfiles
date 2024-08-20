@@ -5,7 +5,7 @@ empty-space: &empty-space
       margin: 7
 
 bar:
-  # monitor: DP-1
+  monitor: DP-1
   height: 30
   location: bottom
 
