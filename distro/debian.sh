@@ -1,7 +1,5 @@
 #!/usr/bin/bash
 
-DESKTOP=$1
-
 # atualiza o sistema
 sudo apt update
 sudo apt upgrade -y

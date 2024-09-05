@@ -47,3 +47,10 @@ if [[ $VERSION != $TARGET_VERSION ]]; then
     sudo apt update
     sudo apt full-upgrade
 fi
+
+# desabilita o auto update
+sudo systemctl disable --now \
+    apt-daily.timer \
+    apt-daily.service \
+    apt-daily-upgrade.timer \
+    apt-daily-upgrade.service
