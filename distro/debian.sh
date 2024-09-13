@@ -59,9 +59,10 @@ if [[ $DESKTOP == 'sway' ]]; then
 fi
 
 # instala o firefox
-if [[ $(apt-cache search --names-only '^firefox-esr$') ]]; then
-    sudo apt install firefox-esr firefox-esr-l10n-pt-br webext-ublock-origin-firefox webext-privacy-badger
-else
-    # . ./distro/apps/firefox.sh
-    flatpak install -y flathub org.mozilla.firefox
-fi
+# if [[ $(apt-cache search --names-only '^firefox-esr$') ]]; then
+#     sudo apt install firefox-esr firefox-esr-l10n-pt-br webext-ublock-origin-firefox webext-privacy-badger
+# else
+#     # . ./distro/apps/firefox.sh
+#     flatpak install -y flathub org.mozilla.firefox
+# fi
+flatpak install -y flathub org.mozilla.firefox
