@@ -1,5 +1,7 @@
 # vim: filetype=swayconfig
 
+set $scripts '~/.config/sway/scripts'
+
 include '/etc/sway/config.d/*'
 include './config.d/*'
 
