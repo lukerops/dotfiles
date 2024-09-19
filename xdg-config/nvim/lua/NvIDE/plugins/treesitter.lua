@@ -3,7 +3,7 @@ return {
   build = ":TSUpdate",
   -- event = "BufReadPost",
   lazy = false,
-  dependencies = { "nvim-treesitter/nvim-treesitter-textobjects", "p00f/nvim-ts-rainbow", },
+  dependencies = { "nvim-treesitter/nvim-treesitter-textobjects", },
   opts = {
     ensure_installed = {
       "go",
