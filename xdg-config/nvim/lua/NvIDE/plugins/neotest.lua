@@ -4,9 +4,11 @@ return {
     "nvim-neotest/nvim-nio",
     "nvim-lua/plenary.nvim",
     "antoinemadec/FixCursorHold.nvim",
-    "nvim-neotest/neotest-python",
-    "mfussenegger/nvim-dap",
     "nvim-treesitter/nvim-treesitter",
+    "mfussenegger/nvim-dap",
+
+    "nvim-neotest/neotest-python",
+    "nvim-neotest/neotest-jest",
   },
   keys = {
     {
@@ -50,6 +52,14 @@ return {
           args = { "-vv" },
           runner = "pytest",
           python = require("python").get_python_path(vim.loop.cwd()),
+        }),
+        require('neotest-jest')({
+          jestCommand = "npm test --",
+          -- jestConfigFile = "custom.jest.config.ts",
+          -- env = { CI = true },
+          -- cwd = function(path)
+          --   return vim.fn.getcwd()
+          -- end,
         }),
       }
     }
