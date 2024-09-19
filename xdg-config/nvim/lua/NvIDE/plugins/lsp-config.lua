@@ -70,6 +70,10 @@ return {
       ensure_installed = { "lua_ls", "pylsp", "gopls", "terraformls" },
       handlers = {
         lsp_zero.default_setup,
+
+        -- desativa a configuraço automática do tsserver
+        -- para utilizar o typescript-tools
+        ts_ls = lsp_zero.noop,
       }
     })
   end
