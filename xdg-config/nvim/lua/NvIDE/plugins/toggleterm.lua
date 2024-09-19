@@ -3,5 +3,12 @@ return {
   keys = {
     { "<C-T>", "<cmd>ToggleTerm<cr>", desc = "Open Terminal (ToggleTerm)" },
   },
-  config = true,
+  opts = {
+    autochdir = true,
+    direction = "float",
+    hide_numbers = true,
+    float_opts = {
+      border = "rounded",
+    },
+  },
 }
