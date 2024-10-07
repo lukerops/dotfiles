@@ -37,12 +37,30 @@ return {
         require("nvim-navic").attach(client, bufnr)
       end
 
+      if client.server_capabilities.inlayHintProvider then
+        vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+      end
+
       -- see :help lsp-zero-keybindings
       -- to learn the available actions
       lsp_zero.default_keymaps({ buffer = bufnr })
 
       vim.keymap.set('n', 'gr', '<cmd>Trouble lsp_references<cr>', { buffer = bufnr })
-      vim.keymap.set('n', 'gd', '<cmd>Trouble lsp_definitions<cr>', { buffer = bufnr })
+      vim.keymap.set('n', 'gd', function()
+        require("trouble").toggle({
+          auto_close = true,
+          mode = 'lsp_definitions',
+          focus = true,
+          win = {
+            type = 'float',
+            border = 'rounded',
+            size = {
+              width = 0.5,
+              height = 0.3
+            }
+          }
+        })
+      end, { buffer = bufnr })
       vim.keymap.set('n', '<F3>', function()
         require('conform').format({ bufnr = bufnr, async = true, timeout_ms = 500, lsp_fallback = true })
       end, { buffer = bufnr })
