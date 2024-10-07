@@ -52,6 +52,9 @@ return {
           find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
         },
         buffers = {
+          ignore_current_buffer = true,
+          sort_mru = true,
+          sort_lastused = true,
           mappings = {
             i = {
               ["<C-d>"] = actions.delete_buffer + actions.move_to_top,
