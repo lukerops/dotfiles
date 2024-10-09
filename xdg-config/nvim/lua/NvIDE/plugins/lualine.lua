@@ -9,6 +9,12 @@ return {
       -- disabled_filetypes = {},
       component_separators = '',
       section_separators = { left = '', right = '' },
+      disabled_filetypes = {
+        statusline = {
+          "mason",
+          "lazy",
+        },
+      },
     },
     sections = {
       lualine_a = { { 'mode', separator = { left = '' }, right_padding = 2 } },
@@ -27,13 +33,25 @@ return {
       lualine_z = {}
     },
     extensions = {
-      "lazy",
-      "mason",
-      "nvim-dap-ui",
-      "oil",
-      "overseer",
-      "toggleterm",
-      "trouble",
+      {
+        sections = {
+          lualine_a = { {
+            function()
+              return vim.fn.fnamemodify(require("oil").get_current_dir(), ':~') or ""
+            end,
+            separator = { left = '', right = '' },
+            right_padding = 2,
+          } }
+        },
+        filetypes = { "oil" }
+      },
+      {
+        sections = {
+          lualine_a = { { 'mode', separator = { left = '' }, right_padding = 2 } },
+          lualine_b = { "branch", },
+        },
+        filetypes = { "toggleterm" },
+      },
     },
-  },
+  }
 }
