@@ -2,10 +2,10 @@
 
 # atualiza o sistema
 sudo apt update
-sudo apt upgrade -y
+# sudo apt upgrade -y
 
 # instala o core do sistema
-sudo apt install $(cat ./distro/pkgs/core.system.debian.pkgs | xargs)
+sudo apt install $(cat ./distro/pkgs/*core.system.debian.pkgs | xargs)
 
 # adiciona o usuário ao grupo de sudo
 # usermod -aG sudo $TARGET_USER
@@ -24,17 +24,14 @@ sudo apt install $(cat ./distro/pkgs/pipewire.audio.debian.pkgs | xargs)
 
 # habilita o audio para o usuário
 systemctl --user daemon-reload
-systemctl --user enable --now \
-    wireplumber.service \
-    pipewire.service \
-    pipewire-pulse.service
+systemctl --user enable --now wireplumber.service pipewire.socket pipewire-pulse.socket
 
 # instala o wifi se encontrar uma placa de rede
 if [[ $(lspci | egrep -i 'wifi|wireless') ]]; then
     sudo apt install $(cat ./distro/pkgs/wireless.system.debian.pkgs | xargs)
 fi
 
-# instala o bluetooth se encontrar uma placa de rede
+# instala o bluetooth se encontrar uma dispositivo bluetooth
 if [[ $(lsusb | egrep -i 'bluetooth') ]]; then
     sudo apt install $(cat ./distro/pkgs/bluetooth.system.debian.pkgs | xargs)
 fi
