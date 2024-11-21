@@ -30,15 +30,15 @@ return {
   -- },
   {
     "Mofiqul/vscode.nvim",
-    init = function()
-      vim.cmd.colorscheme("vscode")
-    end
+    -- init = function()
+    --   vim.cmd.colorscheme("vscode")
+    -- end
   },
   {
     "Mofiqul/dracula.nvim",
-    -- init = function()
-    --   vim.cmd.colorscheme("dracula")
-    -- end,
+    init = function()
+      vim.cmd.colorscheme("dracula")
+    end,
   },
   -- {
   --   "catppuccin/nvim",
