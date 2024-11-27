@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/bash
 
 # verifica o parâmetro
 if [[ -z "$1" ]]; then
@@ -7,52 +7,52 @@ elif [[ -z "$(echo $1 | egrep '^[\+|\-]?[0-9]+$')" ]]; then
     exit 1
 fi
 
-# obtém o nome do dispositivo de entrada de áudio padrão
-DEVICE_NAME=$(
-    pw-dump Metadata | jq -r '.[] | select(.props."metadata.name" == "default") | .metadata[] | select(.key == "default.audio.source") | .value.name'
-)
+payload=($(pw-dump | jq -c --arg value $1 '
+  . | [.[] | select(.type == "PipeWire:Interface:Metadata")] as $meta
+  | [.[] | select(.type == "PipeWire:Interface:Node")] as $node
+  | [.[] | select(.type == "PipeWire:Interface:Device")] as $dev
 
-# obtém o id do dispositivo de entrada de áudio
-DEVICE_ID=$(
-    pw-dump Node | jq -r ".[].info.props | select(.\"node.name\" == \"$DEVICE_NAME\") | .\"device.id\""
-)
+  # seleciona o source padrão
+  | $meta | .[] | select(.props."metadata.name" == "default")
+    | .metadata[] | select(.key == "default.audio.source") | .value.name as $dev_name
 
-ROUTE_INDEX=$(
-    pw-dump $DEVICE_ID | jq -r '.[].info.params.Route.[] | select(.direction == "Input") | .index'
-)
+  # obtém o id do dispositivo de áudio utilizado como padrão
+  | $node | .[] | .info.props | select(."node.name" == $dev_name)
+    | ."device.id" as $dev_id
+    | ."card.profile.device" as $route_dev
 
-ROUTE_DEVICE=$(
-    pw-dump $DEVICE_ID | jq -r ".[].info.params.Route.[] | select(.index == $ROUTE_INDEX) | .device"
-)
+  # obtém as informações do dispositivo de áudio
+  | $dev | .[] | select(.id == $dev_id)
+    | .info.params.Route | .[] | select(.device == $route_dev)
+      | .index as $route_idx
+      # obtém o volume atual do dispositivo
+      | .props.channelVolumes[0] | cbrt * 100 | floor as $vol
 
-# obtém o volume (de 0 a 100) do dispositivo de áudio
-VOLUME=$(
-    pw-dump $DEVICE_ID | jq -r ".[].info.params.Route.[] | select(.index == $ROUTE_INDEX) | .props.channelVolumes[0] | cbrt * 100 | floor"
-)
+  # processa o parâmetro para obter o novo volume
+  | $value | match("^[+|-]?([0-9]+)$") | .captures
+    | .[] | .string | tonumber as $new_value
+  | $value
+    | if test("^[+]") then
+      ($vol + $new_value)
+    elif test("^[-]") then
+      ($vol - $new_value)
+    else
+      $new_value
+    end
+    | if . > 100 then 100 elif . < 0 then 0 else . end
+    | . as $new_vol_percent
+    | pow((. / 100); 3) as $new_vol
 
-# calcula o novo volume
-NEW_VOLUME=$1
-if [[ ! -z "$(echo $1 | egrep '^[\+|\-]')" ]]; then
-    NEW_VOLUME=$(echo $VOLUME | jq -r "(. $1)")
-fi
-
-# limita o volume entre 0 e 100
-NEW_VOLUME=$(
-    echo $NEW_VOLUME | jq -r ". | if . > 100 then 100 elif . < 0 then 0 else . end"
-)
-NEW_VOLUME_PIPEWIRE=$(
-    echo $NEW_VOLUME | jq -r '. / 100 | pow(.; 3)'
-)
-
-PIPEWIRE_PAYLOAD="{
-    \"index\": $ROUTE_INDEX,
-    \"device\": $ROUTE_DEVICE,
-    \"props\": {
-        \"channelVolumes\": [$NEW_VOLUME_PIPEWIRE, $NEW_VOLUME_PIPEWIRE],
-        \"mute\": false
+  # monta o payload utilizado para alterar o volume
+  | $dev_id, $new_vol_percent, {
+    index: $route_idx,
+    device: $route_dev,
+    props: {
+      channelVolumes: [$new_vol, $new_vol],
+      mute: false,
     }
-}"
+  }
+'))
 
-# atualiza o volume
-pw-cli set-param $DEVICE_ID Route $PIPEWIRE_PAYLOAD > /dev/null
-echo $NEW_VOLUME
+pw-cli set-param ${payload[0]} Route ${payload[2]} > /dev/null
+echo ${payload[1]}
