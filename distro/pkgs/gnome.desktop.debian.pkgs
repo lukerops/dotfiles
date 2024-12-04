@@ -1,7 +1,9 @@
-xserver-xorg
-xserver-xorg-video-all
-xserver-xorg-input-all
 xwayland
+
+fprintd
+libpam-fprintd
+gnome-keyring
+libpam-gnome-keyring
 
 xdg-user-dirs-gtk
 xdg-desktop-portal-gnome
@@ -14,23 +16,28 @@ gdm3
 gjs
 gnome-online-accounts
 gnome-control-center
-libcanberra-pulse
 power-profiles-daemon
 network-manager-gnome
-gnome-keyring
-libpam-gnome-keyring
+gnome-menus
+gnome-user-share
+gnome-user-docs
+gnome-bluetooth-sendto
+gnome-remote-desktop
 
 gnome-icon-theme
 adwaita-icon-theme
 gnome-backgrounds
+gnome-themes-extra
+gnome-accessibility-themes
 
 nautilus
-gnome-initial-setup
 gnome-disk-utility
-gnome-power-manager
-gnome-color-manager
 gnome-screenshot
 gnome-tweaks
 gnome-system-monitor
 gnome-software
 gnome-software-plugin-flatpak
+gnome-software-plugin-deb
+gnome-software-plugin-fwupd
+fwupd-amd64-signed
+bolt
