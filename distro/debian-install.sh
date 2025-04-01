@@ -48,8 +48,14 @@ if [[ $DESKTOP == 'sway' ]]; then
     # cria link simbólico com as configurações
     mkdir -p $HOME/.config
     for app in $(ls ./xdg-config); do
-        [[ ! -L $(pwd)/xdg-config/$app ]] && ln -s $(pwd)/xdg-config/$app $HOME/.config/
+        [[ ! -L $HOME/.config/$app ]] && ln -s $(pwd)/xdg-config/$app $HOME/.config/
     done
+
+    # configura o tlp
+    for config in $(ls ./tlp); do
+        [[ ! -L /etc/tlp.d/$config ]] && sudo ln -s $(pwd)/tlp/$config /etc/tlp.d/
+    done
+    sudo systemctl enable --now tlp.service
 
     # habilita o usuário de mudar o brilho
     sudo usermod -aG video $USER
