@@ -8,7 +8,7 @@ notification-daemon
 libnotify-bin
 brightness-udev
 playerctl
-mako-notifier
+fnott
 tofi
 wob
 grimshot
