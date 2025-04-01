@@ -2,7 +2,12 @@ margin-space: &margin-space 25
 empty-space: &empty-space
   content:
     empty:
-      margin: 7
+      right-margin: 10
+      left-margin: 10
+delimiter: &delimiter
+  content:
+    empty:
+      margin: 14
 
 bar:
   monitor: DP-1
@@ -57,23 +62,22 @@ bar:
             player|string|{{playerName}}
         content:
           map:
+            on-click:
+              left: playerctl play-pause
+            default:
+              empty: {}
             conditions:
               status == Paused:
-                empty: {}
-              status == Playing:
-                - map:
+                - string:
                     right-margin: 8
-                    default:
-                      string:
-                        text: 󰐌
-                    conditions:
-                      player == spotify:
-                        string:
-                          foreground: 1DB954FF
-                          text: 󰓇
-                      player == firefox:
-                        string:
-                          text: 󰈹
+                    text: 󰏥
+                - string:
+                    text: "{artist} - {title}"
+                    max: 50
+              status == Playing:
+                - string:
+                    text: 󰐌
+                    right-margin: 8
                 - string:
                     text: "{artist} - {title}"
                     max: 50
@@ -93,6 +97,22 @@ bar:
 
   right:
     - script:
+        path: ~/.config/yambar/scripts/is-sharing-screen.sh
+        args: []
+        poll-interval: 500
+        content:
+          map:
+            default:
+              empty: {}
+            conditions:
+              status == Sharing:
+                string:
+                  # icon right margin 5px
+                  right-margin: 10
+                  left-margin: 5
+                  text: 󰄙
+    # - label: *delimiter
+    - script:
         path: ~/.config/yambar/scripts/netskope-status.sh
         args: []
         poll-interval: 5000
@@ -100,108 +120,124 @@ bar:
           map:
             on-click:
               left: ~/.config/yambar/scripts/netskope-start-stop.sh
-            right-margin: 8
             default:
               empty: {}
             conditions:
               status == Stoped:
                 - string:
-                    right-margin: 8
+                    # icon right margin 4px
+                    # icon left margin -1px
+                    right-margin: 9
+                    left-margin: 4
                     text: 󰦜
-                - string:
-                    text: Netskope
               status == Initializing:
                 - string:
+                    # icon right margin 3px
                     right-margin: 8
+                    left-margin: 5
                     text: 󰒙
-                - string:
-                    text: Netskope
               status == Disabled:
                 - string:
                     right-margin: 8
+                    left-margin: 5
                     text: 󰞀
-                - string:
-                    text: Netskope
               status == Connected:
                 - string:
                     right-margin: 8
+                    left-margin: 5
                     text: 󰒘
-                - string:
-                    text: Netskope
     - network:
         name: wlp0s20f3
         poll-interval: 1000
         content:
           map:
-            default: {empty: {}}
+            # icon right margin 5px
+            right-margin: 10
+            left-margin: 5
+            default:
+              empty: {}
             conditions:
-              name == wlp0s20f3:
-                map:
-                  default:
-                    empty: {}
-                  conditions:
-                    state == down:
-                      string:
-                        text: 
-                        foreground: ff0000ff
-                    state == up:
-                      - ramp:
-                          right-margin: 10
-                          tag: signal
-                          items:
-                            - string:
-                                text: 󰤨
-                            - string:
-                                text: 󰤥
-                            - string:
-                                text: 󰤢
-                            - string:
-                                text: 󰤟
-                            - string:
-                                text: 󰤯
+              state == down:
+                string:
+                  text: 󰤭
+              state == up:
+                - ramp:
+                    tag: signal
+                    items:
                       - string:
-                          text: "{ssid}"
-    - label: *empty-space
+                          text: 󰤨
+                      - string:
+                          text: 󰤥
+                      - string:
+                          text: 󰤢
+                      - string:
+                          text: 󰤟
+                      - string:
+                          text: 󰤯
+    # - label: *delimiter
     - pipewire:
         content:
           map:
-            right-margin: 8
+            on-click:
+              left: ~/.config/sway/scripts/audio-sink-volume-mute.sh
             conditions:
               type == "sink":
-                - map:
-                    conditions:
-                      muted:
-                        string:
-                          text: 󰸈
-                      ~muted:
-                        - ramp:
-                            tag: cubic_volume
-                            items:
-                              - string:
-                                  right-margin: 5
-                                  text: 󰕿
-                              - string:
-                                  right-margin: 6
-                                  text: 󰖀
-                              - string:
-                                  right-margin: 8
-                                  text: 󰕾
-                        - string:
-                            text: "{cubic_volume}%"
+                map:
+                  conditions:
+                    muted:
+                      string:
+                        # icon right margin 3px
+                        # icon left margin -1px
+                        right-margin: 8
+                        left-margin: 4
+                        text: 󰸈
+                    ~muted:
+                      - ramp:
+                          tag: cubic_volume
+                          items:
+                            - string:
+                                # icon right margin 4px
+                                # icon left margin -2px
+                                right-margin: 9
+                                left-margin: 3
+                                text: 󰕿
+                            - string:
+                                # icon right margin 2px
+                                right-margin: 7
+                                left-margin: 5
+                                text: 󰖀
+                            - string:
+                                # icon right margin 2px
+                                right-margin: 7
+                                left-margin: 5
+                                text: 󰕾
+                            - string:
+                                # icon right margin 2px
+                                right-margin: 7
+                                left-margin: 5
+                                text: 󰕾
     - pipewire:
         content:
           map:
-            right-margin: 8
+            on-click:
+              left: ~/.config/sway/scripts/audio-source-volume-mute.sh
             conditions:
               type == "source":
                 map:
                   conditions:
                     muted:
                       string:
+                        # icon right margin 1px
+                        # icon left margin -1px
+                        right-margin: 6
+                        left-margin: 4
                         text: 󰍭
                     ~muted:
                       string:
-                        text: 󰍬 {cubic_volume}%
+                        # icon right margin 0px
+                        right-margin: 5
+                        left-margin: 5
+                        text: 󰍬
     - battery:
         name: BAT0
         anchors:
@@ -209,7 +245,10 @@ bar:
             list:
               items:
                 - ramp:
-                    right-margin: 6
+                    # icon right margin 0px
+                    # icon left margin -1px
+                    right-margin: 5
+                    left-margin: 4
                     tag: capacity
                     items:
                       - string:
@@ -235,6 +274,7 @@ bar:
                       - string:
                           text: 󰁹
                 - string:
+                    right-margin: 5
                     text: "{capacity}%"
         content:
           map:
@@ -245,6 +285,10 @@ bar:
               state == unknow:
                 <<: *battery-capacity
               state == discharging:
+                <<: *battery-capacity
+              state == full:
+                <<: *battery-capacity
+              state == "not charging":
                 <<: *battery-capacity
               state == charging:
                 list:
@@ -277,22 +321,22 @@ bar:
                               text: 󰂅
                     - string:
                         text: "{estimate}"
-              state == full:
-                <<: *battery-capacity
-              state == "not charging":
-                <<: *battery-capacity
     - label: *empty-space
     - label:
         content:
           string:
-            right-margin: 9
+            # icon right margin 2px
+            right-margin: 7
+            left-margin: 5
             on-click:
-              left: "sh -c '$HOME/.config/sway/scripts/open-application.sh'"
+              left: ~/.config/sway/scripts/open-application.sh
             text: 󰀻
     - label:
         content:
           string:
-            right-margin: 5
+            # icon right margin 1px
+            right-margin: 6
+            left-margin: 5
             on-click:
-              left: "sh -c '$HOME/.config/sway/scripts/power-manager.sh'"
+              left: ~/.config/sway/scripts/power-manager.sh
             text: 󰐥
