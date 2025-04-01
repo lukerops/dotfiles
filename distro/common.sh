@@ -2,6 +2,8 @@
 
 # Instala as fontes customizadas
 TMPFILE=$(mktemp)
+mkdir -p "$HOME/.local/share/fonts"
+
 if [[ ! -d "$HOME/.local/share/fonts/JetBrainsMono" ]]; then
     wget -O $TMPFILE 'https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip'
     unzip -d "$HOME/.local/share/fonts/JetBrainsMono" $TMPFILE

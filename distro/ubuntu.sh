@@ -1,3 +1,3 @@
-#!/user/bin/bash
+#!/usr/bin/bash
 
-. ./distro/debian.sh
+. "./distro/debian.sh"
