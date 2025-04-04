@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # seleciona o aplicativo a ser aberto
-APPLICATION=$(tofi-drun)
+APPLICATION=$(fuzzel)
 
 # executa o software através do sway
 swaymsg exec "$APPLICATION"
