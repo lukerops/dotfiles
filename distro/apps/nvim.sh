@@ -10,10 +10,10 @@ wget --directory-prefix $tmp --relative 'https://github.com/neovim/neovim/releas
 sudo rm -rf /opt/nvim
 
 # Extraí o arquivo baixado na pasta /opt
-sudo tar --extract --gzip --directory=/opt --file=$tmp/nvim-linux64.tar.gz
+sudo tar --extract --gzip --directory=$tmp --file=$tmp/nvim-linux64.tar.gz
 
-# Renomeia a pasta para /opt/nvim
-sudo mv /opt/nvim-linux64 /opt/nvim
+# Move a pasta para /opt/nvim
+sudo mv $tmp/nvim-linux64 /opt/nvim
 
 # Cria um link simbólico para o executável
 [[ ! -L /usr/local/bin/nvim ]] && sudo ln -s /opt/nvim/bin/nvim /usr/local/bin/

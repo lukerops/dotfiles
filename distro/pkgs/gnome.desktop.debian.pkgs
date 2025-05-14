@@ -37,7 +37,5 @@ gnome-tweaks
 gnome-system-monitor
 gnome-software
 gnome-software-plugin-flatpak
-gnome-software-plugin-deb
-gnome-software-plugin-fwupd
-fwupd-amd64-signed
+fwupd-signed
 bolt
