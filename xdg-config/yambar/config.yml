@@ -25,7 +25,6 @@ bar:
     top-width: 2
     color: c0caf5ff
 
-
   left:
     - i3:
         sort: ascending
@@ -111,7 +110,7 @@ bar:
                   right-margin: 10
                   left-margin: 5
                   text: 󰄙
-    # - label: *delimiter
+    - label: *delimiter
     - script:
         path: ~/.config/yambar/scripts/netskope-status.sh
         args: []
@@ -130,38 +129,53 @@ bar:
                     right-margin: 9
                     left-margin: 4
                     text: 󰦜
+                - string:
+                    right-margin: 5
+                    text: Netskope
               status == Initializing:
                 - string:
                     # icon right margin 3px
                     right-margin: 8
                     left-margin: 5
                     text: 󰒙
+                - string:
+                    right-margin: 5
+                    text: Netskope
               status == Disabled:
                 - string:
                     right-margin: 8
                     left-margin: 5
                     text: 󰞀
+                - string:
+                    right-margin: 5
+                    text: Netskope
               status == Connected:
                 - string:
                     right-margin: 8
                     left-margin: 5
                     text: 󰒘
+                - string:
+                    right-margin: 5
+                    text: Netskope
     - network:
         name: wlp0s20f3
         poll-interval: 1000
         content:
           map:
-            # icon right margin 5px
-            right-margin: 10
-            left-margin: 5
             default:
               empty: {}
             conditions:
               state == down:
                 string:
+                  # icon right margin 5px
+                  right-margin: 10
+                  left-margin: 5
                   text: 󰤭
               state == up:
                 - ramp:
+                    # icon right margin 5px
+                    right-margin: 10
+                    left-margin: 5
                     tag: signal
                     items:
                       - string:
@@ -174,7 +188,10 @@ bar:
                           text: 󰤟
                       - string:
                           text: 󰤯
-    # - label: *delimiter
+                - string:
+                    right-margin: 5
+                    text: "{ssid}"
+    - label: *delimiter
     - pipewire:
         content:
           map:
@@ -216,6 +233,9 @@ bar:
                                 right-margin: 7
                                 left-margin: 5
                                 text: 󰕾
+                      - string:
+                          right-margin: 5
+                          text: "{cubic_volume}%"
     - pipewire:
         content:
           map:
@@ -233,11 +253,14 @@ bar:
                         left-margin: 4
                         text: 󰍭
                     ~muted:
-                      string:
-                        # icon right margin 0px
-                        right-margin: 5
-                        left-margin: 5
-                        text: 󰍬
+                      - string:
+                          # icon right margin 0px
+                          right-margin: 5
+                          left-margin: 5
+                          text: 󰍬
+                      - string:
+                          right-margin: 5
+                          text: "{cubic_volume}%"
     - battery:
         name: BAT0
         anchors:
@@ -295,6 +318,7 @@ bar:
                   items:
                     - ramp:
                         right-margin: 7
+                        left-margin: 4
                         tag: capacity
                         items:
                           - string:
@@ -321,22 +345,3 @@ bar:
                               text: 󰂅
                     - string:
                         text: "{estimate}"
-    - label: *empty-space
-    - label:
-        content:
-          string:
-            # icon right margin 2px
-            right-margin: 7
-            left-margin: 5
-            on-click:
-              left: ~/.config/sway/scripts/open-application.sh
-            text: 󰀻
-    - label:
-        content:
-          string:
-            # icon right margin 1px
-            right-margin: 6
-            left-margin: 5
-            on-click:
-              left: ~/.config/sway/scripts/power-manager.sh
-            text: 󰐥
