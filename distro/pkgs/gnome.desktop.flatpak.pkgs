@@ -1,8 +1,5 @@
-app.drey.Damask
-app.drey.Dialect
 com.belmoussaoui.Authenticator
 com.mattjakeman.ExtensionManager
-com.raggesilver.BlackBox
 dev.geopjr.Collision
 io.github.celluloid_player.Celluloid
 org.gnome.Calculator
