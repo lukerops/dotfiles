@@ -4,6 +4,7 @@ swaylock
 sway-backgrounds
 xwayland
 xdg-desktop-portal-wlr
+xdg-desktop-portal-gtk
 notification-daemon
 libnotify-bin
 brightness-udev

@@ -11,3 +11,5 @@ xdg-desktop-portal
 avahi-daemon
 rtkit
 flatpak
+
+upower
