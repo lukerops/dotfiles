@@ -12,7 +12,7 @@ delimiter: &delimiter
 bar:
   monitor: DP-1
   height: 30
-  location: bottom
+  location: top
 
   font: "JetBrainsMono Nerd Font:size=13:weight=Bold"
   background: 24283bff
@@ -22,7 +22,7 @@ bar:
   right-margin: 25
 
   border:
-    top-width: 2
+    bottom-width: 2
     color: c0caf5ff
 
   left:
@@ -158,7 +158,7 @@ bar:
                     right-margin: 5
                     text: Netskope
     - network:
-        name: wlp0s20f3
+        # name: wlp0s20f3
         poll-interval: 1000
         content:
           map:
