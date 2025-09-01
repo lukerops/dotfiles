@@ -15,6 +15,7 @@ gnome-session
 gdm3
 gjs
 gnome-online-accounts
+evolution-data-server
 gnome-control-center
 power-profiles-daemon
 gnome-menus
