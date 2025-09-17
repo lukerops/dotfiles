@@ -2,23 +2,22 @@
 
 # cria uma pasta temporária
 TMPDIR=$(mktemp -d)
-FILENAME='rmpc.tar.gz'
+FILENAME='fnm.zip'
 
 # Busca o link da versão mais recente
-URL=$(curl "https://api.github.com/repos/mierak/rmpc/releases/latest" | \
-	jq -r '.assets[] | select(.name | contains("x86_64-unknown-linux-gnu")) | .browser_download_url')
+URL='https://github.com/Schniz/fnm/releases/latest/download/fnm-linux.zip'
 
 # Faz o download da versão estável mais recente
 wget --output-document $TMPDIR/$FILENAME $URL
 
 # Extraí o arquivo baixado na pasta
-tar --extract --gzip --directory=$TMPDIR --file=$TMPDIR/$FILENAME
+unzip $TMPDIR/$FILENAME -d $TMPDIR
 
 # Instala o software
-sudo mv $TMPDIR/rmpc /usr/local/bin/
+sudo mv $TMPDIR/fnm /usr/local/bin/
 
 # Garante as permissões corretas
-sudo chmod +x /usr/local/bin/rmpc
+sudo chmod +x /usr/local/bin/fnm
 
 # Remove a pasta temporária
 rm -rf $TMPDIR

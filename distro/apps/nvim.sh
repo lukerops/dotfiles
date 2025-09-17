@@ -2,19 +2,22 @@
 
 # cria uma pasta temporária
 TMPDIR=$(mktemp -d)
-NVIM_FILENAME='nvim-linux-x86_64'
+FILENAME='nvim.tar.gz'
 
-# Faz o donwload da versão estável mais recente do neovim
-wget --directory-prefix $TMPDIR --relative "https://github.com/neovim/neovim/releases/download/stable/${NVIM_FILENAME}.tar.gz"
+# Busca o link da versão mais recente
+URL='https://github.com/neovim/neovim/releases/download/stable/nvim-linux-x86_64.tar.gz'
+
+# Faz o download da versão estável mais recente
+wget --output-document $TMPDIR/$FILENAME $URL
 
 # Remove versão anterior do neovim
 sudo rm -rf /opt/nvim
 
-# Extraí o arquivo baixado na pasta /opt
-tar --extract --gzip --directory=$TMPDIR --file=$TMPDIR/$NVIM_FILENAME.tar.gz
+# Extraí o arquivo baixado na pasta
+tar --extract --gzip --directory=$TMPDIR --file=$TMPDIR/$FILENAME
 
-# Renomeia a pasta para /opt/nvim
-sudo mv $TMPDIR/$NVIM_FILENAME /opt/nvim
+# Move a pasta para /opt/nvim
+sudo mv $TMPDIR/nvim-linux-x86_64 /opt/nvim
 
 # Cria um link simbólico para o executável
 [[ ! -L /usr/local/bin/nvim ]] && sudo ln -s /opt/nvim/bin/nvim /usr/local/bin/
