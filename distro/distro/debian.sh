@@ -40,6 +40,9 @@ distro_install() {
     # instala o gnome se for o desktop escolhido
     if [[ $DESKTOP == 'gnome' ]]; then
         sudo apt install --no-install-suggests --no-install-recommends $(cat ./distro/pkgs/gnome.desktop.debian.pkgs | xargs)
+
+        # configura o leitor de impressão digital
+        # sudo pam-auth-update --enable fprintd
     fi
 
     # instala o sway se for o desktop escolhido
