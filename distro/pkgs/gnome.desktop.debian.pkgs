@@ -17,6 +17,7 @@ gjs
 gnome-online-accounts
 evolution-data-server
 gnome-control-center
+libcanberra-pulse
 power-profiles-daemon
 gnome-menus
 gnome-user-share
