@@ -43,6 +43,9 @@ distro_install() {
 
         # configura o leitor de impressão digital
         # sudo pam-auth-update --enable fprintd
+
+        # habilita o alt+tab para mostrar janelas de todos os workspaces
+        gsettings set org.gnome.shell.window-switcher current-workspace-only false
     fi
 
     # instala o sway se for o desktop escolhido
